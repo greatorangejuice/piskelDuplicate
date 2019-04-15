@@ -354,7 +354,10 @@ main {
 }
 
 .small-describe p {
-    margin: 0 auto;
+    color: #676767;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.16px;
 }
 
 .phys-secutiry-block h3 {
@@ -363,13 +366,98 @@ main {
     color: #535353;
 }
 
+.sponsors_first {
+    margin: 39px 0 0 21px;
+    width: 943px;
+    height: 66px;
+    background-image: url(./assets/sponsors_one.png)
+}
+
+.blog {
+    background-image: url(./assets/blog-bg.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 1800px;
+    height: 1052px;
+}
+
+.slider-wrapper {
+    margin: 32px 240px 0 400px;
+    width: 525px;
+    height: 143px;
+}
+
+.slider {
+    font-size: 24px;
+    color: #101010;
+    font-family: 'MalagaNarrowOT-Reg';
+    /* font-family: 'MyriadPro-Regular'; */
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.slider span {
+    color: #727272;
+    font-size: 16px;
+    letter-spacing: 0.16px;
+    line-height: 32px;
+}
+
+.devices-wrapper {
+    display: flex;
+    justify-content: flex-end;
 
 
+}
 
+.devices {
+    position: relative;
+    right: 15%;
+    width: 578px;
+    height: 670px;
+    background-image: url(./assets/devices-bg.png);
+}
 
+.applications {
+    display: flex;
+    flex-direction: column;
+}
 
+.applications-title h3 {
+    color: #535353;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 22px;
+}
 
+.applications-title p {
+    color: #959393;
+    font-size: 16px;
+    font-weight: 400;
+}
 
+.app-store{
+    width: 180px;
+    height: 55px;
+    border: none;
+}
+
+@font-face {
+    font-family: "MalagaNarrowOT-Reg";
+    src: url(./assets/font/MalagaNarrowOT-Reg.otf);
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "MyriadPro-Regular";
+    src: url(./assets/font/MyriadPro-Regular.otf);
+    font-style: italic;
+    font-weight: normal;
+}
 
 @font-face {
     font-family: 'fontello';
