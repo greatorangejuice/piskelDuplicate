@@ -374,6 +374,10 @@ main {
 }
 
 .blog {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-top: 157px;
     background-image: url(./assets/blog-bg.png);
     background-size: 100%;
     background-repeat: no-repeat;
@@ -383,7 +387,7 @@ main {
 }
 
 .slider-wrapper {
-    margin: 32px 240px 0 400px;
+    /* margin: 32px 240px 0 400px; */
     width: 525px;
     height: 143px;
 }
@@ -409,12 +413,11 @@ main {
 .devices-wrapper {
     display: flex;
     justify-content: flex-end;
-
-
 }
 
 .devices {
     position: relative;
+    top: -100px;
     right: 15%;
     width: 578px;
     height: 670px;
@@ -424,26 +427,48 @@ main {
 .applications {
     display: flex;
     flex-direction: column;
-}
+    justify-content: center;
+    position: relative;
+    top: 200px;
+    right: 89px;
+    z-index: 1;
 
+}
+.applications-title {
+    margin-bottom: 34px;
+}
 .applications-title h3 {
     color: #535353;
     font-size: 36px;
     font-weight: 400;
     line-height: 22px;
+    margin-bottom: 20px;
 }
 
 .applications-title p {
     color: #959393;
     font-size: 16px;
     font-weight: 400;
+    width: 433px;
+    height: 60px;
 }
 
 .app-store{
     width: 180px;
     height: 55px;
     border: none;
+    margin-right: 14px;
 }
+
+.google-play {
+    width: 180px;
+    height: 55px;
+    border: none;
+}
+
+
+
+
 
 @font-face {
     font-family: "MalagaNarrowOT-Reg";
