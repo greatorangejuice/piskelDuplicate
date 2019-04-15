@@ -35,7 +35,7 @@ header {
     height: 889px;
 }
 
-.wrapper {
+.header-wrapper {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -224,6 +224,67 @@ nav {
 .icon_market:hover {
     opacity: 0.9;
 }
+
+/* MAIN */
+main {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1800px;
+}
+
+.description-of-benefits {
+    display: flex;
+    margin: 31px 240px 131px 322px;
+}
+
+.swissPrivacy,
+.doubleEncription {
+    margin-right: 80px;
+}
+
+.swissPrivacy p,
+.doubleEncription p,
+.anonimousEmail p {
+    width: 358px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #959393;
+}
+
+.description-icon {
+    padding: 0 15px;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.title-container h3 {
+    display: flex;
+    flex-direction: column;
+    color: #555555;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.title-container h3 span {
+    position: relative;
+    bottom: 7px;
+    color: #959393;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.18px;
+}
+
+
+
+
+
+
+
+
 
 
 
