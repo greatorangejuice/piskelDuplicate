@@ -27,7 +27,7 @@ a {
 header {
     position: relative;
     margin: 0 auto;
-    background-image: url(./assets/background.jpg);
+    background-image: url(./assets/background_new.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -234,12 +234,44 @@ main {
 
 .description-of-benefits {
     display: flex;
-    margin: 31px 240px 131px 322px;
+    margin: -5px 240px 131px 322px;
+}
+
+.swissPrivacy::after {
+    content: "";
+    height: 210px;
+    position: absolute;
+    right: -40px;
+    top: -50%;
+    border-left: 1px solid #b9b9b9;
+}
+
+.doubleEncription::after {
+    content: "";
+    height: 433px;
+    position: absolute;
+    right: -40px;
+    top: 0;
+    border-left: 1px solid #b9b9b9;
+}
+
+.anonimousEmail::after {
+    content: "";
+    width: 192px;
+    position: absolute;
+    right: -244px;
+    top: 0;
+    border-bottom: 1px solid #b9b9b9;
 }
 
 .swissPrivacy,
 .doubleEncription {
     margin-right: 80px;
+    position: relative;
+}
+
+.anonimousEmail {
+    position: relative;
 }
 
 .swissPrivacy p,
@@ -248,6 +280,8 @@ main {
     width: 358px;
     font-size: 14px;
     line-height: 22px;
+    font-weight: 400;
+    letter-spacing: 0.14px;
     color: #959393;
 }
 
