@@ -1,0 +1,330 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Titillium Web', sans-serif;
+    box-sizing: border-box;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #454545;
+}
+
+.languages li:not(:last-child)::after {
+    content: '/';
+    padding: 0 5px;
+}
+
+.languages a:hover {
+    font-weight: 700;
+    border-bottom: 1px solid #454545;
+}
+
+header {
+    position: relative;
+    margin: 0 auto;
+    background-image: url(./assets/background.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 1800px;
+    height: 889px;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 85px 200px 0;
+}
+
+/* HEADER LEFT SIDE  */
+
+.secondary-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 15px;
+}
+
+.languages ul {
+    display: flex;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* HEADER RIGHT SIDE */
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.top-nav {
+    display: flex;
+    margin-right: 10px;
+}
+
+.top-nav a {
+    display: flex;
+    margin-right: 25px;
+    color: #454545;
+}
+
+.top-nav a:hover {
+    color: #fc2028;
+
+}
+
+.login {
+    display: flex;
+    color: black;
+    font-weight: 700;
+    margin: 20px;
+}
+
+.icon_login {
+    font-size: 18px;
+    color: #582c7e;
+}
+
+.signUp {
+    width: 94px;
+    height: 40px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.17), 0 3px 3px rgba(102, 145, 233, 0.09), 0 3px 9px rgba(0, 0, 0, 0.09), 0 3px 9px rgba(53, 103, 205, 0.09), 0 4px 16px rgba(0, 0, 0, 0.09), 0 4px 16px rgba(102, 145, 233, 0.33), 0 13px 21px rgba(0, 0, 0, 0.15), 0 13px 21px rgba(20, 80, 204, 0.27), 0 7px 9px rgba(142, 117, 222, 0.15);
+    border-radius: 30px;
+    background-color: #582c7e;
+    background: linear-gradient(-190deg, #5f2f6b, #6274ca);
+    color: #ffffff;
+    font-weight: 700;
+    border: none;
+}
+
+.signUp:hover {
+    color: #000000;
+    background: linear-gradient(-45deg, #5f2f6b, #6274ca);
+}
+
+.background-shadow {
+    margin-left: 32%;
+    margin-top: -1%;
+    width: 602px;
+    height: 57px;
+    background-image: url(./assets/shadow.png);
+    /* z-index: 2; */
+}
+
+/* SOCIAL ICONS */
+
+.social-list {
+    position: absolute;
+    right: 34px;
+    top: 323px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item_social {
+    width: 18px;
+    height: 18px;
+    font-size: 21px;
+    color: #666666;
+}
+
+.google:hover {
+    color: #D54739;
+}
+
+.facebook:hover {
+    color: #3b5998;
+}
+
+.twitter:hover {
+    color: #00aced;
+}
+
+/* HEADER CENTER */
+
+.main-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 90px;
+}
+
+.main-title_first-line {
+    font-size: 60px;
+    font-weight: 600;
+    opacity: 0.84;
+    color: #454545;
+}
+
+.main-title_second-line {
+    font-size: 36px;
+    font-weight: 400;
+    color: #464646;
+    opacity: 0.84;
+}
+
+.main-title_second-line span {
+    color: #fc2028;
+}
+
+.account-buttons {
+    margin-top: 79px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reg-account {
+    width: 246px;
+    height: 56px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #636c92, #5f2f6b);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.17), 0 3px 3px rgba(102, 145, 233, 0.09), 0 3px 9px rgba(0, 0, 0, 0.09), 0 3px 9px rgba(53, 103, 205, 0.09), 0 4px 16px rgba(0, 0, 0, 0.09), 0 4px 16px rgba(102, 145, 233, 0.33), 0 13px 21px rgba(0, 0, 0, 0.15), 0 13px 21px rgba(20, 80, 204, 0.27), 0 7px 9px rgba(100, 115, 151, 0.15), 0 0 7px rgba(95, 47, 106, 0.25);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 4px;
+    /* z-index: 1; */
+}
+
+.reg-account:hover {
+    background: linear-gradient(0deg, #636c92, #5f2f6b);
+}
+
+.market-icons {
+    display: flex;
+
+}
+
+.icon_market {
+    width: 46px;
+    height: 46px;
+    margin-left: 21px;
+    font-size: 22px;
+    padding: 9px;
+    color: #ffffff;
+    background-color: #4a1c50;
+    opacity: 0.8;
+    border-radius: 50%;
+}
+
+.icon_market:hover {
+    opacity: 0.9;
+}
+
+
+
+
+
+@font-face {
+    font-family: 'fontello';
+    src: url('./assets/font/fontello.eot?6779160');
+    src: url('./assets/font/fontello.eot?6779160#iefix') format('embedded-opentype'),
+        url('./assets/font/fontello.woff2?6779160') format('woff2'),
+        url('./assets/font/fontello.woff?6779160') format('woff'),
+        url('./assets/font/fontello.ttf?6779160') format('truetype'),
+        url('./assets/font/fontello.svg?6779160#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+      font-family: 'fontello';
+      src: url('../font/fontello.svg?6779160#fontello') format('svg');
+    }
+  }
+  */
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-googleplay:before {
+    content: '\e800';
+}
+
+/* '' */
+.icon-login:before {
+    content: '\e801';
+}
+
+/* '' */
+.icon-gplus-squared:before {
+    content: '\f0d4';
+}
+
+/* '' */
+.icon-upload-cloud:before {
+    content: '\f0ee';
+}
+
+/* '' */
+.icon-dollar:before {
+    content: '\f155';
+}
+
+/* '' */
+.icon-apple:before {
+    content: '\f179';
+}
+
+/* '' */
+.icon-facebook-official:before {
+    content: '\f230';
+}
+
+/* '' */
+.icon-twitter-squared:before {
+    content: '\f304';
+}
+
+/* '' */
