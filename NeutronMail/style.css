@@ -234,7 +234,7 @@ main {
 
 .description-of-benefits {
     display: flex;
-    margin: -5px 240px 131px 322px;
+    margin: -5px 240px 77px 322px;
 }
 
 .swissPrivacy::after {
@@ -250,12 +250,12 @@ main {
     content: "";
     height: 433px;
     position: absolute;
-    right: -40px;
+    right: -30px;
     top: 0;
     border-left: 1px solid #b9b9b9;
 }
 
-.anonimousEmail::after {
+.anonymousEmail::after {
     content: "";
     width: 192px;
     position: absolute;
@@ -270,13 +270,13 @@ main {
     position: relative;
 }
 
-.anonimousEmail {
+.anonymousEmail {
     position: relative;
 }
 
 .swissPrivacy p,
 .doubleEncription p,
-.anonimousEmail p {
+.anonymousEmail p {
     width: 358px;
     font-size: 14px;
     line-height: 22px;
@@ -312,9 +312,56 @@ main {
     letter-spacing: 0.18px;
 }
 
+.phys-secutiry-block {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    margin-right: 694px;
+    margin-bottom: 25px;
+}
 
+.phys-secutiry-block span {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.24px;
+    color: #959393;
+}
 
+.phys-secutiry-block .red-text {
+    color: #f65151;
+}
 
+.small-describe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 334px;
+    height: 62px;
+    border-radius: 31px;
+    border: 1px solid #b9b9b9;
+    margin-left: 974px;
+}
+
+.small-describe::after {
+    content: "";
+    width: 976px;
+    position: absolute;
+    right: 332px;
+    top: 50%;
+    border-bottom: 1px solid #b9b9b9;
+}
+
+.small-describe p {
+    margin: 0 auto;
+}
+
+.phys-secutiry-block h3 {
+    font-size: 60px;
+    font-weight: 400;
+    color: #535353;
+}
 
 
 
