@@ -518,8 +518,6 @@ main {
     background: linear-gradient(0deg, #6ac5de, #5e7bea);
 }
 
-
-
 .donate-inner-wrapper h3 {
     margin-bottom: 38px;
     color: #535353;
@@ -548,6 +546,37 @@ main {
     font-size: 14px;
     font-weight: 400;
 }
+
+/* FOOTER */
+
+footer {
+    margin: 0 auto;
+    max-width: 1800px;
+}
+
+.footer-container {
+    display: flex;
+    max-width: 1181px;
+    /* justify-content: space-between; */
+}
+.contacts {
+    flex: 1;
+}
+
+.contacts::after {
+    content: "/";
+    padding: 0 5px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 @font-face {
