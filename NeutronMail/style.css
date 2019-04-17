@@ -17,6 +17,7 @@ a {
 .languages li:not(:last-child)::after {
     content: '/';
     padding: 0 5px;
+    margin-left: 7px;
 }
 
 .languages a:hover {
@@ -638,6 +639,10 @@ footer {
     font-weight: 700;
 }
 
+.contacts span:hover {
+    color: #fc2028;
+}
+
 .contacts ul {
     margin-bottom: 8%;
 }
@@ -664,6 +669,12 @@ li.pseudo-squad {
     flex-direction: column;
     margin-right: 12%;
     position: relative;
+}
+
+.footer-nav a:hover,
+.footer-legal:hover,
+.footer-neutronMail:hover {
+    color: #fc2028;
 }
 
 .footer-legal {
@@ -714,12 +725,12 @@ li.pseudo-squad {
 .socials li:not(:last-child)::after {
     content: '/';
     padding: 0 5px;
+    margin: 8px;
 }
 
 .copyring {
     font-size: 12px;
     font-weight: 400;
-    /* margin-left: 11%; */
     margin-bottom: 1%;
 }
 
