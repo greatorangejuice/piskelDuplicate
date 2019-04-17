@@ -40,7 +40,7 @@ header {
     justify-content: space-between;
     flex-wrap: wrap;
     /* padding: 85px 200px 0; */
-    margin: 62px 200px 0;
+    margin: 59px 200px 0;
 }
 
 /* HEADER LEFT SIDE  */
@@ -48,9 +48,7 @@ header {
 .secondary-menu {
     display: flex;
     flex-direction: column;
-    /* AFTER PIXEL */
-    position: relative;
-    top: 11px;
+    margin-top: 11px;
 }
 
 .logo {
@@ -61,6 +59,10 @@ header {
     display: flex;
     font-size: 15px;
     font-weight: 400;
+}
+
+.languages a {
+    letter-spacing: 0.14px;
 }
 
 /* HEADER RIGHT SIDE */
@@ -252,6 +254,21 @@ main {
     margin: -45px 244px 104px 312px;
 }
 
+@media screen and (max-width: 1700px) {
+
+    .description-of-benefits {
+        display: flex;
+        justify-content: space-between;
+        /* margin: -5px 240px 77px 322px; */
+        /* margin: -45px 244px 104px 312px; */
+    }
+
+    .anonymousEmail::after {
+       display: none;
+    }
+
+    }
+
 .swissPrivacy::after {
     content: "";
     height: 210px;
@@ -397,9 +414,7 @@ main {
     background-image: url(./assets/blog-bg.png);
     background-size: 100%;
     background-repeat: no-repeat;
-    /* background-position: center; */
     max-width: 1800px;
-    /* height: 1052px; */
 }
 
 .slider-wrapper {
@@ -447,11 +462,10 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    top: 200px;
-    right: 55px;
+    margin-top: 200px;
+    margin-right: 116px;
+    text-align: right;
     z-index: 1;
-
 }
 
 .applications-title {
@@ -490,12 +504,23 @@ main {
 .donate-container {
     display: flex;
     justify-content: center;
-    background: linear-gradient(#fefefe, #ffffff)
+    position: relative;
+}
+
+.donate-container::after {
+    content: "";
+    width: 1437px;
+    position: absolute;
+    right: 0px;
+    bottom: 309px;
+    border-bottom: 1px solid #b9b9b9;
+    z-index: -1;
 }
 
 .donate-buttons {
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
     width: 470px;
     height: 56px;
 }
@@ -531,11 +556,33 @@ main {
 }
 
 .helpers {
+    position: relative;
     width: 974px;
     height: 92px;
     background-image: url(./assets/sponsors_second.png);
     margin-top: 5%;
     margin-left: 25%;
+}
+
+.helpers:after {
+    content: "";
+    height: 441px;
+    position: absolute;
+    right: 24px;
+    top: -79%;
+    border-left: 1px solid #b9b9b9;
+}
+
+.helpers-container {
+    position: relative;
+}
+
+.helpers-container::after {
+    content: "";
+    width: 1400px;
+    position: absolute;
+    bottom: 164px;
+    border-bottom: 1px solid #b9b9b9;
 }
 
 .helpers p {
@@ -556,24 +603,125 @@ footer {
 
 .footer-container {
     display: flex;
-    max-width: 1181px;
+    max-width: 1150px;
+    margin-top: 161px;
+    margin-left: 12%;
     /* justify-content: space-between; */
 }
+
+.footer-container h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #5c5c5c;
+    margin-bottom: 30px;
+}
+
 .contacts {
+    position: relative;
     flex: 1;
+    color: #5c5c5c;
+    font-size: 14px;
+    margin-bottom: 4%;
+    margin-right: 23%;
 }
 
 .contacts::after {
-    content: "/";
+    content: "";
+    height: 131px;
+    position: absolute;
+    border-left: 1px solid #b9b9b9;
+    top: 7px;
+    left: -20px;
+}
+
+.contacts span {
+    font-weight: 700;
+}
+
+.contacts ul {
+    margin-bottom: 8%;
+}
+
+li.pseudo-squad {
+    position: relative;
+    font-size: 14px;
+    font-weight: 400;
+    color: #5c5c5c;
+}
+
+.pseudo-squad::after {
+    content: "";
+    background-color: #5c5c5c;
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    bottom: 35%;
+    margin-left: 7px;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    margin-right: 12%;
+    position: relative;
+}
+
+.footer-legal {
+    display: flex;
+    flex-direction: column;
+    margin-right: 7%;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-left: 12%;
+}
+
+.socials ul {
+    display: flex;
+    justify-content: space-between;
+    max-width: 362px;
+    color: #5c5c5c;
+    font-size: 12px;
+    margin-bottom: 20px;
+
+}
+
+.footer-nav,
+.footer-legal,
+.footer-neutronMail {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23px;
+}
+
+.footer-nav::after {
+    content: "";
+    height: 300px;
+    position: absolute;
+    border-left: 1px solid #b9b9b9;
+    top: 7px;
+    left: -20px;
+}
+
+.socials li a {
+    text-decoration: underline;
+}
+
+.socials li:not(:last-child)::after {
+    content: '/';
     padding: 0 5px;
 }
 
-
-
-
-
-
-
+.copyring {
+    font-size: 12px;
+    font-weight: 400;
+    /* margin-left: 11%; */
+    margin-bottom: 1%;
+}
 
 
 
