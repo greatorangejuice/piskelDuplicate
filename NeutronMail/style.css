@@ -1,8 +1,11 @@
+:root {
+    --big-size: 60px;
+}
+
 * {
     margin: 0;
     padding: 0;
     font-family: 'Titillium Web', sans-serif;
-    /* box-sizing: border-box; */
 }
 
 li {
@@ -32,7 +35,7 @@ header {
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    max-width: 1800px;
+    width: 100%;
     height: 889px;
 }
 
@@ -40,8 +43,8 @@ header {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    /* padding: 85px 200px 0; */
-    margin: 59px 200px 0;
+    padding: 59px 200px 0;
+    /* margin: 59px 200px 0; */
 }
 
 /* HEADER LEFT SIDE  */
@@ -176,7 +179,7 @@ nav {
 }
 
 .main-title_first-line {
-    font-size: 60px;
+    font-size: var(--big-size);
     font-weight: 600;
     opacity: 0.84;
     color: #454545;
@@ -255,20 +258,6 @@ main {
     margin: -45px 244px 104px 312px;
 }
 
-@media screen and (max-width: 1700px) {
-
-    .description-of-benefits {
-        display: flex;
-        justify-content: space-between;
-        /* margin: -5px 240px 77px 322px; */
-        /* margin: -45px 244px 104px 312px; */
-    }
-
-    .anonymousEmail::after {
-       display: none;
-    }
-
-    }
 
 .swissPrivacy::after {
     content: "";
@@ -292,7 +281,7 @@ main {
     content: "";
     width: 192px;
     position: absolute;
-    left: 117%;
+    left: 113%;
     top: 6%;
     border-bottom: 1px solid #b9b9b9;
 }
@@ -395,7 +384,7 @@ main {
 }
 
 .phys-secutiry-block h3 {
-    font-size: 60px;
+    font-size: var(--big-size);
     font-weight: 400;
     color: #535353;
 }
@@ -433,7 +422,6 @@ main {
     font-family: 'MalagaNarrowOT-Reg';
     /* font-family: 'MyriadPro-Regular'; */
     font-style: italic;
-    font-size: 24px;
     font-weight: 400;
     margin-bottom: 15px;
 }
@@ -456,7 +444,7 @@ main {
     right: 15%;
     width: 578px;
     height: 670px;
-    background-image: url(./assets/devices-bg.png);
+    /* background-image: url(./assets/devices-bg.png); */
 }
 
 .applications {
@@ -506,6 +494,7 @@ main {
     display: flex;
     justify-content: center;
     position: relative;
+    margin-bottom: 100px;
 }
 
 .donate-container::after {
@@ -567,7 +556,7 @@ main {
 
 .helpers:after {
     content: "";
-    height: 441px;
+    height: 490px;
     position: absolute;
     right: 24px;
     top: -79%;
@@ -851,3 +840,239 @@ li.pseudo-squad {
 }
 
 /* '' */
+
+
+@media all and (max-width: 1799px) {
+    .anonymousEmail::after {
+        display: none;
+    }
+}
+
+@media all and (max-width: 1700px) {
+
+    .description-of-benefits {
+        padding: 0 20px;
+        margin: 0 0;
+    }
+
+    .anonymousEmail::after {
+        display: none;
+    }
+
+    .swissPrivacy::after {
+        right: -6%;
+        top: 7%;
+    }
+
+    .footer-container {
+        margin-left: 7%;
+    }
+
+    .helpers {
+        margin-left: 5%;
+    }
+
+    .helpers:after {
+        display: none;
+    }
+
+    .helpers-container::after {
+        display: none;
+    }
+
+    .phys-secutiry-block {
+        display: flex;
+        flex-direction: column;
+        margin-right: 40%;
+        margin-bottom: 26px;
+    }
+
+    .small-describe {
+        margin: 0 auto;
+        margin-right: 40%;
+    }
+
+}
+
+@media all and (max-width: 1500px) {
+
+    .doubleEncription,
+    .swissPrivacy {
+        margin-right: 1%;
+    }
+
+    .doubleEncription,
+    .swissPrivacy,
+    .anonymousEmail {}
+
+    .swissPrivacy::after {
+        right: -6%;
+        top: 7%;
+    }
+
+    .doubleEncription::after {
+        right: -7%;
+    }
+
+    .small-describe::after {
+        display: none;
+    }
+
+    .contacts {
+        flex: 0;
+    }
+
+    .footer-container {
+        margin-top: 5%;
+    }
+
+    .footer-nav::after {
+        height: 200px;
+    }
+}
+
+@media all and (max-width: 1440px) {
+    .header-wrapper {
+        margin: 0;
+        padding: 50px 20px;
+    }
+
+    .description-of-benefits {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+
+    .swissPrivacy::after,
+    .doubleEncription::after {
+        display: none;
+    }
+}
+
+@media all and (max-width: 1380px) {
+    .swissPrivacy::after {
+        height: 185px;
+    }
+
+    .slider-wrapper {
+        display: none;
+    }
+
+    .applications {
+        margin-right: 0;
+    }
+
+    .footer-container {
+        margin-left: 0;
+    }
+}
+
+@media all and (max-width: 1024px) {
+
+    header {
+        height: 100vh;
+    }
+
+    .main-title {
+        margin-top: 25px;
+    }
+
+    .social-list {
+        right: 55px;
+    }
+
+    .swissPrivacy,
+    .doubleEncription,
+    .anonymousEmail {
+        margin: 0;
+        padding: 20px;
+    }
+
+    .donate-container::after {
+        width: 1024px;
+    }
+
+    .sponsors {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+    }
+
+    .helpers {
+        margin: 0;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: center;
+        padding: 0 20px;
+    }
+}
+
+
+@media all and (max-width: 768px) {
+
+    :root {
+        --big-size: 35px;
+    }
+
+    .header-wrapper {
+        padding: 10px 20px;
+    }
+
+    .main-title {
+        margin-top: 15px;
+    }
+
+    .account-buttons {
+        margin-top: 115px;
+    }
+
+    .phys-secutiry-block {
+        margin: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .small-describe {
+        margin: 0 auto;
+    }
+
+    .blog {
+        justify-content: center;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .devices {
+        display: none;
+    }
+
+    .sponsors
+     {
+        width: 750px;
+    }
+    .helpers {
+        width: 675px;
+    }
+
+    .applications {
+        padding: 20px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .donate-container::after {
+        display: none;
+    }
+
+    .footer-container {
+        padding: 0 20px;
+    }
+
+    .social-list {
+        top: 70%;
+    }
+
+}
+
