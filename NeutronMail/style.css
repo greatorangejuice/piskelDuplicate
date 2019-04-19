@@ -1009,7 +1009,6 @@ li.pseudo-squad {
     }
 }
 
-
 @media all and (max-width: 768px) {
 
     :root {
@@ -1076,3 +1075,6 @@ li.pseudo-squad {
 
 }
 
+@media all and (max-width: 375px) {
+
+}
