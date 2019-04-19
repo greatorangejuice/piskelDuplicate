@@ -248,7 +248,8 @@ nav {
 main {
     position: relative;
     margin: 0 auto;
-    max-width: 1800px;
+    /* max-width: 1800px; */
+    width: 100%;
 }
 
 .description-of-benefits {
@@ -404,7 +405,8 @@ main {
     background-image: url(./assets/blog-bg.png);
     background-size: 100%;
     background-repeat: no-repeat;
-    max-width: 1800px;
+    /* max-width: 1800px; */
+    width: 100%;
 }
 
 .slider-wrapper {
@@ -842,6 +844,13 @@ li.pseudo-squad {
 /* '' */
 
 
+@media all and (min-width: 1801px) {
+    .helpers:after {
+        right: -4%;
+        top: -79%;
+    }
+}
+
 @media all and (max-width: 1799px) {
     .anonymousEmail::after {
         display: none;
@@ -1047,10 +1056,10 @@ li.pseudo-squad {
         display: none;
     }
 
-    .sponsors
-     {
+    .sponsors {
         width: 750px;
     }
+
     .helpers {
         width: 675px;
     }
@@ -1075,6 +1084,4 @@ li.pseudo-squad {
 
 }
 
-@media all and (max-width: 375px) {
-
-}
+@media all and (max-width: 375px) {}
