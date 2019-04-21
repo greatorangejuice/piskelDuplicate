@@ -229,7 +229,6 @@ nav {
     opacity: 0.9;
 }
 
-/* MAIN */
 main {
     position: relative;
     margin: 0 auto;
@@ -563,8 +562,6 @@ main {
     font-weight: 400;
 }
 
-/* FOOTER */
-
 footer {
     margin: 0 auto;
     max-width: 1800px;
@@ -770,10 +767,6 @@ li.pseudo-squad {
     .swissPrivacy {
         margin-right: 1%;
     }
-
-    .doubleEncription,
-    .swissPrivacy,
-    .anonymousEmail {}
 
     .swissPrivacy::after {
         right: -6%;
@@ -1046,13 +1039,12 @@ li.pseudo-squad {
         justify-content: center;
     }
 
-    
     .footer-nav::after,
     .contacts::after {
         display: none;
     }
 
-    .footer-container h4{
+    .footer-container h4 {
         display: none;
     }
 }
@@ -1065,7 +1057,10 @@ li.pseudo-squad {
     .description-of-benefits {
         justify-content: flex-start;
     }
-    .swissPrivacy p, .doubleEncription p, .anonymousEmail p {
+
+    .swissPrivacy p,
+    .doubleEncription p,
+    .anonymousEmail p {
         max-width: 350px;
         padding: 0 7px;
     }
@@ -1110,11 +1105,15 @@ li.pseudo-squad {
         font-size: 13px;
     }
 
-    .swissPrivacy, .doubleEncription, .anonymousEmail {
+    .swissPrivacy,
+    .doubleEncription,
+    .anonymousEmail {
         padding: 0;
     }
 
-    .swissPrivacy p, .doubleEncription p, .anonymousEmail p {
+    .swissPrivacy p,
+    .doubleEncription p,
+    .anonymousEmail p {
         max-width: 300px;
     }
 
@@ -1136,7 +1135,9 @@ li.pseudo-squad {
         padding: 5px 10px;
     }
 
-    .footer-nav, .footer-legal, .footer-neutronMail {
+    .footer-nav,
+    .footer-legal,
+    .footer-neutronMail {
         text-align: left;
         padding: 10px;
     }
