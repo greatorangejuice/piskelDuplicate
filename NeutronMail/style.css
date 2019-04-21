@@ -47,8 +47,6 @@ header {
     padding: 59px 200px 0;
 }
 
-/* HEADER LEFT SIDE  */
-
 .secondary-menu {
     display: flex;
     flex-direction: column;
@@ -68,8 +66,6 @@ header {
 .languages a {
     letter-spacing: 0.14px;
 }
-
-/* HEADER RIGHT SIDE */
 
 nav {
     display: flex;
@@ -129,8 +125,6 @@ nav {
     background-image: url(./assets/shadow.png);
 }
 
-/* SOCIAL ICONS */
-
 .social-list {
     position: absolute;
     right: 29px;
@@ -159,8 +153,6 @@ nav {
 .twitter:hover {
     color: #00aced;
 }
-
-/* HEADER CENTER */
 
 .main-title {
     display: flex;
