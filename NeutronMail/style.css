@@ -38,6 +38,7 @@ header {
     background-position: center;
     max-width: 1800px;
     height: 889px;
+    z-index: 1;
 }
 
 .header-wrapper {
@@ -118,11 +119,12 @@ nav {
 }
 
 .background-shadow {
-    margin-left: 32%;
-    margin-top: -1%;
+    position: absolute;
+    top: 35px;
     width: 602px;
     height: 57px;
     background-image: url(./assets/shadow.png);
+    z-index: -1;
 }
 
 .social-list {
@@ -182,6 +184,7 @@ nav {
 }
 
 .account-buttons {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -696,7 +699,7 @@ li.pseudo-squad {
     margin: 8px;
 }
 
-.copyring {
+.copyright {
     font-size: 12px;
     font-weight: 400;
     margin-bottom: 1%;
@@ -835,6 +838,10 @@ li.pseudo-squad {
 
     :root {
         --big-size: 40px;
+    }
+
+    .background-shadow {
+        display: none;
     }
 
     header {
