@@ -45,7 +45,6 @@ header {
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 59px 200px 0;
-    /* margin: 59px 200px 0; */
 }
 
 /* HEADER LEFT SIDE  */
@@ -79,8 +78,6 @@ nav {
 
 .top-nav {
     display: flex;
-    /* margin-right: 10px; */
-    /* PIXEL */
     margin-right: 38px;
 }
 
@@ -130,15 +127,12 @@ nav {
     width: 602px;
     height: 57px;
     background-image: url(./assets/shadow.png);
-    /* z-index: 2; */
 }
 
 /* SOCIAL ICONS */
 
 .social-list {
     position: absolute;
-    /* right: 34px;
-    top: 323px; */
     right: 29px;
     top: 256px;
     height: 104px;
@@ -174,8 +168,6 @@ nav {
     flex-direction: column;
     text-align: center;
     flex-wrap: wrap;
-    /* margin-top: 90px; */
-    /* PIXEL */
     margin-top: 162px;
 }
 
@@ -201,8 +193,6 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 79px; */
-    /* PIXEL */
     margin-top: 62px;
 }
 
@@ -217,7 +207,6 @@ nav {
     font-size: 18px;
     font-weight: 700;
     margin-right: 4px;
-    /* z-index: 1; */
 }
 
 .big-button:hover {
@@ -250,16 +239,13 @@ main {
     position: relative;
     margin: 0 auto;
     max-width: 1800px;
-    /* width: 100%; */
 }
 
 .description-of-benefits {
     display: flex;
     justify-content: space-between;
-    /* margin: -5px 240px 77px 322px; */
     margin: -45px 244px 104px 312px;
 }
-
 
 .swissPrivacy::after {
     content: "";
@@ -316,7 +302,6 @@ main {
 .title-container {
     display: flex;
     align-items: center;
-    /* margin-bottom: 34px; */
     margin-bottom: 17px;
 }
 
@@ -410,7 +395,6 @@ main {
 }
 
 .slider-wrapper {
-    /* margin: 32px 240px 0 400px; */
     position: relative;
     left: 8%;
     top: -7%;
@@ -422,7 +406,6 @@ main {
     font-size: 24px;
     color: #101010;
     font-family: 'MalagaNarrowOT-Reg';
-    /* font-family: 'MyriadPro-Regular'; */
     font-style: italic;
     font-weight: 400;
     margin-bottom: 15px;
@@ -446,7 +429,6 @@ main {
     right: 15%;
     width: 578px;
     height: 670px;
-    /* background-image: url(./assets/devices-bg.png); */
 }
 
 .applications {
@@ -598,7 +580,6 @@ footer {
     max-width: 1150px;
     margin-top: 161px;
     margin-left: 12%;
-    /* justify-content: space-between; */
 }
 
 .footer-container h4 {
@@ -729,124 +710,6 @@ li.pseudo-squad {
     margin-bottom: 1%;
 }
 
-
-
-
-
-@font-face {
-    font-family: "MalagaNarrowOT-Reg";
-    src: url(./assets/font/MalagaNarrowOT-Reg.otf);
-    font-style: italic;
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: "MyriadPro-Regular";
-    src: url(./assets/font/MyriadPro-Regular.otf);
-    font-style: italic;
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: 'fontello';
-    src: url('./assets/font/fontello.eot?6779160');
-    src: url('./assets/font/fontello.eot?6779160#iefix') format('embedded-opentype'),
-        url('./assets/font/fontello.woff2?6779160') format('woff2'),
-        url('./assets/font/fontello.woff?6779160') format('woff'),
-        url('./assets/font/fontello.ttf?6779160') format('truetype'),
-        url('./assets/font/fontello.svg?6779160#fontello') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
-/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
-/*
-  @media screen and (-webkit-min-device-pixel-ratio:0) {
-    @font-face {
-      font-family: 'fontello';
-      src: url('../font/fontello.svg?6779160#fontello') format('svg');
-    }
-  }
-  */
-
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-    font-family: "fontello";
-    font-style: normal;
-    font-weight: normal;
-    speak: none;
-
-    display: inline-block;
-    text-decoration: inherit;
-    width: 1em;
-    margin-right: .2em;
-    text-align: center;
-    /* opacity: .8; */
-
-    /* For safety - reset parent styles, that can break glyph codes*/
-    font-variant: normal;
-    text-transform: none;
-
-    /* fix buttons height, for twitter bootstrap */
-    line-height: 1em;
-
-    /* Animation center compensation - margins should be symmetric */
-    /* remove if not needed */
-    margin-left: .2em;
-
-    /* you can be more comfortable with increased icons size */
-    /* font-size: 120%; */
-
-    /* Font smoothing. That was taken from TWBS */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Uncomment for 3D effect */
-    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-}
-
-.icon-googleplay:before {
-    content: '\e800';
-}
-
-/* '' */
-.icon-login:before {
-    content: '\e801';
-}
-
-/* '' */
-.icon-gplus-squared:before {
-    content: '\f0d4';
-}
-
-/* '' */
-.icon-upload-cloud:before {
-    content: '\f0ee';
-}
-
-/* '' */
-.icon-dollar:before {
-    content: '\f155';
-}
-
-/* '' */
-.icon-apple:before {
-    content: '\f179';
-}
-
-/* '' */
-.icon-facebook-official:before {
-    content: '\f230';
-}
-
-/* '' */
-.icon-twitter-squared:before {
-    content: '\f304';
-}
-
-/* '' */
-
 @media all and (min-width: 1801px) {
     .helpers:after {
         right: -4%;
@@ -974,19 +837,16 @@ li.pseudo-squad {
         margin-right: 0;
     }
 
-    /* .footer-container {
-        margin-left: 0;
-    } */
 }
 
-@media all and (min-width: 768px) and (max-width: 1024px) {
+@media all and (max-width: 1024px) {
 
     :root {
         --big-size: 40px;
     }
 
     header {
-        height: 100vh;
+        height: 100%;
     }
 
     .main-title {
@@ -1126,7 +986,6 @@ li.pseudo-squad {
     }
 
     .login {
-        /* padding-right: 10px; */
         width: 130px;
     }
 
@@ -1204,10 +1063,6 @@ li.pseudo-squad {
         --big-size: 29px;
     }
 
-    /* .main-title_second-line {
-        font-size: 20px;
-    } */
-
     .description-of-benefits {
         justify-content: flex-start;
     }
@@ -1235,4 +1090,141 @@ li.pseudo-squad {
     .bottom {
         margin-left: 1%;
     }
+}
+
+@media all and (max-width: 320px) {
+
+    .top-nav a {
+        font-size: 15px;
+    }
+
+    .icon_market {
+        margin-left: 3px;
+    }
+
+    .big-button {
+        max-width: 150px;
+        font-size: 13px;
+    }
+
+    .donate-button {
+        font-size: 13px;
+    }
+
+    .swissPrivacy, .doubleEncription, .anonymousEmail {
+        padding: 0;
+    }
+
+    .swissPrivacy p, .doubleEncription p, .anonymousEmail p {
+        max-width: 300px;
+    }
+
+    .small-describe {
+        display: none;
+    }
+
+    .blog {
+        background-image: none;
+    }
+
+    .applications-title p {
+        max-width: 300px;
+    }
+
+    .footer-container {
+        justify-content: space-between;
+        margin: 0;
+        padding: 5px 10px;
+    }
+
+    .footer-nav, .footer-legal, .footer-neutronMail {
+        text-align: left;
+        padding: 10px;
+    }
+
+    .socials li:not(:last-child)::after {
+        margin: 0;
+    }
+}
+
+@font-face {
+    font-family: "MalagaNarrowOT-Reg";
+    src: url(./assets/font/MalagaNarrowOT-Reg.otf);
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "MyriadPro-Regular";
+    src: url(./assets/font/MyriadPro-Regular.otf);
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'fontello';
+    src: url('./assets/font/fontello.eot?6779160');
+    src: url('./assets/font/fontello.eot?6779160#iefix') format('embedded-opentype'),
+        url('./assets/font/fontello.woff2?6779160') format('woff2'),
+        url('./assets/font/fontello.woff?6779160') format('woff'),
+        url('./assets/font/fontello.ttf?6779160') format('truetype'),
+        url('./assets/font/fontello.svg?6779160#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+
+    font-variant: normal;
+    text-transform: none;
+
+    line-height: 1em;
+
+    margin-left: .2em;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-googleplay:before {
+    content: '\e800';
+}
+
+.icon-login:before {
+    content: '\e801';
+}
+
+.icon-gplus-squared:before {
+    content: '\f0d4';
+}
+
+.icon-upload-cloud:before {
+    content: '\f0ee';
+}
+
+.icon-dollar:before {
+    content: '\f155';
+}
+
+.icon-apple:before {
+    content: '\f179';
+}
+
+.icon-facebook-official:before {
+    content: '\f230';
+}
+
+.icon-twitter-squared:before {
+    content: '\f304';
 }
