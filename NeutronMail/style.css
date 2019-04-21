@@ -1097,6 +1097,14 @@ li.pseudo-squad {
         --big-size: 30px;
     }
 
+    header {
+        background-image: none;
+    }
+
+    .account-buttons {
+        margin-top: 15px;
+    }
+
     .social-list,
     .sponsors,
     .helpers-container {
@@ -1192,12 +1200,24 @@ li.pseudo-squad {
 }
 
 @media all and (max-width: 375px) {
+    :root {
+        --big-size: 29px;
+    }
+
+    /* .main-title_second-line {
+        font-size: 20px;
+    } */
+
     .description-of-benefits {
         justify-content: flex-start;
     }
     .swissPrivacy p, .doubleEncription p, .anonymousEmail p {
         max-width: 350px;
         padding: 0 7px;
+    }
+
+    .donate-inner-wrapper h3 p {
+        font-size: 20px;
     }
 
     .app-store {
@@ -1208,4 +1228,11 @@ li.pseudo-squad {
         margin: 15px auto;
     }
 
+    .phys-secutiry-block span {
+        font-size: 20px;
+    }
+
+    .bottom {
+        margin-left: 1%;
+    }
 }
