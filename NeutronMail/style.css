@@ -38,7 +38,6 @@ header {
     background-position: center;
     max-width: 1800px;
     height: 889px;
-    z-index: 1;
 }
 
 .header-wrapper {
@@ -120,11 +119,11 @@ nav {
 
 .background-shadow {
     position: absolute;
-    top: 35px;
+    top: 90%;
+    left: 33%;
     width: 602px;
     height: 57px;
     background-image: url(./assets/shadow.png);
-    z-index: -1;
 }
 
 .social-list {
@@ -157,6 +156,7 @@ nav {
 }
 
 .main-title {
+    position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -184,11 +184,11 @@ nav {
 }
 
 .account-buttons {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 62px;
+    z-index: 2;
 }
 
 .big-button {
@@ -399,7 +399,7 @@ main {
 .slider {
     font-size: 24px;
     color: #101010;
-    font-family: 'MalagaNarrowOT-Reg';
+    font-family: 'Malaga';
     font-style: italic;
     font-weight: 400;
     margin-bottom: 15px;
@@ -800,6 +800,10 @@ li.pseudo-squad {
         padding: 50px 20px;
     }
 
+    .background-shadow {
+        left: 29%;
+    }
+
     .description-of-benefits {
         flex-wrap: wrap;
         justify-content: center;
@@ -817,10 +821,6 @@ li.pseudo-squad {
         height: 185px;
     }
 
-    .slider-wrapper {
-        display: none;
-    }
-
     .applications {
         margin-right: 0;
     }
@@ -834,6 +834,10 @@ li.pseudo-squad {
     }
 
     .background-shadow {
+        display: none;
+    }
+
+    .slider-wrapper {
         display: none;
     }
 
@@ -1148,17 +1152,9 @@ li.pseudo-squad {
 }
 
 @font-face {
-    font-family: "MalagaNarrowOT-Reg";
-    src: url(./assets/font/MalagaNarrowOT-Reg.otf);
+    font-family: "Malaga";
+    src: url(./assets/font/MalagaOT-RegItalic.otf);
     font-style: italic;
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: "MyriadPro-Regular";
-    src: url(./assets/font/MyriadPro-Regular.otf);
-    font-style: italic;
-    font-weight: normal;
 }
 
 @font-face {
