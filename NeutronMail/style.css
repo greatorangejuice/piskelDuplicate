@@ -824,11 +824,9 @@ li.pseudo-squad {
     .applications {
         margin-right: 0;
     }
-
 }
 
 @media all and (max-width: 1024px) {
-
     :root {
         --big-size: 40px;
     }
@@ -882,7 +880,6 @@ li.pseudo-squad {
 }
 
 @media all and (max-width: 768px) {
-
     :root {
         --big-size: 35px;
     }
@@ -944,11 +941,9 @@ li.pseudo-squad {
     .social-list {
         top: 70%;
     }
-
 }
 
 @media all and (max-width: 425px) {
-
     :root {
         --big-size: 30px;
     }
@@ -1091,7 +1086,6 @@ li.pseudo-squad {
 }
 
 @media all and (max-width: 320px) {
-
     .top-nav a {
         font-size: 15px;
     }
