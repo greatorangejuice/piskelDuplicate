@@ -1,6 +1,8 @@
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 
+
+
 firstPallete.addEventListener("click", (e) => {
     let target = e.target;
     while (target != this) {
@@ -44,12 +46,20 @@ function move() {
 function transform() {
     console.log(`transform function work`);
     
-
-
-    canvas.addEventListener('click', (e) => {
+        const toggleCircle = (e) => {
         let target = e.target;
         e.target.classList.toggle('circle');
         console.log(target);
-    })
+    }
 
+    canvas.addEventListener('click', toggleCircle);
+
+    document.addEventListener('keyup', (e) => {
+        if (e.keyCode == "27") {
+            canvas.removeEventListener('click', toggleCircle);
+            console.log(`Removed`);
+        }
+    })
 }
+
+
