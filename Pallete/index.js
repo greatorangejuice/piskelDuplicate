@@ -1,16 +1,45 @@
-let firstPallete= document.querySelector("#first-pallete");
+let firstPallete = document.querySelector("#first-pallete");
 
-firstPallete.addEventListener( "click", (e) => {
+firstPallete.addEventListener("click", (e) => {
     let target = e.target;
-    
+    while (target != this) {
 
-    while (target != firstPallete) {
-        
         if (target.tagName == 'BUTTON') {
-            console.log(target);
-          return;
+            // console.log(e.target.dataset.action)
+            let action = e.target.dataset.action;
+            switch (action) {
+                case 'paintBucket':
+                    paintBucket();
+                    break;
+                case 'chooseColor':
+                    chooseColor();
+                    break;
+                case 'move':
+                    move();
+                    break;
+                    case 'transform':
+                    transform();
+                    break;
+            }
+            return;
         }
-            target = target.parentNode;
-        
-      }
-} )
+        target = target.parentNode;
+
+    }
+})
+
+function paintBucket() {
+    console.log('paintBucket function work');
+}
+
+function chooseColor() {
+    console.log(`chooseColor function work`);
+}
+
+function move() {
+    console.log(`move function work`);
+}
+
+function transform() {
+    console.log(`transform function work`);
+}
