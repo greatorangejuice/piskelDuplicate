@@ -124,20 +124,19 @@ main .canvas {
 main .canvas .square {
   width: 200px;
   height: 200px;
-  background: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   margin: 5px;
 }
 
 main .canvas .circle {
   width: 200px;
   height: 200px;
-  background: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   margin: 5px;
 }
-/*# sourceMappingURL=style.css.map */
 
-
-.pressed {
-  background-color: bisque;
+.customColor {
+  background-color: aqua;
 }
+/*# sourceMappingURL=style.css.map */

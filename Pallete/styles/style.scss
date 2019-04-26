@@ -90,14 +90,14 @@ main {
         .square {
             width: 200px;
             height: 200px;
-            background: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.2);
             margin: 5px;
         }
     
         .circle {
             width: 200px;
             height: 200px;
-            background: rgba(0, 0, 0, 0.25);
+            background-color: rgba(0, 0, 0, 0.25);
             border-radius: 100px;
             margin: 5px;
         }
@@ -105,4 +105,8 @@ main {
 
   
 
+}
+
+.customColor {
+    background-color: aqua;
 }
