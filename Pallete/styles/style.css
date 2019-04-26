@@ -136,3 +136,8 @@ main .canvas .circle {
   margin: 5px;
 }
 /*# sourceMappingURL=style.css.map */
+
+
+.pressed {
+  background-color: bisque;
+}
