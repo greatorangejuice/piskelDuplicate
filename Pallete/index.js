@@ -1,7 +1,15 @@
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 
-
+// Удаление слушателя
+const removeEvent = (func) => {
+    document.addEventListener('keyup', (e) => {
+        if (e.keyCode == "27") {
+            canvas.removeEventListener('click', func);
+            console.log(`Removed`);
+        }
+    })
+}
 
 firstPallete.addEventListener("click", (e) => {
     let target = e.target;
@@ -41,25 +49,16 @@ function chooseColor() {
 
 function move() {
     console.log(`move function work`);
+    canvas.addEventListener("mousedown", (e) => {
+        canvas.style.position = 'absolute';
+    })
 }
 
 function transform() {
     console.log(`transform function work`);
-    
         const toggleCircle = (e) => {
-        let target = e.target;
         e.target.classList.toggle('circle');
-        console.log(target);
     }
-
     canvas.addEventListener('click', toggleCircle);
-
-    document.addEventListener('keyup', (e) => {
-        if (e.keyCode == "27") {
-            canvas.removeEventListener('click', toggleCircle);
-            console.log(`Removed`);
-        }
-    })
+    removeEvent(toggleCircle)
 }
-
-
