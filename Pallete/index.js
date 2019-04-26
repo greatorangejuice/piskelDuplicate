@@ -2,7 +2,7 @@ let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 let secondPallete = document.querySelector("#second-pallete");
 let currentColor = document.querySelector('#current-color');
-
+let prevColor = document.querySelector('#previous-color');
 // Удаление слушателя
 const removeEvent = (func) => {
     document.addEventListener('keyup', (e) => {
@@ -41,8 +41,6 @@ firstPallete.addEventListener("click", (e) => {
     }
 });
 
-
-
 function paintBucket() {
     console.log('paintBucket function work');
     const paint = (e) => {
@@ -52,33 +50,35 @@ function paintBucket() {
     removeEvent(paint)
 }
 
-
-
 function chooseColor() {
     console.log(`chooseColor function work`);
+
     secondPallete.addEventListener("click", (e) => {
         let target = e.target;
         while (target != this) {
-    
             if (target.tagName == 'BUTTON') {
-               console.log( e.target.dataset.color)
-               let color = e.target.dataset.color
-               switch (color) {
-                case 'paintBucket':
-                    paintBucket();
-                    break;
-                case 'chooseColor':
-                    chooseColor();
-                    break;
-                case 'red':
-                
-                currentColor.dataset.color = 'red'
-                    break;
-                case 'blue':
-                currentColor.dataset.color = 'blue'
-                    break;
-            }
-
+                let color = e.target.dataset.color;
+                let buttonValue = e.target.dataset.id
+                switch (buttonValue) {
+                    case 'current':
+                        console.log(`Choosed current color!`);
+                        break;
+                    case 'previous':
+                        currentColor.dataset.color = color;
+                        console.log(`Choosed`, color);
+                        break;
+                    case 'red':
+                        prevColor.dataset.color = currentColor.dataset.color;
+                        console.log(prevColor.dataset.color);
+                        currentColor.dataset.color = 'red'
+                        console.log(`Choosed`, color);
+                        break;
+                    case 'blue':
+                        prevColor.dataset.color = currentColor.dataset.color;
+                        currentColor.dataset.color = 'blue'
+                        console.log(`Choosed`, color);
+                        break;
+                }
                 return;
             }
             target = target.parentNode;
