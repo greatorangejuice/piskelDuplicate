@@ -1,4 +1,5 @@
 let firstPallete = document.querySelector("#first-pallete");
+let canvas = document.querySelector('.canvas');
 
 firstPallete.addEventListener("click", (e) => {
     let target = e.target;
@@ -17,7 +18,7 @@ firstPallete.addEventListener("click", (e) => {
                 case 'move':
                     move();
                     break;
-                    case 'transform':
+                case 'transform':
                     transform();
                     break;
             }
@@ -42,4 +43,13 @@ function move() {
 
 function transform() {
     console.log(`transform function work`);
+    
+
+
+    canvas.addEventListener('click', (e) => {
+        let target = e.target;
+        e.target.classList.toggle('circle');
+        console.log(target);
+    })
+
 }
