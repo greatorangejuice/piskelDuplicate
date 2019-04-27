@@ -16,6 +16,20 @@ const removeEvent = (func) => {
         }
     })
 }
+document.addEventListener('keyup', (e) => {
+    if (e.keyCode == "80") {
+        paintBucket();
+    };
+    if (e.keyCode == "67") {
+        chooseColor();
+    };
+    if (e.keyCode == "77") {
+        move();
+    };
+    if (e.keyCode == "84") {
+        transform();
+    };
+})
 
 firstPallete.addEventListener("click", (e) => {
     let target = e.target;
@@ -32,7 +46,7 @@ firstPallete.addEventListener("click", (e) => {
                     chooseColor();
                     break;
                 case 'move':
-                    moveDND();
+                    move();
                     break;
                 case 'transform':
                     transform();
@@ -107,7 +121,7 @@ function chooseColor() {
     removeEvent(getColor);
 }
 
-function move() {
+function move_old() {
     console.log(`move function work`);
     document.body.style.cursor = "url('./assets/move.png'), auto";
 
@@ -118,7 +132,7 @@ function move() {
         while (target != this) {
             if (target.tagName == 'DIV') {
                 target.style.position = "absolute";
-               
+
                 return
             }
             target = target.parentNode;
@@ -143,44 +157,44 @@ function transform() {
 
 
 
-function moveDND() {
+function move() {
     console.log("SWAP!!!");
-    
+
     var tempValue = null;
 
     function handleDragStart(e) {
-        
+
         tempValue = this;
         e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', window.getComputedStyle(this).order );
+        e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
         console.log(window.getComputedStyle(this).order);
 
 
-                        // console.log(window.getComputedStyle(this).order);
-                        // tempValue = window.getComputedStyle(this).order;
-                        // e.dataTransfer.setData("text", window.getComputedStyle(this).order);
+        // console.log(window.getComputedStyle(this).order);
+        // tempValue = window.getComputedStyle(this).order;
+        // e.dataTransfer.setData("text", window.getComputedStyle(this).order);
     }
 
-      function handleDragOver(e) {
+    function handleDragOver(e) {
         if (e.preventDefault) {
-          e.preventDefault(); // Necessary. Allows us to drop.
+            e.preventDefault(); // Necessary. Allows us to drop.
         }
-      
+
         e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
         return false;
-      }
-      
-      function handleDragEnter(e) {
-        this.classList.add('over');
-      }
-      
-      function handleDragLeave(e) {
-        this.classList.remove('over');  
-      }
+    }
 
-      function handleDrop(e) {
+    function handleDragEnter(e) {
+        this.classList.add('over');
+    }
+
+    function handleDragLeave(e) {
+        this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
         if (e.stopPropagation) {
-          e.stopPropagation(); 
+            e.stopPropagation();
         }
         if (tempValue != this) {
             //  e.target.style.order = 5;
@@ -189,36 +203,36 @@ function moveDND() {
             e.target.style.order = e.dataTransfer.getData('text/html');
 
             // window.getComputedStyle(this).order = 5;
-           
+
             // e.target.style.order = e.dataTransfer.getData('text/html');
-          }
-      
+        }
+
         //OLD VERS
-                    // var data = e.dataTransfer.getData("Text");
-                    // console.log(data);
-                    // e.target.style.order = data;
-                    // console.log("NEW " + e.target.style.order);
+        // var data = e.dataTransfer.getData("Text");
+        // console.log(data);
+        // e.target.style.order = data;
+        // console.log("NEW " + e.target.style.order);
         // OLD VERS
 
         return false;
-      }
-      
-      function handleDragEnd(e) {
+    }
+
+    function handleDragEnd(e) {
         // this/e.target is the source node.
-      
+
         [].forEach.call(cols, function (col) {
-          col.classList.remove('over');
+            col.classList.remove('over');
         });
-      }
-      
-      var cols = document.querySelectorAll('.square');
-      [].forEach.call(cols, function(col) {
+    }
+
+    var cols = document.querySelectorAll('.square');
+    [].forEach.call(cols, function (col) {
         col.addEventListener('dragstart', handleDragStart, false);
         col.addEventListener('dragenter', handleDragEnter, false);
         col.addEventListener('dragover', handleDragOver, false);
         col.addEventListener('dragleave', handleDragLeave, false);
         col.addEventListener('drop', handleDrop, false);
         col.addEventListener('dragend', handleDragEnd, false);
-      });
+    });
 
 }
