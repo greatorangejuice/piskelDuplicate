@@ -27,35 +27,45 @@
 
             <div class="first-pallete" id="first-pallete">
 
-                <button data-action="paintBucket" class="pallete-button" id="paintBucket"><img src="/assets/paint-bucket.png" alt="paint-bucket">Paint Bucket</button>
-                <button data-action="chooseColor" class="pallete-button" id="chooseColor"><img src="/assets/choose-color.png" alt="Choose color">Choose color</button>
-                <button data-action="move" class="pallete-button" id="Move"><img src="/assets/move.png" alt="Move">Move</button>
-                <button data-action="transform" class="pallete-button" id="Transform"><img src="/assets/trasform.png" alt="Tranform">Tranform</button>
+                <button data-action="paintBucket" class="pallete-button" id="paintBucket"><img
+                        src="/assets/paint-bucket.png" alt="paint-bucket">Paint Bucket</button>
+                <button data-action="chooseColor" class="pallete-button" id="chooseColor"><img
+                        src="/assets/choose-color.png" alt="Choose color">Choose color</button>
+                <button data-action="move" class="pallete-button" id="Move"><img src="/assets/move.png"
+                        alt="Move">Move</button>
+                <button data-action="transform" class="pallete-button" id="Transform"><img src="/assets/trasform.png"
+                        alt="Tranform">Tranform</button>
 
             </div>
 
             <div class="second-pallete" id="second-pallete">
 
-                <button data-color="grey" data-id="current" class="pallete-button" id="current-color"><div class="small-circle"></div> Current color</button>
-                <button data-color="green" data-id="previous" class="pallete-button" id="previous-color"><img src="/assets/prev-color.png" alt="prev color">Prev color</button>
-                <button data-color="red" data-id="red" class="pallete-button"><img src="/assets/red.png" alt="red">red</button>
-                <button data-color="blue" data-id="blue" class="pallete-button"><img src="/assets/blue.png" alt="blue">blue</button>
+                <button data-color="grey" data-id="current" class="pallete-button" id="current-color">
+                    <div class="current-circle"></div> Current color
+                </button>
+                <button data-color="green" data-id="previous" class="pallete-button" id="previous-color">
+                    <div class="prev-circle"></div>Prev color
+                </button>
+                <button data-color="red" data-id="red" class="pallete-button"><img src="/assets/red.png"
+                        alt="red">red</button>
+                <button data-color="blue" data-id="blue" class="pallete-button"><img src="/assets/blue.png"
+                        alt="blue">blue</button>
 
             </div>
 
         </div>
 
-        <div class="canvas">
-            <div class="square" ></div>
-            <div class="square" ></div>
-            <div class="square" ></div>
-            <div class="square" ></div>
-            <div class="square" ></div>
-            <div class="square" ></div>
-            <div class="square circle" ></div>
-            <div class="square" ></div>
-            <div class="square" ></div>
-        </div>
+        <section class="canvas">
+                <div class="square" id="one" draggable="true" ></div>
+                <div class="square" id="two" draggable="true"></div>
+                <div class="square" id="three" draggable="true"></div>
+                <div class="square" id="four" draggable="true"></div>
+                <div class="square" id="five" draggable="true"></div>
+                <div class="square" id="six" draggable="true"></div>
+                <div class="square circle" id="seven" draggable="true"></div>
+                <div class="square" id="eight" draggable="true"></div>
+                <div class="square" id="nine" draggable="true"></div>
+        </section>
 
     </main>
 

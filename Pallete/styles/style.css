@@ -140,12 +140,74 @@ main .canvas .circle {
   background-color: aqua;
 }
 
-.small-circle {
+.current-circle, .prev-circle {
   width: 20px;
   height: 20px;
   border-radius: 20px;
   border: 1px solid black;
   margin-right: 10px;
   background-color: grey;
+}
+
+.prev-circle {
+  background-color: green;
+}
+
+.square.over {
+  border: 2px dashed #000;
+}
+
+#one {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+
+#two {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+#three {
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+}
+
+#four {
+  -webkit-box-ordinal-group: 5;
+      -ms-flex-order: 4;
+          order: 4;
+}
+
+#five {
+  -webkit-box-ordinal-group: 6;
+      -ms-flex-order: 5;
+          order: 5;
+}
+
+#six {
+  -webkit-box-ordinal-group: 7;
+      -ms-flex-order: 6;
+          order: 6;
+}
+
+#seven {
+  -webkit-box-ordinal-group: 8;
+      -ms-flex-order: 7;
+          order: 7;
+}
+
+#eight {
+  -webkit-box-ordinal-group: 9;
+      -ms-flex-order: 8;
+          order: 8;
+}
+
+#nine {
+  -webkit-box-ordinal-group: 9;
+      -ms-flex-order: 8;
+          order: 8;
 }
 /*# sourceMappingURL=style.css.map */

@@ -111,11 +111,48 @@ main {
     background-color: aqua;
 }
 
-.small-circle {
+.current-circle {
     width: 20px;
     height: 20px;
     border-radius: 20px;
     border: 1px solid black;
     margin-right: 10px;
     background-color: grey;
+}
+
+.prev-circle {
+    @extend .current-circle;
+    background-color: green;
+}
+
+.square.over {
+    border: 2px dashed #000;
+}
+
+#one {
+    order: 1;
+}
+#two {
+    order: 2;
+}
+#three {
+    order: 3;
+}
+#four{
+    order: 4;
+}
+#five {
+    order: 5;
+}
+#six {
+    order: 6;
+}
+#seven {
+    order: 7;
+}
+#eight {
+    order: 8;
+}
+#nine {
+    order: 8;
 }
