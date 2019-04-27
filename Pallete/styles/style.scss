@@ -125,17 +125,27 @@ main {
     background-color: green;
 }
 
+.red-circle {
+    @extend .current-circle;
+    background-color: red;
+}
+
+.blue-circle {
+    @extend .current-circle;
+    background-color: blue;
+}
+
 .square.over {
     border: 2px dashed #000;
 }
 
-#one {
+.one {
     order: 1;
 }
-#two {
+.two {
     order: 2;
 }
-#three {
+.three {
     order: 3;
 }
 #four{
@@ -154,5 +164,5 @@ main {
     order: 8;
 }
 #nine {
-    order: 8;
+    order: 9;
 }

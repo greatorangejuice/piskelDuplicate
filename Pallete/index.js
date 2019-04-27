@@ -144,11 +144,22 @@ function transform() {
 
 
 function moveDND() {
-    console.log("MOVE");
+    console.log("SWAP!!!");
     
+    var tempValue = null;
+
     function handleDragStart(e) {
-        this.style.opacity = '0.4';  // this / e.target is the source node.
-      }
+        
+        tempValue = this;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', window.getComputedStyle(this).order );
+        console.log(window.getComputedStyle(this).order);
+
+
+                        // console.log(window.getComputedStyle(this).order);
+                        // tempValue = window.getComputedStyle(this).order;
+                        // e.dataTransfer.setData("text", window.getComputedStyle(this).order);
+    }
 
       function handleDragOver(e) {
         if (e.preventDefault) {
@@ -156,28 +167,39 @@ function moveDND() {
         }
       
         e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-        console.log(e.dataTransfer);
         return false;
       }
       
       function handleDragEnter(e) {
-        // this / e.target is the current hover target.
         this.classList.add('over');
       }
       
       function handleDragLeave(e) {
-        this.classList.remove('over');  // this / e.target is previous target element.
+        this.classList.remove('over');  
       }
 
       function handleDrop(e) {
-        // this / e.target is current target element.
-      
         if (e.stopPropagation) {
-          e.stopPropagation(); // stops the browser from redirecting.
+          e.stopPropagation(); 
         }
+        if (tempValue != this) {
+            //  e.target.style.order = 5;
+            // console.log(e.target.style.order);
+            tempValue.order = window.getComputedStyle(this).order
+            e.target.style.order = e.dataTransfer.getData('text/html');
+
+            // window.getComputedStyle(this).order = 5;
+           
+            // e.target.style.order = e.dataTransfer.getData('text/html');
+          }
       
-        // See the section on the DataTransfer object.
-      
+        //OLD VERS
+                    // var data = e.dataTransfer.getData("Text");
+                    // console.log(data);
+                    // e.target.style.order = data;
+                    // console.log("NEW " + e.target.style.order);
+        // OLD VERS
+
         return false;
       }
       
