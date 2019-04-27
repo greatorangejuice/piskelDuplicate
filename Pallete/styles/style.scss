@@ -110,3 +110,12 @@ main {
 .customColor {
     background-color: aqua;
 }
+
+.small-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    margin-right: 10px;
+    background-color: grey;
+}
