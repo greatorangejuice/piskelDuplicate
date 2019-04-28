@@ -1,0 +1,14 @@
+{
+  "name": "pallete",
+  "version": "1.0.0",
+  "description": "Code-jam app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
