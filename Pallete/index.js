@@ -16,6 +16,7 @@ const removeEvent = (func) => {
         }
     })
 }
+// Активация по кнопкам
 document.addEventListener('keyup', (e) => {
     if (e.keyCode == "80") {
         paintBucket();
@@ -30,13 +31,11 @@ document.addEventListener('keyup', (e) => {
         transform();
     };
 })
-
+// Добавление слушателя на первую панель и активация функций
 firstPallete.addEventListener("click", (e) => {
     let target = e.target;
-    console.log(e.target);
     while (target != this) {
         if (target.tagName == 'BUTTON') {
-            // console.log(e.target.dataset.action)
             let action = e.target.dataset.action;
             switch (action) {
                 case 'paintBucket':
@@ -58,7 +57,6 @@ firstPallete.addEventListener("click", (e) => {
     }
 });
 
-// Добавить на каждый метод по слушателю!
 // Добавить на кружок слушатель, чтобы менять цвет!
 
 function paintBucket() {
@@ -71,78 +69,35 @@ function paintBucket() {
     removeEvent(paint)
 }
 
-// Как вариант - вынести слушатели второй палетки отдельно. А Чузер  будет пипеткой цветов.
-
 function chooseColor() {
     console.log(`chooseColor function work`);
-    // secondPallete.style.cursor = "url('./assets/choose-color.png'), auto";
-    const getColor = (e) => {
-        let target = e.target;
-        console.log(e.target);
-        while (target != this) {
-            if (target.tagName == 'BUTTON') {
-                let color = e.target.dataset.color;
-                let buttonValue = e.target.dataset.id
-                switch (buttonValue) {
-                    case 'current':
-                        console.log(`Choosed current color!`, color);
-                        // ПРЯМО СЮДА ПОПРОБОВАТЬ ДОБАВИТЬ ПАЛИТРУ
-                        break;
-                    case 'previous':
-                        currentColor.dataset.color = color;
-                        currentColorIdentificator.style.backgroundColor = color;
-                        console.log(`Choosed`, color);
-                        break;
-                    case 'red':
-                        if (prevColor.dataset.color != currentColor.dataset.color) {
-                            prevColor.dataset.color = currentColor.dataset.color;
-                            prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-                        }
-                        currentColorIdentificator.style.backgroundColor = color;
-                        currentColor.dataset.color = 'red'
-                        console.log(`Choosed`, color);
-                        break;
-                    case 'blue':
-                        if (prevColor.dataset.color != currentColor.dataset.color) {
-                            prevColor.dataset.color = currentColor.dataset.color;
-                            prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-                        }
-                        currentColorIdentificator.style.backgroundColor = color;
-                        currentColor.dataset.color = 'blue'
-                        console.log(`Choosed`, color);
-                        break;
-                }
-                return;
-            }
-            target = target.parentNode;
-        }
+    document.body.style.cursor = "url(./assets/choose-color.png), auto";
+
+    function checkColor() {
+        let color = window.getComputedStyle(this).backgroundColor;
+
+        if (currentColor.dataset.color == color) return;
+        prevColor.dataset.color = currentColor.dataset.color;
+        prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+        currentColor.dataset.color = color;
+        currentColorIdentificator.style.backgroundColor = color;
     }
-    secondPallete.addEventListener("click", getColor);
-    removeEvent(getColor);
-}
 
-function move_old() {
-    console.log(`move function work`);
-    document.body.style.cursor = "url('./assets/move.png'), auto";
+    var blocks = document.querySelectorAll('.square');
+    [].forEach.call(blocks, function (e) {
+        e.addEventListener('click', checkColor);
+    });
 
-    const drag = (e) => {
-        let target = e.target;
-        console.log(e.target);
-
-        while (target != this) {
-            if (target.tagName == 'DIV') {
-                target.style.position = "absolute";
-
-                return
-            }
-            target = target.parentNode;
+    document.addEventListener('keyup', (e) => {
+        if (e.keyCode == "27") {
+            [].forEach.call(blocks, function (e) {
+                e.removeEventListener('click', checkColor);
+            });
+            document.body.style.cursor = "";
+            console.log(`Removed`);
         }
-    }
-    canvas.addEventListener("mousedown", drag);
-
-    removeEvent(drag)
+    })
 }
-
 
 function transform() {
     console.log(`transform function work`);
@@ -153,9 +108,6 @@ function transform() {
     canvas.addEventListener('click', toggleCircle);
     removeEvent(toggleCircle)
 }
-
-
-
 
 function move() {
     console.log("SWAP!!!");
@@ -235,4 +187,94 @@ function move() {
         col.addEventListener('dragend', handleDragEnd, false);
     });
 
+}
+
+
+
+
+// function testRemove (){
+//     for (let i = 0; i < arguments.length; i++) {
+
+
+//     document.addEventListener('keyup', (e) => {
+//         if (e.keyCode == "27") {
+
+//             canvas.removeEventListener('click', arguments[i]);
+//             document.removeEventListener('click', arguments[i]);
+//             document.body.style.cursor = "";
+//             console.log(`Test removed`);
+//         }
+//     })
+// }
+// }
+
+// testRemove(paintBucket, chooseColor, move, transform);
+
+
+function move_old() {
+    console.log(`move function work`);
+    document.body.style.cursor = "url('./assets/move.png'), auto";
+
+    const drag = (e) => {
+        let target = e.target;
+        console.log(e.target);
+
+        while (target != this) {
+            if (target.tagName == 'DIV') {
+                target.style.position = "absolute";
+
+                return
+            }
+            target = target.parentNode;
+        }
+    }
+    canvas.addEventListener("mousedown", drag);
+
+    removeEvent(drag)
+}
+
+
+function chooseColor_old() {
+    console.log(`chooseColor function work`);
+    // secondPallete.style.cursor = "url('./assets/choose-color.png'), auto";
+    const getColor = (e) => {
+        let target = e.target;
+        console.log(e.target);
+        while (target != this) {
+            if (target.tagName == 'BUTTON') {
+                let color = e.target.dataset.color;
+                let buttonValue = e.target.dataset.id
+                switch (buttonValue) {
+                    case 'current':
+                        console.log(`Choosed current color!`, color);
+                        // ПРЯМО СЮДА ПОПРОБОВАТЬ ДОБАВИТЬ ПАЛИТРУ
+                        break;
+                    case 'previous':
+                        currentColor.dataset.color = color;
+                        currentColorIdentificator.style.backgroundColor = color;
+                        break;
+                    case 'red':
+                        if (prevColor.dataset.color != currentColor.dataset.color) {
+                            prevColor.dataset.color = currentColor.dataset.color;
+                            prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+                        }
+                        currentColorIdentificator.style.backgroundColor = color;
+                        currentColor.dataset.color = 'red'
+                        break;
+                    case 'blue':
+                        if (prevColor.dataset.color != currentColor.dataset.color) {
+                            prevColor.dataset.color = currentColor.dataset.color;
+                            prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+                        }
+                        currentColorIdentificator.style.backgroundColor = color;
+                        currentColor.dataset.color = 'blue'
+                        break;
+                }
+                return;
+            }
+            target = target.parentNode;
+        }
+    }
+    secondPallete.addEventListener("click", getColor);
+    removeEvent(getColor);
 }
