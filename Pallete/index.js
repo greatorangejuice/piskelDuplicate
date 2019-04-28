@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 let secondPallete = document.querySelector("#second-pallete");
@@ -5,6 +6,15 @@ let currentColor = document.querySelector('#current-color');
 let prevColor = document.querySelector('#previous-color');
 let currentColorIdentificator = document.querySelector('.current-circle');
 let prevColorIdentificator = document.querySelector('.prev-circle');
+
+let state = {
+    currentColor: "grey",
+    previousColor: "green",
+
+}
+// Через state постоянный обмен данными не нужен. Только записывать в него, и проверять его состояние
+// лишь раз, при запуске функции. 
+
 // Удаление слушателя
 const removeEvent = (func) => {
     document.addEventListener('keyup', (e) => {
@@ -14,6 +24,7 @@ const removeEvent = (func) => {
         }
     })
 }
+
 // Активация по кнопкам
 document.addEventListener('keyup', (e) => {
     if (e.keyCode == "80") {
@@ -29,8 +40,9 @@ document.addEventListener('keyup', (e) => {
         transform();
     }
 })
+
 // Добавление слушателя на первую панель и активация функций
-firstPallete.addEventListener("click", (e) => {
+const getActionButtons = (e) => {
     let target = e.target;
     while (target != this) {
         if (target.tagName == 'BUTTON') {
@@ -53,11 +65,10 @@ firstPallete.addEventListener("click", (e) => {
         }
         target = target.parentNode;
     }
-});
+};
+firstPallete.addEventListener("click", getActionButtons);
 
-
-
-const getColor = (e) => {
+const getColorButtons = (e) => {
     let target = e.target;
     while (target != this) {
         if (target.tagName == 'BUTTON') {
@@ -92,8 +103,7 @@ const getColor = (e) => {
         target = target.parentNode;
     }
 }
-
-secondPallete.addEventListener("click", getColor);
+secondPallete.addEventListener("click", getColorButtons);
 
 // Добавить на кружок слушатель, чтобы менять цвет!
 
@@ -220,6 +230,8 @@ function move() {
     });
 
 }
+
+
 
 
 
