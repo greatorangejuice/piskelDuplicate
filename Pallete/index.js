@@ -232,6 +232,10 @@ function move() {
 }
 
 
+let inputColor = document.querySelector('.input-color');
+inputColor.addEventListener("click", function() {
+    console.log(this.value);
+})
 
 
 
