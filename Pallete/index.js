@@ -1,9 +1,9 @@
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 let secondPallete = document.querySelector("#second-pallete");
-let currentColor = document.querySelector('#current-color');
+// let currentColor = document.querySelector('#current-color');
 let prevColor = document.querySelector('#previous-color');
-let currentColorIdentificator = document.querySelector('.current-circle');
+// let currentColorIdentificator = document.querySelector('.current-circle');
 let prevColorIdentificator = document.querySelector('.prev-circle');
 let inputColor = document.querySelector('.input-color');
 inputColor.value = "#676767";
@@ -15,17 +15,26 @@ let state = {
     color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
     form: [],
 };
+ 
 
 //Запускаю функцию, которая обновляет Стейт, а после применяю все значения стейта по адресам.
 
 console.log(state);
-let stateInJSON = JSON.stringify(state)
+let stateInJSON = JSON.stringify(state);
 console.log(stateInJSON);
 // localStorage.setItem(JSON.stringify(state));
 console.log(JSON.parse(stateInJSON));
 // console.log(localStorage);
 // Через state постоянный обмен данными не нужен. Только записывать в него, и проверять его состояние
 // лишь раз, при запуске функции. 
+localStorage.setItem("state", stateInJSON);
+
+// (function(){
+//     console.log(localStorage);
+//     console.log(JSON.parse(localStorage.state));
+//     let dataFromLocalStorage = JSON.parse(localStorage.state);
+//     inputColor.value = dataFromLocalStorage.currentColor;
+// })();
 
 let keyBoadrKeysCodes = {
     ESC: "27",
@@ -167,7 +176,8 @@ function checkColor() {
 
     function rgbToHex(r, g, b) {
         return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-    };
+    }
+
     if (inputColor.value == hexColor) return;
     state.previousColor = inputColor.value;
     prevColor.dataset.color = inputColor.value;
