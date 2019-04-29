@@ -15,6 +15,9 @@ let state = {
     color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
     form: [],
 };
+
+//Запускаю функцию, которая обновляет Стейт, а после применяю все значения стейта по адресам.
+
 console.log(state);
 let stateInJSON = JSON.stringify(state)
 console.log(stateInJSON);
@@ -166,9 +169,11 @@ function checkColor() {
         return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
     };
     if (inputColor.value == hexColor) return;
+    state.previousColor = inputColor.value;
     prevColor.dataset.color = inputColor.value;
     prevColorIdentificator.style.backgroundColor = inputColor.value;
     inputColor.value = hexColor;
+    state.currentColor = hexColor;
 }
 
 function removeChooseColor() {
