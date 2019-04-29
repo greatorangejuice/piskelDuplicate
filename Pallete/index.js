@@ -6,6 +6,14 @@ let currentColor = document.querySelector('#current-color');
 let prevColor = document.querySelector('#previous-color');
 let currentColorIdentificator = document.querySelector('.current-circle');
 let prevColorIdentificator = document.querySelector('.prev-circle');
+let inputColor = document.querySelector('.input-color');
+inputColor.value = "#676767";
+
+inputColor.addEventListener("click", function() {
+    console.log(this.value);
+})
+
+
 
 let state = {
     currentColor: "grey",
@@ -75,28 +83,38 @@ const getColorButtons = (e) => {
         if (target.tagName == 'BUTTON') {
             let color = e.target.dataset.color;
             let buttonValue = e.target.dataset.id
+
             switch (buttonValue) {
                 case 'current':
                     // console.log(`Choosed current color!`, color);
                     // ПРЯМО СЮДА ПОПРОБОВАТЬ ДОБАВИТЬ ПАЛИТРУ
                     break;
                 case 'previous':
-                    currentColor.dataset.color = color;
-                    currentColorIdentificator.style.backgroundColor = color;
+                    // currentColor.dataset.color = color;
+                    inputColor.value = color;
+                    // currentColorIdentificator.style.backgroundColor = color;
                     break;
                 case 'red':
-                    if (currentColor.dataset.color == color) return;
-                    prevColor.dataset.color = currentColor.dataset.color;
-                    prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-                    currentColorIdentificator.style.backgroundColor = color;
-                    currentColor.dataset.color = 'red';
+                    // if (currentColor.dataset.color == color) return;
+                    // prevColor.dataset.color = currentColor.dataset.color;
+                    // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+                    // currentColorIdentificator.style.backgroundColor = color;
+                    // currentColor.dataset.color = 'red';
+                    if (inputColor.value == color) return;
+                        prevColor.dataset.color = inputColor.value;
+                        prevColorIdentificator.style.backgroundColor = inputColor.value;
+                        inputColor.value = "#ff0000";
                     break;
                 case 'blue':
-                    if (currentColor.dataset.color == color) return;
-                    prevColor.dataset.color = currentColor.dataset.color;
-                    prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-                    currentColorIdentificator.style.backgroundColor = color;
-                    currentColor.dataset.color = 'blue';
+                    // if (currentColor.dataset.color == color) return;
+                    // prevColor.dataset.color = currentColor.dataset.color;
+                    // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+                    // // currentColorIdentificator.style.backgroundColor = color;
+                    // currentColor.dataset.color = 'blue';
+                    if (inputColor.value == color) return;
+                    prevColor.dataset.color = inputColor.value;
+                    prevColorIdentificator.style.backgroundColor = inputColor.value;
+                    inputColor.value = "#0000ff";
                     break;
             }
             return;
@@ -110,8 +128,11 @@ secondPallete.addEventListener("click", getColorButtons);
 
 function paintBucket() {
     document.body.style.cursor = "url('./assets/paint-bucket.png'), auto";
+    // const paint = (e) => {
+    //     e.target.style.backgroundColor = currentColor.dataset.color;
+    // }
     const paint = (e) => {
-        e.target.style.backgroundColor = currentColor.dataset.color;
+        e.target.style.backgroundColor = inputColor.value;
     }
     canvas.addEventListener('click', paint);
     removeEvent(paint)
@@ -122,12 +143,29 @@ function chooseColor() {
 
     function checkColor() {
         let color = window.getComputedStyle(this).backgroundColor;
-
-        if (currentColor.dataset.color == color) return;
-        prevColor.dataset.color = currentColor.dataset.color;
-        prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-        currentColor.dataset.color = color;
-        currentColorIdentificator.style.backgroundColor = color;
+        let hexColor = "";
+            var e = color.replace("rgb(","").replace(")","").split(",");
+        let r = +e[0];
+            let g = +e[1];
+            let b = +e[2];
+            hexColor = rgbToHex(r,g,b);
+        function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+        
+        function rgbToHex(r, g, b) {
+            return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+        // if (currentColor.dataset.color == color) return;
+        // prevColor.dataset.color = currentColor.dataset.color;
+        // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+        // currentColor.dataset.color = color;
+        // currentColorIdentificator.style.backgroundColor = color;
+        if (inputColor.value == hexColor) return;
+        prevColor.dataset.color = inputColor.value;
+        prevColorIdentificator.style.backgroundColor = inputColor.value;
+        inputColor.value = hexColor;
     }
 
     var blocks = document.querySelectorAll('.square');
@@ -159,24 +197,16 @@ function move() {
     var tempValue = null;
 
     function handleDragStart(e) {
-        console.log(window.getComputedStyle(this).style);
-        console.log();
         tempValue = this;
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-
-        // eslint-disable-next-line no-console
-        console.log(window.getComputedStyle(this).order);
-        // tempValue = window.getComputedStyle(this).order;
-        // e.dataTransfer.setData("text", window.getComputedStyle(this).order);
     }
 
     function handleDragOver(e) {
         if (e.preventDefault) {
             e.preventDefault();
         }
-
-        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+        e.dataTransfer.dropEffect = 'move';  
         return false;
     }
 
@@ -193,23 +223,14 @@ function move() {
             e.stopPropagation();
         }
         if (tempValue != this) {
-            //  e.target.style.order = 5;
-            // console.log(e.target.style.order);
             tempValue.style.order = window.getComputedStyle(this).order;
             e.target.style.order = e.dataTransfer.getData('text/html'); 
-
-            // window.getComputedStyle(this).order = 5;
-
-            // e.target.style.order = e.dataTransfer.getData('text/html');
         }
-
- 
 
         return false;
     }
 
     function handleDragEnd() {
-        // this/e.target is the source node.
 
         [].forEach.call(cols, function (col) {
             col.classList.remove('over');
@@ -229,13 +250,23 @@ function move() {
 }
 
 
-let inputColor = document.querySelector('.input-color');
-inputColor.addEventListener("click", function() {
-    console.log(this.value);
-})
 
 
 
+// var hexDigits = new Array
+//         ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+
+// //Function to convert rgb color to hex format
+// function rgb2hex(rgb) {
+//  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+//  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+// }
+
+// function hex(x) {
+//   return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+//  }
+
+// "rgba(0, 0, 0, 0.2)"
 
 // function testRemove (...rest){
 //     for (let i = 0; i < rest.length; i++) {
