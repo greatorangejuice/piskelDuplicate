@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 let secondPallete = document.querySelector("#second-pallete");
@@ -49,6 +49,7 @@ const getActionButtons = (e) => {
             let action = e.target.dataset.action;
             switch (action) {
                 case 'paintBucket':
+                    // remove event
                     paintBucket();
                     break;
                 case 'chooseColor':
@@ -158,7 +159,8 @@ function move() {
     var tempValue = null;
 
     function handleDragStart(e) {
-
+        console.log(window.getComputedStyle(this).style);
+        console.log();
         tempValue = this;
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
@@ -193,20 +195,15 @@ function move() {
         if (tempValue != this) {
             //  e.target.style.order = 5;
             // console.log(e.target.style.order);
-            tempValue.order = window.getComputedStyle(this).order
-            e.target.style.order = e.dataTransfer.getData('text/html');
+            tempValue.style.order = window.getComputedStyle(this).order;
+            e.target.style.order = e.dataTransfer.getData('text/html'); 
 
             // window.getComputedStyle(this).order = 5;
 
             // e.target.style.order = e.dataTransfer.getData('text/html');
         }
 
-        //OLD VERS
-        // var data = e.dataTransfer.getData("Text");
-        // console.log(data);
-        // e.target.style.order = data;
-        // console.log("NEW " + e.target.style.order);
-        // OLD VERS
+ 
 
         return false;
     }
@@ -240,15 +237,15 @@ inputColor.addEventListener("click", function() {
 
 
 
-// function testRemove (){
-//     for (let i = 0; i < arguments.length; i++) {
+// function testRemove (...rest){
+//     for (let i = 0; i < rest.length; i++) {
 
 
 //     document.addEventListener('keyup', (e) => {
 //         if (e.keyCode == "27") {
 
-//             canvas.removeEventListener('click', arguments[i]);
-//             document.removeEventListener('click', arguments[i]);
+//             canvas.removeEventListener('click', rest[i]);
+//             document.removeEventListener('click', rest[i]);
 //             document.body.style.cursor = "";
 //             console.log(`Test removed`);
 //         }
