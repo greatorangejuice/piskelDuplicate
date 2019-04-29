@@ -1,4 +1,3 @@
-
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 let secondPallete = document.querySelector("#second-pallete");
@@ -9,47 +8,57 @@ let prevColorIdentificator = document.querySelector('.prev-circle');
 let inputColor = document.querySelector('.input-color');
 inputColor.value = "#676767";
 
-inputColor.addEventListener("click", function() {
-    console.log(this.value);
-})
-
-
-
 let state = {
-    currentColor: "grey",
-    previousColor: "green",
-
-}
+    currentColor: "#676767",
+    previousColor: "#007100",
+    order: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
+    form: [],
+};
+console.log(state);
+let stateInJSON = JSON.stringify(state)
+console.log(stateInJSON);
+// localStorage.setItem(JSON.stringify(state));
+console.log(JSON.parse(stateInJSON));
+// console.log(localStorage);
 // Через state постоянный обмен данными не нужен. Только записывать в него, и проверять его состояние
 // лишь раз, при запуске функции. 
 
-// Удаление слушателя
-const removeEvent = (func) => {
+let keyBoadrKeysCodes = {
+    ESC: "27",
+    P: "80",
+    C: "67",
+    M: "77",
+    T: "84",
+};
+
+const addEventRemover = (func) => {
     document.addEventListener('keyup', (e) => {
-        if (e.keyCode == "27") {
+        if (e.keyCode == keyBoadrKeysCodes.ESC) {
             canvas.removeEventListener('click', func);
             document.body.style.cursor = "";
         }
     })
+};
+
+const addActiveButtons = () => {
+    document.addEventListener('keyup', (e) => {
+        if (e.keyCode == keyBoadrKeysCodes.P) {
+            paintBucket();
+        }
+        if (e.keyCode == keyBoadrKeysCodes.C) {
+            chooseColor();
+        }
+        if (e.keyCode == keyBoadrKeysCodes.M) {
+            move();
+        }
+        if (e.keyCode == keyBoadrKeysCodes.T) {
+            transform();
+        }
+    });
 }
+addActiveButtons();
 
-// Активация по кнопкам
-document.addEventListener('keyup', (e) => {
-    if (e.keyCode == "80") {
-        paintBucket();
-    }
-    if (e.keyCode == "67") {
-        chooseColor();
-    }
-    if (e.keyCode == "77") {
-        move();
-    }
-    if (e.keyCode == "84") {
-        transform();
-    }
-})
-
-// Добавление слушателя на первую панель и активация функций
 const getActionButtons = (e) => {
     let target = e.target;
     while (target != this) {
@@ -57,7 +66,6 @@ const getActionButtons = (e) => {
             let action = e.target.dataset.action;
             switch (action) {
                 case 'paintBucket':
-                    // remove event
                     paintBucket();
                     break;
                 case 'chooseColor':
@@ -86,35 +94,24 @@ const getColorButtons = (e) => {
 
             switch (buttonValue) {
                 case 'current':
-                    // console.log(`Choosed current color!`, color);
-                    // ПРЯМО СЮДА ПОПРОБОВАТЬ ДОБАВИТЬ ПАЛИТРУ
                     break;
                 case 'previous':
-                    // currentColor.dataset.color = color;
                     inputColor.value = color;
-                    // currentColorIdentificator.style.backgroundColor = color;
+                    state.currentColor = color;
                     break;
                 case 'red':
-                    // if (currentColor.dataset.color == color) return;
-                    // prevColor.dataset.color = currentColor.dataset.color;
-                    // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-                    // currentColorIdentificator.style.backgroundColor = color;
-                    // currentColor.dataset.color = 'red';
                     if (inputColor.value == color) return;
-                        prevColor.dataset.color = inputColor.value;
-                        prevColorIdentificator.style.backgroundColor = inputColor.value;
-                        inputColor.value = "#ff0000";
+                    prevColor.dataset.color = inputColor.value;
+                    prevColorIdentificator.style.backgroundColor = inputColor.value;
+                    inputColor.value = "#ff0000";
+                    state.currentColor = "#ff0000";
                     break;
                 case 'blue':
-                    // if (currentColor.dataset.color == color) return;
-                    // prevColor.dataset.color = currentColor.dataset.color;
-                    // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-                    // // currentColorIdentificator.style.backgroundColor = color;
-                    // currentColor.dataset.color = 'blue';
                     if (inputColor.value == color) return;
                     prevColor.dataset.color = inputColor.value;
                     prevColorIdentificator.style.backgroundColor = inputColor.value;
                     inputColor.value = "#0000ff";
+                    state.currentColor = "#0000ff";
                     break;
             }
             return;
@@ -124,50 +121,18 @@ const getColorButtons = (e) => {
 }
 secondPallete.addEventListener("click", getColorButtons);
 
-// Добавить на кружок слушатель, чтобы менять цвет!
-
 function paintBucket() {
+    removeChooseColor();
     document.body.style.cursor = "url('./assets/paint-bucket.png'), auto";
-    // const paint = (e) => {
-    //     e.target.style.backgroundColor = currentColor.dataset.color;
-    // }
     const paint = (e) => {
         e.target.style.backgroundColor = inputColor.value;
     }
     canvas.addEventListener('click', paint);
-    removeEvent(paint)
+    addEventRemover(paint)
 }
 
 function chooseColor() {
     document.body.style.cursor = "url(./assets/choose-color.png), auto";
-
-    function checkColor() {
-        let color = window.getComputedStyle(this).backgroundColor;
-        let hexColor = "";
-            var e = color.replace("rgb(","").replace(")","").split(",");
-        let r = +e[0];
-            let g = +e[1];
-            let b = +e[2];
-            hexColor = rgbToHex(r,g,b);
-        function componentToHex(c) {
-            var hex = c.toString(16);
-            return hex.length == 1 ? "0" + hex : hex;
-        }
-        
-        function rgbToHex(r, g, b) {
-            return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-        }
-        // if (currentColor.dataset.color == color) return;
-        // prevColor.dataset.color = currentColor.dataset.color;
-        // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
-        // currentColor.dataset.color = color;
-        // currentColorIdentificator.style.backgroundColor = color;
-        if (inputColor.value == hexColor) return;
-        prevColor.dataset.color = inputColor.value;
-        prevColorIdentificator.style.backgroundColor = inputColor.value;
-        inputColor.value = hexColor;
-    }
-
     var blocks = document.querySelectorAll('.square');
     [].forEach.call(blocks, function (e) {
         e.addEventListener('click', checkColor);
@@ -183,17 +148,48 @@ function chooseColor() {
     })
 }
 
+function checkColor() {
+    let color = window.getComputedStyle(this).backgroundColor;
+    let hexColor = "";
+    var e = color.replace("rgb(", "").replace(")", "").split(",");
+    let r = +e[0];
+    let g = +e[1];
+    let b = +e[2];
+    hexColor = rgbToHex(r, g, b);
+
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    };
+    if (inputColor.value == hexColor) return;
+    prevColor.dataset.color = inputColor.value;
+    prevColorIdentificator.style.backgroundColor = inputColor.value;
+    inputColor.value = hexColor;
+}
+
+function removeChooseColor() {
+    var blocks = document.querySelectorAll('.square');
+    [].forEach.call(blocks, function (e) {
+        e.removeEventListener('click', checkColor);
+    });
+    document.body.style.cursor = "";
+}
+
 function transform() {
     document.body.style.cursor = "url('./assets/trasform.png'), auto";
     const toggleCircle = (e) => {
         e.target.classList.toggle('circle');
     }
     canvas.addEventListener('click', toggleCircle);
-    removeEvent(toggleCircle)
+    addEventRemover(toggleCircle)
 }
 
 function move() {
-
+    document.body.style.cursor = "url('./assets/move.png'), auto";
     var tempValue = null;
 
     function handleDragStart(e) {
@@ -206,7 +202,7 @@ function move() {
         if (e.preventDefault) {
             e.preventDefault();
         }
-        e.dataTransfer.dropEffect = 'move';  
+        e.dataTransfer.dropEffect = 'move';
         return false;
     }
 
@@ -224,7 +220,7 @@ function move() {
         }
         if (tempValue != this) {
             tempValue.style.order = window.getComputedStyle(this).order;
-            e.target.style.order = e.dataTransfer.getData('text/html'); 
+            e.target.style.order = e.dataTransfer.getData('text/html');
         }
 
         return false;
@@ -238,6 +234,7 @@ function move() {
     }
 
     var cols = document.querySelectorAll('.square');
+
     [].forEach.call(cols, function (col) {
         col.addEventListener('dragstart', handleDragStart, false);
         col.addEventListener('dragenter', handleDragEnter, false);
@@ -247,26 +244,24 @@ function move() {
         col.addEventListener('dragend', handleDragEnd, false);
     });
 
+    document.addEventListener('keyup', (e) => {
+        if (e.keyCode == "27") {
+            [].forEach.call(cols, function (col) {
+                col.removeEventListener('dragstart', handleDragStart, false);
+                col.removeEventListener('dragenter', handleDragEnter, false);
+                col.removeEventListener('dragover', handleDragOver, false);
+                col.removeEventListener('dragleave', handleDragLeave, false);
+                col.removeEventListener('drop', handleDrop, false);
+                col.removeEventListener('dragend', handleDragEnd, false);
+            });
+            document.body.style.cursor = "";
+        }
+    })
+
 }
 
 
 
-
-
-// var hexDigits = new Array
-//         ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
-
-// //Function to convert rgb color to hex format
-// function rgb2hex(rgb) {
-//  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-//  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-// }
-
-// function hex(x) {
-//   return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
-//  }
-
-// "rgba(0, 0, 0, 0.2)"
 
 // function testRemove (...rest){
 //     for (let i = 0; i < rest.length; i++) {
@@ -314,4 +309,179 @@ function move() {
 
 //     secondPallete.addEventListener("click", getColor);
 //     removeEvent(getColor);
+// }
+
+
+
+// const getColorButtons = (e) => {
+//     let target = e.target;
+//     while (target != this) {
+//         if (target.tagName == 'BUTTON') {
+//             let color = e.target.dataset.color;
+//             let buttonValue = e.target.dataset.id
+
+//             switch (buttonValue) {
+//                 case 'current':
+//                     // console.log(`Choosed current color!`, color);
+//                     // ПРЯМО СЮДА ПОПРОБОВАТЬ ДОБАВИТЬ ПАЛИТРУ
+//                     break;
+//                 case 'previous':
+//                     // currentColor.dataset.color = color;
+//                     inputColor.value = color;
+//                     // currentColorIdentificator.style.backgroundColor = color;
+//                     break;
+//                 case 'red':
+//                     // if (currentColor.dataset.color == color) return;
+//                     // prevColor.dataset.color = currentColor.dataset.color;
+//                     // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+//                     // currentColorIdentificator.style.backgroundColor = color;
+//                     // currentColor.dataset.color = 'red';
+//                     if (inputColor.value == color) return;
+//                     prevColor.dataset.color = inputColor.value;
+//                     prevColorIdentificator.style.backgroundColor = inputColor.value;
+//                     inputColor.value = "#ff0000";
+//                     break;
+//                 case 'blue':
+//                     // if (currentColor.dataset.color == color) return;
+//                     // prevColor.dataset.color = currentColor.dataset.color;
+//                     // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+//                     // // currentColorIdentificator.style.backgroundColor = color;
+//                     // currentColor.dataset.color = 'blue';
+//                     if (inputColor.value == color) return;
+//                     prevColor.dataset.color = inputColor.value;
+//                     prevColorIdentificator.style.backgroundColor = inputColor.value;
+//                     inputColor.value = "#0000ff";
+//                     break;
+//             }
+//             return;
+//         }
+//         target = target.parentNode;
+//     }
+// }
+// secondPallete.addEventListener("click", getColorButtons);
+
+// // Добавить на кружок слушатель, чтобы менять цвет!
+
+// function paintBucket() {
+//     document.body.style.cursor = "url('./assets/paint-bucket.png'), auto";
+//     // const paint = (e) => {
+//     //     e.target.style.backgroundColor = currentColor.dataset.color;
+//     // }
+//     const paint = (e) => {
+//         e.target.style.backgroundColor = inputColor.value;
+//     }
+//     canvas.addEventListener('click', paint);
+//     addEventRemover(paint)
+// }
+
+// function chooseColor() {
+//     document.body.style.cursor = "url(./assets/choose-color.png), auto";
+
+//     function checkColor() {
+//         let color = window.getComputedStyle(this).backgroundColor;
+//         let hexColor = "";
+//         var e = color.replace("rgb(", "").replace(")", "").split(",");
+//         let r = +e[0];
+//         let g = +e[1];
+//         let b = +e[2];
+//         hexColor = rgbToHex(r, g, b);
+
+//         function componentToHex(c) {
+//             var hex = c.toString(16);
+//             return hex.length == 1 ? "0" + hex : hex;
+//         }
+
+//         function rgbToHex(r, g, b) {
+//             return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+//         }
+//         // if (currentColor.dataset.color == color) return;
+//         // prevColor.dataset.color = currentColor.dataset.color;
+//         // prevColorIdentificator.style.backgroundColor = currentColor.dataset.color;
+//         // currentColor.dataset.color = color;
+//         // currentColorIdentificator.style.backgroundColor = color;
+//         if (inputColor.value == hexColor) return;
+//         prevColor.dataset.color = inputColor.value;
+//         prevColorIdentificator.style.backgroundColor = inputColor.value;
+//         inputColor.value = hexColor;
+//     }
+
+//     var blocks = document.querySelectorAll('.square');
+//     [].forEach.call(blocks, function (e) {
+//         e.addEventListener('click', checkColor);
+//     });
+
+//     document.addEventListener('keyup', (e) => {
+//         if (e.keyCode == "27") {
+//             [].forEach.call(blocks, function (e) {
+//                 e.removeEventListener('click', checkColor);
+//             });
+//             document.body.style.cursor = "";
+//         }
+//     })
+// }
+
+// function transform() {
+//     document.body.style.cursor = "url('./assets/trasform.png'), auto";
+//     const toggleCircle = (e) => {
+//         e.target.classList.toggle('circle');
+//     }
+//     canvas.addEventListener('click', toggleCircle);
+//     addEventRemover(toggleCircle)
+// }
+
+// function move() {
+//     document.body.style.cursor = "url('./assets/move.png'), auto";
+//     var tempValue = null;
+
+//     function handleDragStart(e) {
+//         tempValue = this;
+//         e.dataTransfer.effectAllowed = 'move';
+//         e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+//     }
+
+//     function handleDragOver(e) {
+//         if (e.preventDefault) {
+//             e.preventDefault();
+//         }
+//         e.dataTransfer.dropEffect = 'move';
+//         return false;
+//     }
+
+//     function handleDragEnter() {
+//         this.classList.add('over');
+//     }
+
+//     function handleDragLeave() {
+//         this.classList.remove('over');
+//     }
+
+//     function handleDrop(e) {
+//         if (e.stopPropagation) {
+//             e.stopPropagation();
+//         }
+//         if (tempValue != this) {
+//             tempValue.style.order = window.getComputedStyle(this).order;
+//             e.target.style.order = e.dataTransfer.getData('text/html');
+//         }
+
+//         return false;
+//     }
+
+//     function handleDragEnd() {
+
+//         [].forEach.call(cols, function (col) {
+//             col.classList.remove('over');
+//         });
+//     }
+
+//     var cols = document.querySelectorAll('.square');
+//     [].forEach.call(cols, function (col) {
+//         col.addEventListener('dragstart', handleDragStart, false);
+//         col.addEventListener('dragenter', handleDragEnter, false);
+//         col.addEventListener('dragover', handleDragOver, false);
+//         col.addEventListener('dragleave', handleDragLeave, false);
+//         col.addEventListener('drop', handleDrop, false);
+//         col.addEventListener('dragend', handleDragEnd, false);
+//     });
+
 // }

@@ -62,7 +62,7 @@ main {
 
     .pallete-button {
         display: flex;
-        padding: 17px;
+        padding: 17px 17px 17px 13px;
         align-content: center;
         align-items: center;
         margin: auto 0;
@@ -92,7 +92,6 @@ main {
             height: 200px;
             background-color: #7d7d7d;
             margin: 5px;
-            // opacity: 0.7;
         }
     
         .circle {
@@ -101,7 +100,6 @@ main {
             background-color: #7d7d7d;
             border-radius: 100px;
             margin: 5px;
-            // opacity: 0.7;
         }
     }
 
@@ -173,6 +171,9 @@ main {
 
 .input-color {
     border-radius: 32px;
+
+    margin-right: 10px;
+    border: 1px solid black;
 }
 input[type="color"] {
 	-webkit-appearance: none;
@@ -187,4 +188,5 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 input[type="color"]::-webkit-color-swatch {
     border: none;
     border-radius: 32px;
+    
 }
