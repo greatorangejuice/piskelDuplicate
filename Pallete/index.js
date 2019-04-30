@@ -14,7 +14,17 @@ var state = {
     previousColor: "",
     order: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
-    form: ["square", "square", "square", "square", "square", "square", "square circle", "square", "square"],
+    form: {
+        one: "square",
+        two: "square",
+        three: "square",
+        four: "square",
+        five: "square",
+        six: "square",
+        seven: "square circle",
+        eight: "square",
+        nine: "square",
+    }
 };
 updateAppAfterReload();
 
@@ -185,7 +195,18 @@ function removeChooseColor() {
 function transform() {
     document.body.style.cursor = "url('./assets/trasform.png'), auto";
     const toggleCircle = (e) => {
+
         e.target.classList.toggle('circle');
+
+        let blockClasses = Array.from(e.target.classList);
+        console.log(blockClasses);
+        let id = e.target.id;
+        let classesInString = blockClasses.join(" ");
+        console.log(state.form[id]);
+        state.form[id] = classesInString;
+        console.log(classesInString);
+        console.log(state.form[id]);
+        updateStateInLocalStorage();
     }
     canvas.addEventListener('click', toggleCircle);
     addEventRemover(toggleCircle)
@@ -281,11 +302,17 @@ function updateAppAfterReload() {
         prevColorIdentificator.style.backgroundColor = dataFromLocalStorage.previousColor;
 
 
-    } else {
-        console.log("work too");
-    }
-}
 
+        let allBlocks = Array.from(canvas.querySelectorAll('div'));
+        for (let i = 0; i < allBlocks.length; i++) {
+            allBlocks[i].className = dataFromLocalStorage.form[allBlocks[i].id];
+            state.form[allBlocks[i].id] = dataFromLocalStorage.form[allBlocks[i].id];
+        }
+
+        
+
+    } 
+}
 
 
 
