@@ -6,35 +6,17 @@ let prevColor = document.querySelector('#previous-color');
 // let currentColorIdentificator = document.querySelector('.current-circle');
 let prevColorIdentificator = document.querySelector('.prev-circle');
 let inputColor = document.querySelector('.input-color');
+
 inputColor.value = "#676767";
 
-let state = {
-    currentColor: "#676767",
-    previousColor: "#007100",
+var state = {
+    currentColor: "",
+    previousColor: "",
     order: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
-    form: [],
+    form: ["square", "square", "square", "square", "square", "square", "square circle", "square", "square"],
 };
- 
-
-//Запускаю функцию, которая обновляет Стейт, а после применяю все значения стейта по адресам.
-
-console.log(state);
-let stateInJSON = JSON.stringify(state);
-console.log(stateInJSON);
-// localStorage.setItem(JSON.stringify(state));
-console.log(JSON.parse(stateInJSON));
-// console.log(localStorage);
-// Через state постоянный обмен данными не нужен. Только записывать в него, и проверять его состояние
-// лишь раз, при запуске функции. 
-localStorage.setItem("state", stateInJSON);
-
-// (function(){
-//     console.log(localStorage);
-//     console.log(JSON.parse(localStorage.state));
-//     let dataFromLocalStorage = JSON.parse(localStorage.state);
-//     inputColor.value = dataFromLocalStorage.currentColor;
-// })();
+updateAppAfterReload();
 
 let keyBoadrKeysCodes = {
     ESC: "27",
@@ -110,20 +92,25 @@ const getColorButtons = (e) => {
                 case 'previous':
                     inputColor.value = color;
                     state.currentColor = color;
+                    updateStateInLocalStorage();
                     break;
                 case 'red':
                     if (inputColor.value == color) return;
                     prevColor.dataset.color = inputColor.value;
+                    state.previousColor = inputColor.value; //
                     prevColorIdentificator.style.backgroundColor = inputColor.value;
                     inputColor.value = "#ff0000";
-                    state.currentColor = "#ff0000";
+                    state.currentColor = "#ff0000"; //
+                    updateStateInLocalStorage(); //
                     break;
                 case 'blue':
                     if (inputColor.value == color) return;
                     prevColor.dataset.color = inputColor.value;
+                    state.previousColor = inputColor.value;
                     prevColorIdentificator.style.backgroundColor = inputColor.value;
                     inputColor.value = "#0000ff";
                     state.currentColor = "#0000ff";
+                    updateStateInLocalStorage();
                     break;
             }
             return;
@@ -184,6 +171,7 @@ function checkColor() {
     prevColorIdentificator.style.backgroundColor = inputColor.value;
     inputColor.value = hexColor;
     state.currentColor = hexColor;
+    updateStateInLocalStorage();
 }
 
 function removeChooseColor() {
@@ -275,11 +263,91 @@ function move() {
 
 }
 
+
+
+function updateStateInLocalStorage() {
+    let stateInJSON = JSON.stringify(state);
+    localStorage.setItem("appState", stateInJSON);
+}
+
+function updateAppAfterReload() {
+    if (localStorage["appState"]) {
+        let dataFromLocalStorage = JSON.parse(localStorage.appState);
+
+        state.currentColor = dataFromLocalStorage.currentColor;
+        state.previousColor = dataFromLocalStorage.previousColor;
+        inputColor.value = dataFromLocalStorage.currentColor;
+        prevColor.dataset.color = dataFromLocalStorage.previousColor;
+        prevColorIdentificator.style.backgroundColor = dataFromLocalStorage.previousColor;
+
+
+    } else {
+        console.log("work too");
+    }
+}
+
+
+
+
+// case 'red':
+// if (inputColor.value == color) return;
+// prevColor.dataset.color = inputColor.value;
+// state.previousColor = inputColor.value; //
+// prevColorIdentificator.style.backgroundColor = inputColor.value;
+// inputColor.value = "#ff0000";
+// state.currentColor = "#ff0000"; //
+// updateStateInLocalStorage(); //
+// break;
+// case 'blue':
+// if (inputColor.value == color) return;
+// prevColor.dataset.color = inputColor.value;
+// state.previousColor = inputColor.value;
+// prevColorIdentificator.style.backgroundColor = inputColor.value;
+// inputColor.value = "#0000ff";
+// state.currentColor = "#0000ff";
+// updateStateInLocalStorage();
+// break;
+
+
+
+// var state = {
+//     currentColor: "",
+//     previousColor: "",
+//     order: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+//     color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
+//     form: [],
+// };
+
+//Запускаю функцию, которая обновляет Стейт, а после применяю все значения стейта по адресам.
+
+// window.onload = setLocalStorageData;
+
+// console.log(stateInJSON);
+// localStorage.setItem(JSON.stringify(state));
+// console.log(JSON.parse(stateInJSON));
+// console.log(localStorage);
+// Через state постоянный обмен данными не нужен. Только записывать в него, и проверять его состояние
+// лишь раз, при запуске функции. 
+// localStorage.setItem("state", stateInJSON);
+
+// (function(){
+//     console.log(localStorage);
+//     console.log(JSON.parse(localStorage.state));
+//     let dataFromLocalStorage = JSON.parse(localStorage.state);
+//     inputColor.value = dataFromLocalStorage.currentColor;
+// })();
+
+
+
+
+
+
+
 let removeButton = document.getElementsByClassName("remove-button")[0];
 let notification = document.getElementById("notification");
 let checkBox = document.getElementById("disable-checkbox");
 
-(function() {
+(function () {
     if (localStorage["checked"] == "false" || !localStorage["checked"]) {
         setTimeout(() => notification.classList.remove("hide"), 1000);
     }
@@ -287,16 +355,19 @@ let checkBox = document.getElementById("disable-checkbox");
 
 checkBox.addEventListener("change", () => {
     if (checkBox.checked) {
-        localStorage.setItem("checked", "true") 
+        localStorage.setItem("checked", "true")
     } else {
         localStorage.removeItem("checked");
     }
-    
+
 })
 
-removeButton.addEventListener("click", function() {
+removeButton.addEventListener("click", function () {
     this.parentNode.classList.add("hide");
 })
+
+
+
 
 // function testRemove (...rest){
 //     for (let i = 0; i < rest.length; i++) {
