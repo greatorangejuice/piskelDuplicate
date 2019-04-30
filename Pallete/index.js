@@ -275,8 +275,28 @@ function move() {
 
 }
 
+let removeButton = document.getElementsByClassName("remove-button")[0];
+let notification = document.getElementById("notification");
+let checkBox = document.getElementById("disable-checkbox");
 
+(function() {
+    if (localStorage["checked"] == "false" || !localStorage["checked"]) {
+        setTimeout(() => notification.classList.remove("hide"), 1000);
+    }
+})()
 
+checkBox.addEventListener("change", () => {
+    if (checkBox.checked) {
+        localStorage.setItem("checked", "true") 
+    } else {
+        localStorage.removeItem("checked");
+    }
+    
+})
+
+removeButton.addEventListener("click", function() {
+    this.parentNode.classList.add("hide");
+})
 
 // function testRemove (...rest){
 //     for (let i = 0; i < rest.length; i++) {

@@ -194,3 +194,56 @@ input[type="color"]::-webkit-color-swatch {
     border-radius: 32px;
     
 }
+
+
+
+#notification {
+    position: relative;
+    height: 40%;
+    width: 35%;
+    padding: 5px;
+    background-color: #C1F7EE;
+    top: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    animation: display 1s ease-in-out;
+}
+
+@keyframes display {
+    from {
+        position: fixed;
+        text-shadow: 0 0 3px black;
+        top: -700px;
+    }
+}
+
+.remove-button {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.hide {
+    display: none;
+    transition: 1000ms ease-in-out;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    align-content: flex-end;
+    padding: 5px;
+}
+
+.wrapper p {
+    padding: 3px;
+}
+
+.disableBox {
+    width: 15px;
+    height: 15px;
+}
