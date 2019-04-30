@@ -4,7 +4,6 @@ let secondPallete = document.querySelector("#second-pallete");
 let prevColor = document.querySelector('#previous-color');
 let prevColorIdentificator = document.querySelector('.prev-circle');
 let inputColor = document.querySelector('.input-color');
-
 inputColor.value = "#676767";
 
 var state = {
@@ -150,6 +149,7 @@ secondPallete.addEventListener("click", getColorButtons);
 
 function paintBucket() {
     removeChooseColor();
+    removeTransform()
     document.body.style.cursor = "url('./assets/paint-bucket.png'), auto";
     const paint = (e) => {
         e.target.style.backgroundColor = inputColor.value;
@@ -162,6 +162,7 @@ function paintBucket() {
 }
 
 function chooseColor() {
+    removeTransform();
     document.body.style.cursor = "url(./assets/choose-color.png), auto";
     var blocks = document.querySelectorAll('.square');
     [].forEach.call(blocks, function (e) {
@@ -213,23 +214,30 @@ function removeChooseColor() {
     document.body.style.cursor = "";
 }
 
+function toggleCircle (e) {
+e.target.classList.toggle('circle');
+let blockClasses = Array.from(e.target.classList);
+let id = e.target.id;
+let classesInString = blockClasses.join(" ");
+state.form[id] = classesInString;
+updateStateInLocalStorage();
+}
+
 function transform() {
+    removeChooseColor();
     document.body.style.cursor = "url('./assets/trasform.png'), auto";
-    const toggleCircle = (e) => {
-
-        e.target.classList.toggle('circle');
-
-        let blockClasses = Array.from(e.target.classList);
-        let id = e.target.id;
-        let classesInString = blockClasses.join(" ");
-        state.form[id] = classesInString;
-        updateStateInLocalStorage();
-    }
     canvas.addEventListener('click', toggleCircle);
     addEventRemover(toggleCircle)
 }
 
+function removeTransform() {
+    canvas.removeEventListener('click', toggleCircle);
+    document.body.style.cursor = "";
+}
+
 function move() {
+    removeTransform();
+    removeChooseColor();
     document.body.style.cursor = "url('./assets/move.png'), auto";
     var tempValue = null;
 
@@ -304,7 +312,6 @@ function move() {
             document.body.style.cursor = "";
         }
     })
-
 }
 
 function updateStateInLocalStorage() {
