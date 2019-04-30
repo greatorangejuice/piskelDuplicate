@@ -1,9 +1,7 @@
 let firstPallete = document.querySelector("#first-pallete");
 let canvas = document.querySelector('.canvas');
 let secondPallete = document.querySelector("#second-pallete");
-// let currentColor = document.querySelector('#current-color');
 let prevColor = document.querySelector('#previous-color');
-// let currentColorIdentificator = document.querySelector('.current-circle');
 let prevColorIdentificator = document.querySelector('.prev-circle');
 let inputColor = document.querySelector('.input-color');
 

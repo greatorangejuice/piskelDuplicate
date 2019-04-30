@@ -194,12 +194,13 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 #notification {
-    position: relative;
-    height: 40%;
-    width: 35%;
+    position: absolute;
+    height: 200px;
+    width: 300px;
     padding: 5px;
     background-color: #C1F7EE;
     top: 10px;
+    right: 20px;
     border-radius: 10px;
     font-size: 14px;
     animation: display 1s ease-in-out;
@@ -208,7 +209,6 @@ input[type="color"]::-webkit-color-swatch {
 @keyframes display {
     from {
         position: fixed;
-        text-shadow: 0 0 3px black;
         top: -700px;
     }
 }
@@ -232,7 +232,7 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     align-items: center;
     align-content: flex-end;
-    padding: 5px;
+    padding: 10px;
 }
 
 .wrapper p {
