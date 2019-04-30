@@ -151,17 +151,25 @@ function paintBucket() {
     removeChooseColor();
     removeTransform()
     document.body.style.cursor = "url('./assets/paint-bucket.png'), auto";
-    const paint = (e) => {
+ 
+    canvas.addEventListener('click', paint);
+    addEventRemover(paint)
+}
+
+function paint(e) {
         e.target.style.backgroundColor = inputColor.value;
         let id = e.target.id;
         state.color[id] = inputColor.value;
         updateStateInLocalStorage();
     }
-    canvas.addEventListener('click', paint);
-    addEventRemover(paint)
+
+function removePaintBucket() {
+    canvas.removeEventListener('click', paint);
+    document.body.style.cursor = "";
 }
 
 function chooseColor() {
+    removePaintBucket();
     removeTransform();
     document.body.style.cursor = "url(./assets/choose-color.png), auto";
     var blocks = document.querySelectorAll('.square');
@@ -224,6 +232,7 @@ updateStateInLocalStorage();
 }
 
 function transform() {
+    removePaintBucket()
     removeChooseColor();
     document.body.style.cursor = "url('./assets/trasform.png'), auto";
     canvas.addEventListener('click', toggleCircle);
@@ -236,6 +245,7 @@ function removeTransform() {
 }
 
 function move() {
+    removePaintBucket()
     removeTransform();
     removeChooseColor();
     document.body.style.cursor = "url('./assets/move.png'), auto";
