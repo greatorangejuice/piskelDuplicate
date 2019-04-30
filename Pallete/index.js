@@ -13,7 +13,17 @@ var state = {
     currentColor: "",
     previousColor: "",
     order: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    color: ["#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d", "#7d7d7d"],
+    color: {
+        one: "#7d7d7d",
+        two: "#7d7d7d",
+        three: "#7d7d7d",
+        four: "#7d7d7d",
+        five: "#7d7d7d",
+        six: "#7d7d7d",
+        seven: "#7d7d7d",
+        eight: "#7d7d7d",
+        nine: "#7d7d7d",
+    },
     form: {
         one: "square",
         two: "square",
@@ -107,11 +117,11 @@ const getColorButtons = (e) => {
                 case 'red':
                     if (inputColor.value == color) return;
                     prevColor.dataset.color = inputColor.value;
-                    state.previousColor = inputColor.value; //
+                    state.previousColor = inputColor.value; 
                     prevColorIdentificator.style.backgroundColor = inputColor.value;
                     inputColor.value = "#ff0000";
-                    state.currentColor = "#ff0000"; //
-                    updateStateInLocalStorage(); //
+                    state.currentColor = "#ff0000"; 
+                    updateStateInLocalStorage(); 
                     break;
                 case 'blue':
                     if (inputColor.value == color) return;
@@ -135,6 +145,9 @@ function paintBucket() {
     document.body.style.cursor = "url('./assets/paint-bucket.png'), auto";
     const paint = (e) => {
         e.target.style.backgroundColor = inputColor.value;
+        let id = e.target.id;
+        state.color[id] = inputColor.value;
+        updateStateInLocalStorage();
     }
     canvas.addEventListener('click', paint);
     addEventRemover(paint)
@@ -199,13 +212,9 @@ function transform() {
         e.target.classList.toggle('circle');
 
         let blockClasses = Array.from(e.target.classList);
-        console.log(blockClasses);
         let id = e.target.id;
         let classesInString = blockClasses.join(" ");
-        console.log(state.form[id]);
         state.form[id] = classesInString;
-        console.log(classesInString);
-        console.log(state.form[id]);
         updateStateInLocalStorage();
     }
     canvas.addEventListener('click', toggleCircle);
@@ -309,7 +318,11 @@ function updateAppAfterReload() {
             state.form[allBlocks[i].id] = dataFromLocalStorage.form[allBlocks[i].id];
         }
 
-        
+        for (let i = 0; i < allBlocks.length; i++) {
+            let tempBlockById = document.getElementById(allBlocks[i].id);
+            tempBlockById.style.backgroundColor = dataFromLocalStorage.color[allBlocks[i].id];
+            state.color[allBlocks[i].id] = dataFromLocalStorage.color[allBlocks[i].id];
+        }
 
     } 
 }
