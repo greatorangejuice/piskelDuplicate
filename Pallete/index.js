@@ -12,7 +12,17 @@ inputColor.value = "#676767";
 var state = {
     currentColor: "",
     previousColor: "",
-    order: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    order: {
+        one: 1,
+        two: 2,
+        three: 3,
+        four: 4,
+        five: 5,
+        six: 6,
+        seven: 7,
+        eight: 8,
+        nine: 9,
+    },
     color: {
         one: "#7d7d7d",
         two: "#7d7d7d",
@@ -253,7 +263,13 @@ function move() {
         }
         if (tempValue != this) {
             tempValue.style.order = window.getComputedStyle(this).order;
-            e.target.style.order = e.dataTransfer.getData('text/html');
+            let prevBlockId = tempValue.id;
+            state.order[prevBlockId] = window.getComputedStyle(this).order;
+            e.target.style.order = e.dataTransfer.getData('text/html');         
+            let currentBlockId = e.target.id;
+            state.order[currentBlockId] = e.dataTransfer.getData('text/html');
+
+            updateStateInLocalStorage();
         }
 
         return false;
@@ -324,6 +340,11 @@ function updateAppAfterReload() {
             state.color[allBlocks[i].id] = dataFromLocalStorage.color[allBlocks[i].id];
         }
 
+        for (let i = 0; i < allBlocks.length; i++) {
+            let tempBlockById = document.getElementById(allBlocks[i].id);
+            tempBlockById.style.order = dataFromLocalStorage.order[allBlocks[i].id];
+            state.order[allBlocks[i].id] = dataFromLocalStorage.order[allBlocks[i].id];
+        }
     } 
 }
 
