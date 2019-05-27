@@ -1,7 +1,7 @@
 {
   "name": "piskel-clone",
   "version": "0.0.1",
-  "description": "",
+  "description": "description",
   "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --watch",
@@ -10,6 +10,12 @@
   },
   "author": "Pavel Snigirev",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/greatorangejuice-2019Q1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
@@ -19,7 +25,10 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.2",
     "eslint-plugin-import": "^2.17.3",
+    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "lodash-loader": "^2.0.0",
+    "raw-loader": "^2.0.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",

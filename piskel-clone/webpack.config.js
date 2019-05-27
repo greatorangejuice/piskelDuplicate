@@ -24,5 +24,11 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new HtmlWebpackPlugin({
+    title: 'piskel-clone',
+    template: './src/screens/canvas/index.html',
+    meta: {
+      viewport: 'width=device-width, initial-scale=1',
+    },
+  })],
 };
