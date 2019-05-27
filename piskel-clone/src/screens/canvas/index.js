@@ -1,5 +1,10 @@
+import Tools from '../../components/tools/toolsbar';
+
 export default class App {
   start() {
-    console.log('test');
+    const tools = new Tools();
+    // tools.checkToolsBar();
+    const canvasTools = document.querySelector('.canvas-tools');
+    canvasTools.addEventListener('click', tools.getActionButtons);
   }
 }

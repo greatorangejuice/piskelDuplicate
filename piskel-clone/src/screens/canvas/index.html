@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Piskel-clone</title>
 </head>
+
 <body>
-<header>
-  <div class="nav">
-    <ul>
-      <li>Home</li>
-      <li>About</li>
-      <li>Github</li>
-    </ul>
-  </div>
-</header>
-<main>
-  <section class="canvas-field">
-    <canvas id="canvas" class="canvas"></canvas>
-  </section>
-</main>
+  <header>
+    <div class="nav">
+      <ul>
+        <li>Home</li>
+        <li>About</li>
+        <li>Github</li>
+      </ul>
+    </div>
+  </header>
+  <main>
+    <div class="wrapper">
+      <div class="canvas-tools">
+        <button data-action="pen-tool" class="pen-tool" id="pen-tool">Pen</button>
+        <button data-action="bucket-tool" class="bucket-tool"  id="bucket-tool">Paintbucket</button>
+        <button data-action="triangle-tool" class="triangle-toold" id="triangle-tool">Triangle</button>
+      </div>
+
+      <section class="canvas-field">
+        <canvas id="canvas" class="canvas"></canvas>
+      </section>
+    </div>
+  </main>
 </body>
+
 </html>
