@@ -1,7 +1,6 @@
 canvas {
-  width: 32px;
-  height: 32px;
   border: 1px solid black;
+  display: block;
 }
 
 button {
@@ -20,9 +19,69 @@ button {
           flex-direction: column;
 }
 
-main .wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.grid {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "header header header" "tools canvas-field layers";
+  -ms-grid-rows: 50px 1fr;
+      grid-template-rows: 50px 1fr;
+  -ms-grid-columns: 1fr 3fr 1fr;
+      grid-template-columns: 1fr 3fr 1fr;
+  height: 100vh;
+}
+
+.grid .header {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: header;
+}
+
+.grid .tools-bar {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: tools;
+}
+
+.grid .canvas-field {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: canvas-field;
+}
+
+.grid .layers-tools {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: layers;
+  position: relative;
+}
+
+.canvas-size {
+  position: absolute;
+  right: 5px;
+  -webkit-animation: display 1s ease-in-out;
+          animation: display 1s ease-in-out;
+}
+
+@-webkit-keyframes display {
+  from {
+    position: fixed;
+    right: -700px;
+  }
+}
+
+@keyframes display {
+  from {
+    position: fixed;
+    right: -700px;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+* {
+  overflow-x: hidden;
 }
 /*# sourceMappingURL=style.css.map */

@@ -9,29 +9,40 @@
 </head>
 
 <body>
-  <header>
-    <div class="nav">
-      <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Github</li>
-      </ul>
-    </div>
-  </header>
-  <main>
-    <div class="wrapper">
+  <div class="grid">
+    <header class="header">
+    </header>
+    <div class="tools-bar">
       <div class="canvas-tools">
-        <button data-action="canvas-size-tool" class="canvas-size-tool">Change size</button>
-        <button data-action="pen-tool" class="pen-tool" id="pen-tool">Pen</button>
-        <button data-action="bucket-tool" class="bucket-tool"  id="bucket-tool">Paintbucket</button>
-        <button data-action="triangle-tool" class="triangle-toold" id="triangle-tool">Triangle</button>
-      </div>
 
-      <section class="canvas-field">
-        <canvas id="canvas" class="canvas"></canvas>
-      </section>
+          <button data-action="pen-tool" class="pen-tool" id="pen-tool">Pen</button>
+          <button data-action="bucket-tool" class="bucket-tool" id="bucket-tool">Paintbucket</button>
+          <button data-action="triangle-tool" class="triangle-toold" id="triangle-tool">Triangle</button>
+
+      </div>
+      <input type="color" class="js-color-picker">
+      <input type="range" class="js-line-range" min="1" max="72" value="1">
+      <label class="js-range-value">1</label>Px
     </div>
-  </main>
+    <div class="canvas-field">
+      <canvas id="canvas" class="canvas" width="600" height="300"></canvas>
+    </div>
+    <div class="layers-tools">
+      <div class="canvas-field-properties">
+          <button data-action="canvas-size-tool" class="canvas-size-tool">Field size</button>
+      </div>
+      <div class="cords">
+        <span class="x-coord">0</span>
+        <span class="y-coord">0</span>
+      </div>
+      <div class="canvas-size hide">
+          <button>32x32</button>
+          <button>128x128</button>
+          <button>256x256</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

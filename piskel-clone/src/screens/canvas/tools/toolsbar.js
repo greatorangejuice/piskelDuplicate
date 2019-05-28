@@ -1,10 +1,12 @@
+import Pen from './pen';
+
 /* eslint-disable prefer-destructuring */
 export default class Tools {
   setToolsbar() {
     const canvasTools = document.querySelector('.canvas-tools');
     const canvas = document.querySelector('.canvas');
     const ctx = canvas.getContext('2d');
-
+    const pen = new Pen();
 
     const getTriangle = () => {
       console.log('triangle-tool');
@@ -24,6 +26,7 @@ export default class Tools {
           switch (action) {
             case 'pen-tool':
               console.log('pen-tool');
+              pen.getPen();
               break;
             case 'bucket-tool':
               console.log('bucket-tool');
