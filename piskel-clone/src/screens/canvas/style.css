@@ -1,6 +1,10 @@
-canvas {
-  border: 1px solid black;
-  display: block;
+.canvas {
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-pixelated;
+      image-rendering: pixelated;
+  background-image: url(/src/screens/canvas/images/bg.png);
 }
 
 button {

@@ -1,14 +1,14 @@
-canvas {
-  // width: 500px;
-  // height: 500px;
-  border: 1px solid black;
-  display: block;
+.canvas {
+  image-rendering: pixelated;
+  background-image: url(/src/screens/canvas/images/bg.png);
 }
+
 button {
   width: 85px;
   height: 30px;
   margin: 2px;
 }
+
 .canvas-tools {
   display: flex;
   flex-direction: column;
@@ -17,8 +17,8 @@ button {
 .grid {
   display: grid;
   grid-template-areas:
-  "header header header"
-  "tools canvas-field layers";
+    "header header header"
+    "tools canvas-field layers";
   grid-template-rows: 50px 1fr;
   grid-template-columns: 1fr 3fr 1fr;
   height: 100vh;
@@ -26,19 +26,22 @@ button {
   .header {
     grid-area: header;
   }
+
   .tools-bar {
     grid-area: tools;
   }
+
   .canvas-field {
     grid-area: canvas-field;
   }
+
   .layers-tools {
     grid-area: layers;
     position: relative;
   }
 }
 
-.canvas-size{
+.canvas-size {
   position: absolute;
   right: 5px;
   animation: display 1s ease-in-out;
@@ -46,8 +49,8 @@ button {
 
 @keyframes display {
   from {
-      position: fixed;
-      right: -700px;
+    position: fixed;
+    right: -700px;
   }
 }
 
