@@ -10,15 +10,6 @@ export default class Pen {
       context.strokeStyle = event.target.value;
     });
 
-    // const lineWidthRange = document.querySelector('.js-line-range');
-    // const lineWidthLabel = document.querySelector('.js-range-value');
-
-    // lineWidthRange.addEventListener('input', (event) => {
-    //   const width = event.target.value;
-    //   lineWidthLabel.innerHTML = width;
-    //   context.lineWidth = width;
-    // });
-
     let x = 0;
     let y = 0;
     let isMouseDown = false;
@@ -34,9 +25,14 @@ export default class Pen {
       if (isMouseDown) {
         const newX = event.offsetX;
         const newY = event.offsetY;
+        console.log(x, y);
+        console.log(newX, newY);
         context.beginPath();
         context.moveTo(x, y);
-        context.lineTo(newX, newY);
+        // context.lineTo(newX, newY);
+        // context.fillRect(newX, newY, 5, 5);
+        context.fillStyle = picture.pixel(x, y);
+        context.fillRect(x * 10, y * 10, 10, 10);
         context.stroke();
         [x, y] = [newX, newY];
       }
