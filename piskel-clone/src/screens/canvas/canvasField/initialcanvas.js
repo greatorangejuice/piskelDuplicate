@@ -5,7 +5,7 @@ export default class GetInitialCanvas {
 
   getCanvas() {
     const canvas = document.querySelector('canvas');
-    canvas.width = 32 * this.scale;
-    canvas.height = 32 * this.scale;
+    canvas.width = 128;
+    canvas.height = 128;
   }
 }

@@ -9,19 +9,32 @@ module.exports = {
   },
   devtool: 'source-map',
   module: {
-    rules: [
-      { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader' },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
+    rules: [{
+      enforce: 'pre',
+      test: /\.js$/,
+      loader: 'eslint-loader',
+    },
+    {
+      test: /\.js$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+      },
+    },
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader'],
+    },
+    {
+      test: /\.(png|jp(e*)g|svg)$/,
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 8000,
+          name: '.src//screens/canvas/images/[hash]-[name].[ext]',
         },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
+      }],
+    },
     ],
   },
   plugins: [new HtmlWebpackPlugin({

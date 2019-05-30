@@ -1,3 +1,7 @@
+* {
+  overflow-x: hidden;
+}
+
 .canvas {
   -ms-interpolation-mode: nearest-neighbor;
       image-rendering: -webkit-optimize-contrast;
@@ -5,22 +9,6 @@
       image-rendering: -o-pixelated;
       image-rendering: pixelated;
   background-image: url(/src/screens/canvas/images/bg.png);
-}
-
-button {
-  width: 85px;
-  height: 30px;
-  margin: 2px;
-}
-
-.canvas-tools {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 .grid {
@@ -45,12 +33,24 @@ button {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: tools;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .grid .canvas-field {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: canvas-field;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .grid .layers-tools {
@@ -58,6 +58,29 @@ button {
   -ms-grid-column: 3;
   grid-area: layers;
   position: relative;
+}
+
+.tool {
+  width: 45px;
+  height: 40px;
+  margin: 2px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.tool:hover {
+  background-color: #808080;
+}
+
+.canvas-tools {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .canvas-size {
@@ -83,9 +106,5 @@ button {
 
 .hide {
   display: none;
-}
-
-* {
-  overflow-x: hidden;
 }
 /*# sourceMappingURL=style.css.map */

@@ -16,12 +16,15 @@ export default class Tools {
       console.log('change size');
       ctx.scale(2, 2);
     };
+    const paintBucket = () => {
+      ctx.scale(2, 2);
+    };
 
 
     const getActionButtons = (e) => {
       let target = e.target;
       while (target !== this) {
-        if (target.tagName === 'BUTTON') {
+        if (target.tagName === 'BUTTON' || target.tagName === 'IMG') {
           const action = e.target.dataset.action;
           switch (action) {
             case 'pen-tool':
@@ -30,6 +33,7 @@ export default class Tools {
               break;
             case 'bucket-tool':
               console.log('bucket-tool');
+              paintBucket();
               break;
             case 'triangle-tool':
               getTriangle();

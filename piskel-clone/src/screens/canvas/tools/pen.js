@@ -4,11 +4,11 @@ export default class Pen {
     const context = paintCanvas.getContext('2d');
     context.lineCap = 'square';
 
-    const colorPicker = document.querySelector('.js-color-picker');
+    // const colorPicker = document.querySelector('.js-color-picker');
 
-    colorPicker.addEventListener('change', (event) => {
-      context.strokeStyle = event.target.value;
-    });
+    // colorPicker.addEventListener('change', (event) => {
+    //   context.strokeStyle = event.target.value;
+    // });
 
     let x = 0;
     let y = 0;
@@ -28,15 +28,16 @@ export default class Pen {
         console.log(x, y);
         console.log(newX, newY);
         context.beginPath();
-        context.moveTo(x, y);
+        context.moveTo(x, y); // * 10 = 3d tube
         context.lineTo(newX, newY);
         // context.fillRect(newX, newY, 5, 5);
         // context.fillStyle = picture.pixel(x, y);
-        context.fillRect(x * 10, y * 10, 10, 10);
+        // context.rect(x * 10, y * 10, 10, 10);
         context.stroke();
         [x, y] = [newX, newY];
       }
     };
+    // Path2d можно будет заюзать, чтобы сохранять результат.
 
     paintCanvas.addEventListener('mousedown', startDrawing);
     paintCanvas.addEventListener('mousemove', drawLine);
