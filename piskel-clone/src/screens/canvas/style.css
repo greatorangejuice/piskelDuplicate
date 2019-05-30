@@ -14,18 +14,18 @@
 .grid {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: "header header header" "tools canvas-field layers";
+      grid-template-areas: "header header header header" "tools frames canvas-field layers";
   -ms-grid-rows: 50px 1fr;
       grid-template-rows: 50px 1fr;
-  -ms-grid-columns: 1fr 3fr 1fr;
-      grid-template-columns: 1fr 3fr 1fr;
+  -ms-grid-columns: 0.5fr 256px 3fr 1fr;
+      grid-template-columns: 0.5fr 256px 3fr 1fr;
   height: 100vh;
 }
 
 .grid .header {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
+  -ms-grid-column-span: 4;
   grid-area: header;
 }
 
@@ -41,9 +41,31 @@
           align-items: center;
 }
 
-.grid .canvas-field {
+.grid .frames-bar {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
+  grid-area: frames;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.grid .add-frame-tool {
+  width: 85px;
+  height: 40px;
+  margin: 2px;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.grid .canvas-field {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
   grid-area: canvas-field;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -55,7 +77,7 @@
 
 .grid .layers-tools {
   -ms-grid-row: 2;
-  -ms-grid-column: 3;
+  -ms-grid-column: 4;
   grid-area: layers;
   position: relative;
 }
@@ -69,6 +91,7 @@
   background-color: white;
 }
 
+.add-frame-tool:hover,
 .tool:hover {
   background-color: #808080;
 }
