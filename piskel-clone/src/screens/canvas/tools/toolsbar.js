@@ -17,7 +17,7 @@ export default class Tools {
       ctx.scale(2, 2);
     };
     const paintBucket = () => {
-      ctx.scale(2, 2);
+      ctx.clearRect(0, 0, 512, 512);
     };
 
 
