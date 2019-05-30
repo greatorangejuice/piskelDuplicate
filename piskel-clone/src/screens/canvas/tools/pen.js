@@ -29,9 +29,9 @@ export default class Pen {
         console.log(newX, newY);
         context.beginPath();
         context.moveTo(x, y);
-        // context.lineTo(newX, newY);
+        context.lineTo(newX, newY);
         // context.fillRect(newX, newY, 5, 5);
-        context.fillStyle = picture.pixel(x, y);
+        // context.fillStyle = picture.pixel(x, y);
         context.fillRect(x * 10, y * 10, 10, 10);
         context.stroke();
         [x, y] = [newX, newY];
