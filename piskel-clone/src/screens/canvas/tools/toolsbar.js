@@ -27,8 +27,8 @@ export default class Tools {
         if (isMouseDown) {
           const newX = event.offsetX;
           const newY = event.offsetY;
-          console.log(x, y);
-          console.log(newX, newY);
+          // console.log(x, y);
+          // console.log(newX, newY);
           context.beginPath();
           context.moveTo(x, y); // * 10 = 3d tube
           context.lineTo(newX, newY);

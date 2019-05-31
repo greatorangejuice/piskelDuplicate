@@ -5,8 +5,9 @@ import GetInitialCanvas from './canvasField/initialcanvas';
 
 export default class App {
   start() {
-    const canvas = new GetInitialCanvas(10);
+    const canvas = new GetInitialCanvas();
     canvas.getCanvas();
+    canvas.getFrameTools();
     const tools = new Tools();
     tools.setToolsbar();
     const coords = new GetPosition();

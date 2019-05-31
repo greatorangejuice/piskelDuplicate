@@ -30,8 +30,15 @@
     grid-area: frames;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
+
   .add-frame-tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    right: 0;
     width: 85px;
     height: 40px;
     margin: 2px;
@@ -39,10 +46,26 @@
     border-radius: 5px;
     background-color: rgb(255, 255, 255);
   }
-  // .frame {
-  //   display: flex;
-  //   flex-direction: column;
-  // }
+
+  .frame {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border: 1px solid black;
+    margin: 5px 0;
+  }
+
+  .delete-frame {
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-image: url('/../../src/screens/canvas/images/garbage.svg')
+  }
+
+  .layers-field {
+    display: flex;
+  }
 
   .canvas-field {
     grid-area: canvas-field;
@@ -53,6 +76,12 @@
   .layers-tools {
     grid-area: layers;
     position: relative;
+  }
+
+  .animated-canvas {
+    width: 128px;
+    height: 128px;
+    border: 1px solid black;
   }
 }
 
@@ -66,6 +95,8 @@
   border-radius: 5px;
   background-color: white;
 }
+
+.delete-frame:hover,
 .add-frame-tool:hover,
 .tool:hover {
   background-color: #808080;
