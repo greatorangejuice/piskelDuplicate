@@ -2,7 +2,7 @@
   overflow-x: hidden;
 }
 
-.canvas {
+canvas {
   -ms-interpolation-mode: nearest-neighbor;
       image-rendering: -webkit-optimize-contrast;
       image-rendering: -moz-crisp-edges;
@@ -76,14 +76,20 @@
 }
 
 .grid .frame {
-  position: relative;
   border: 1px solid black;
   margin: 5px 0;
 }
 
+.grid .frame-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .grid .delete-frame {
-  position: absolute;
-  right: 0;
   width: 20px;
   height: 20px;
   background-image: url("/../../src/screens/canvas/images/garbage.svg");

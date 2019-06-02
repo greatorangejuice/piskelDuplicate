@@ -2,7 +2,7 @@
   overflow-x: hidden;
 }
 
-.canvas {
+canvas {
   image-rendering: pixelated;
   background-image: url(/src/screens/canvas/images/bg.png);
 }
@@ -48,14 +48,17 @@
   }
 
   .frame {
-    position: relative;
+    // position: relative;
     border: 1px solid black;
     margin: 5px 0;
   }
 
+  .frame-wrap {
+    display: flex;
+    align-items: center;
+  }
+
   .delete-frame {
-    position: absolute;
-    right: 0;
     width: 20px;
     height: 20px;
     background-image: url('/../../src/screens/canvas/images/garbage.svg')
