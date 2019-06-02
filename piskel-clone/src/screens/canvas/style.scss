@@ -49,8 +49,6 @@
 
   .frame {
     position: relative;
-    width: 128px;
-    height: 128px;
     border: 1px solid black;
     margin: 5px 0;
   }
@@ -61,6 +59,14 @@
     width: 20px;
     height: 20px;
     background-image: url('/../../src/screens/canvas/images/garbage.svg')
+  }
+
+  .frames-counter {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
   }
 
   .layers-field {
@@ -75,12 +81,18 @@
 
   .layers-tools {
     grid-area: layers;
-    position: relative;
+    // position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .animated-canvas {
     width: 128px;
     height: 128px;
+    border: 1px solid black;
+  }
+
+  .animation {
     border: 1px solid black;
   }
 }
@@ -102,11 +114,13 @@
   background-color: #808080;
 }
 
-
-
 .canvas-tools {
   display: flex;
   flex-direction: column;
+}
+
+.canvas-field-properties{
+  margin-top: 10px;
 }
 
 .canvas-size {

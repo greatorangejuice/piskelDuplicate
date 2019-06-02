@@ -1,13 +1,18 @@
 import Tools from './tools/toolsbar';
 import GetPosition from './tools/postionGetting';
 import GetResizeTool from './tools/fieldResize';
-import GetInitialCanvas from './canvasField/initialcanvas';
+// import GetInitialCanvas from './canvasField/initialcanvas';
+import CreatePictures from './canvasField/canvas';
 
 export default class App {
   start() {
-    const canvas = new GetInitialCanvas();
-    canvas.getCanvas();
-    canvas.getFrameTools();
+    // const canvas = new GetInitialCanvas();
+    // canvas.getCanvas();
+    // canvas.getFrameTools();
+    const canvas = new CreatePictures();
+    canvas.initCanvas();
+    canvas.initAddShotButton();
+    canvas.startAnimation();
     const tools = new Tools();
     tools.setToolsbar();
     const coords = new GetPosition();

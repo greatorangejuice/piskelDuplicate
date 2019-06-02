@@ -27,8 +27,11 @@
     </div>
     <div class="frames-bar">
       <div class="layers-field">
-        <div class="frames-wrapper">
+        <!-- <div class="frames-wrapper">
 
+        </div> -->
+        <div class="shots">
+          <canvas class="frame active-frame" width="128" height="128"></canvas>
         </div>
         <button class="add-frame-tool"><img src="./../../src/screens/canvas/images/plus.svg" width="20" height="20" alt="add frame">Add frame</button>
       </div>
@@ -39,11 +42,14 @@
       </div>
     </div>
     <div class="layers-tools">
-      <div class="animated-canvas">
-
+      <!-- <div class="animated-canvas">
+      </div> -->
+      <canvas class="animation" width="128" height="128"></canvas>
+      <div class="properties">
+          <button class="fullscreen-tool">Fullscreen</button>
       </div>
       <div class="canvas-field-properties">
-          <button data-action="canvas-size-tool" class="canvas-size-tool">Field size</button>
+        <button data-action="canvas-size-tool" class="canvas-size-tool">Field size</button>
       </div>
       <div class="cords">
         <span class="x-coord">0</span>
