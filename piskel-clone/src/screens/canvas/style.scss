@@ -48,7 +48,6 @@ canvas {
   }
 
   .frame {
-    // position: relative;
     border: 1px solid black;
     margin: 5px 0;
   }
@@ -62,6 +61,12 @@ canvas {
     width: 20px;
     height: 20px;
     background-image: url('/../../src/screens/canvas/images/garbage.svg')
+  }
+
+  .copy-frame {
+    width: 20px;
+    height: 20px;
+    background-image: url('/../../src/screens/canvas/images/copy.svg');
   }
 
   .frames-counter {

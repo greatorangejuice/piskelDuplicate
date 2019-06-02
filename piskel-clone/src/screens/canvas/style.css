@@ -95,6 +95,12 @@ canvas {
   background-image: url("/../../src/screens/canvas/images/garbage.svg");
 }
 
+.grid .copy-frame {
+  width: 20px;
+  height: 20px;
+  background-image: url("/../../src/screens/canvas/images/copy.svg");
+}
+
 .grid .frames-counter {
   position: absolute;
   top: 10px;

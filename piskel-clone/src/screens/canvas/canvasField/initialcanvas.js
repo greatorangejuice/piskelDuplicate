@@ -40,7 +40,6 @@ export default class GetInitialCanvas {
     const dataURL = canvas.toDataURL();
     frame.style.backgroundImage = `url(${dataURL})`;
 
-
     const deleteButton = document.createElement('div');
     deleteButton.className = 'delete-frame';
     frame.appendChild(deleteButton);

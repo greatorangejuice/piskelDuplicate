@@ -31,6 +31,7 @@
           <div class="frame-wrap">
             <canvas class="frame active-frame" width="128" height="128"></canvas>
             <button class="delete-frame"></button>
+            <button class="copy-frame"></button>
           </div>
         </div>
         <button class="add-frame-tool"><img src="./../../src/screens/canvas/images/plus.svg" width="20" height="20" alt="add frame">Add frame</button>
@@ -47,6 +48,7 @@
       <canvas class="animation" width="128" height="128"></canvas>
       <div class="properties">
           <button class="fullscreen-tool">Fullscreen</button>
+          <input type="range" min="1" max="10" step="1" class="speed">
       </div>
       <div class="canvas-field-properties">
         <button data-action="canvas-size-tool" class="canvas-size-tool">Field size</button>

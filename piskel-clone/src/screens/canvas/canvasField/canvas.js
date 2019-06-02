@@ -38,6 +38,14 @@ export default class CreatePictures {
     deleteBTN.addEventListener('click', (e) => {
       e.target.closest('div').remove();
     });
+
+    const copyBTN = document.createElement('button');
+    copyBTN.className = 'copy-frame';
+    shotsWrapper.appendChild(copyBTN);
+
+    copyBTN.addEventListener('click', (e) => {
+      console.log(e.target.parentNode.firstChild);
+    });
   }
 
   clearCanvasField() {
@@ -55,14 +63,33 @@ export default class CreatePictures {
     let count = 0;
     const animation = document.querySelector('.animation');
     const context = animation.getContext('2d');
-
-    setInterval(() => {
+    const inputRange = document.querySelector('.speed');
+    const func = () => {
       const frames = [...document.querySelector('.shots').children];
-      console.log(frames[count]);
       context.clearRect(0, 0, 128, 128);
       context.drawImage(frames[count % frames.length].firstElementChild, 0, 0);
       count += 1;
-    }, 1000 / 5);
+    };
+
+    setInterval(func, 1000 / inputRange.value);
+
+    const start = () => {
+      if (this.speed > 0) {
+        const frames = [...document.querySelector('.list__frames').children];
+        context.clearRect(0, 0, 128, 128);
+        const image = frames[count % frames.length].firstChild;
+        context.drawImage(image, 0, 0, 200, 200, 0, 0, 300, 300);
+        count += 1;
+      }
+    };
+
+    inputRange.addEventListener('input', () => {
+      this.speed = inputRange.value;
+      clearInterval(timer);
+      timer = setInterval(() => start(), 1000 / Number(this.speed));
+      const labelAnimation = document.querySelector('.speed');
+      labelAnimation.innerHTML = `${this.speed} FRS`;
+    });
   }
 
   setFullscreen() {
