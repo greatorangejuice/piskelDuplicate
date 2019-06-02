@@ -17,7 +17,9 @@ export default class CreatePictures {
   addShot() {
     this.clearCanvasField();
     const previousActiveShot = document.querySelector('.active-frame');
-    previousActiveShot.className = 'frame';
+    if (previousActiveShot) {
+      previousActiveShot.className = 'frame';
+    }
 
     const shots = document.querySelector('.shots');
     const nextShot = document.createElement('canvas');
@@ -34,10 +36,7 @@ export default class CreatePictures {
     shotsWrapper.appendChild(deleteBTN);
 
     deleteBTN.addEventListener('click', (e) => {
-      // console.log(e.target);
-      console.log(e.target.closest('div'));
       e.target.closest('div').remove();
-      this.addShot();
     });
   }
 
@@ -59,16 +58,18 @@ export default class CreatePictures {
 
     setInterval(() => {
       const frames = [...document.querySelector('.shots').children];
+      console.log(frames[count]);
       context.clearRect(0, 0, 128, 128);
-      context.drawImage(frames[count].firstElementChild, 0, 0);
-      count = count === frames.length - 1 ? 0 : count + 1;
-    }, 1000 / 1);
+      context.drawImage(frames[count % frames.length].firstElementChild, 0, 0);
+      count += 1;
+    }, 1000 / 5);
   }
 
   setFullscreen() {
-    const canvas = document.querySelector('.animation');
     const fullscreenButton = document.querySelector('.fullscreen-tool');
-
-    fullscreenButton.addEventListener('click', canvas.requestFullscreen());
+    fullscreenButton.addEventListener('click', () => {
+      const canvasAnimation = document.querySelector('.animation');
+      canvasAnimation.requestFullscreen();
+    });
   }
 }
