@@ -49,7 +49,20 @@ export default class CreatePictures {
 
     copyBTN.addEventListener('click', (e) => {
       console.log(e.target.parentNode.firstChild);
+      this.addCloneShot();
+      const copyredCanvas = document.querySelector('.active-frame');
+      const context = copyredCanvas.getContext('2d');
+      const image = e.target.parentNode.firstChild;
+      context.drawImage(image, 0, 0);
+
+      const paintField = document.querySelector('.canvas');
+      const paintFieldContext = paintField.getContext('2d');
+      paintFieldContext.drawImage(image, 0, 0, 128, 128, 0, 0, 256, 256, 0, 0);
     });
+  }
+
+  addCloneShot() {
+    this.addShot();
   }
 
   clearCanvasField() {
