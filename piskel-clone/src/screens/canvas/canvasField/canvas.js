@@ -48,7 +48,7 @@ export default class CreatePictures {
     shotsWrapper.appendChild(copyBTN);
 
     copyBTN.addEventListener('click', (e) => {
-      console.log(e.target.parentNode.firstChild);
+      // console.log(e.target.parentNode.firstChild);
       this.addCloneShot();
       const copyredCanvas = document.querySelector('.active-frame');
       const context = copyredCanvas.getContext('2d');

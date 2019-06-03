@@ -6,8 +6,4 @@ export default class GetResizeTool {
       sizeField.classList.toggle('hide');
     });
   }
-
-  getResizeButtons() {
-    // const sizeField = document.querySelector('.canvas-size');
-  }
 }

@@ -1,7 +1,6 @@
 import Tools from './tools/toolsbar';
 import GetPosition from './tools/postionGetting';
 import GetResizeTool from './tools/fieldResize';
-// import GetInitialCanvas from './canvasField/initialcanvas';
 import CreatePictures from './canvasField/canvas';
 
 export default class App {
