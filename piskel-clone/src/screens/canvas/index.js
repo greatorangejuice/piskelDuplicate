@@ -11,6 +11,7 @@ export default class App {
     canvas.initAddShotButton();
     canvas.startAnimation();
     canvas.setFullscreen();
+    canvas.addShot();
     const tools = new Tools();
     tools.setToolsbar();
     const coords = new GetPosition();
