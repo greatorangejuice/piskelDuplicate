@@ -2,7 +2,7 @@
   overflow-x: hidden;
 }
 
-canvas {
+.canvas {
   image-rendering: pixelated;
   background-image: url(/src/screens/canvas/images/bg.png);
 }
@@ -10,10 +10,10 @@ canvas {
 .grid {
   display: grid;
   grid-template-areas:
-    "header header header header"
-    "tools frames canvas-field layers";
+    "header header header"
+    "tools canvas-field layers";
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 0.5fr 256px 3fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   height: 100vh;
 
   .header {
@@ -26,61 +26,6 @@ canvas {
     align-items: center;
   }
 
-  .frames-bar {
-    grid-area: frames;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .add-frame-tool {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: absolute;
-    right: 0;
-    width: 85px;
-    height: 40px;
-    margin: 2px;
-    border: 3px solid rgb(0, 0, 0);
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
-  }
-
-  .frame {
-    border: 1px solid black;
-    margin: 5px 0;
-  }
-
-  .frame-wrap {
-    display: flex;
-    align-items: center;
-  }
-
-  .delete-frame {
-    width: 20px;
-    height: 20px;
-    background-image: url('/../../src/screens/canvas/images/garbage.svg');
-  }
-
-  .copy-frame {
-    width: 20px;
-    height: 20px;
-    background-image: url('/../../src/screens/canvas/images/copy.svg');
-  }
-
-  .frames-counter {
-    position: absolute;
-    top: 10px;
-    left: 5px;
-    width: 20px;
-    height: 20px;
-  }
-
-  .layers-field {
-    display: flex;
-  }
-
   .canvas-field {
     grid-area: canvas-field;
     display: flex;
@@ -89,19 +34,7 @@ canvas {
 
   .layers-tools {
     grid-area: layers;
-    // position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .animated-canvas {
-    width: 128px;
-    height: 128px;
-    border: 1px solid black;
-  }
-
-  .animation {
-    border: 1px solid black;
+    position: relative;
   }
 }
 
@@ -116,8 +49,6 @@ canvas {
   background-color: white;
 }
 
-.delete-frame:hover,
-.add-frame-tool:hover,
 .tool:hover {
   background-color: #808080;
 }
@@ -125,10 +56,6 @@ canvas {
 .canvas-tools {
   display: flex;
   flex-direction: column;
-}
-
-.canvas-field-properties{
-  margin-top: 10px;
 }
 
 .canvas-size {
