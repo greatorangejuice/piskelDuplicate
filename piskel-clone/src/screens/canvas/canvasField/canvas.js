@@ -108,4 +108,13 @@ export default class CreatePictures {
       canvasAnimation.requestFullscreen();
     });
   }
+
+  // changeFieldSize() {
+  //   const paintField = document.querySelector('.canvas');
+  //   const sizeChangerBlock = document.querySelector('.canvas-size ');
+  //   const action =
+  //   switch(action) {
+
+  //   }
+  // }
 }
