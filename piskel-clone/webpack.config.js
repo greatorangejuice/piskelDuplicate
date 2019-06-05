@@ -31,7 +31,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 8000,
-          name: '.src//screens/canvas/images/[hash]-[name].[ext]',
+          name: '.src/screens/canvas/images/[hash]-[name].[ext]',
         },
       }],
     },
