@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 export default class CreatePictures {
   constructor() {
     this.speed = 0;
@@ -109,12 +110,46 @@ export default class CreatePictures {
     });
   }
 
-  // changeFieldSize() {
-  //   const paintField = document.querySelector('.canvas');
-  //   const sizeChangerBlock = document.querySelector('.canvas-size ');
-  //   const action =
-  //   switch(action) {
+  changeFieldSize() {
+    const paintField = document.querySelector('.canvas');
+    // const context = paintField.getContext('2d');
+    const sizeChangerBlock = document.querySelector('.canvas-size ');
 
-  //   }
-  // }
+    const resizeButton = document.querySelector('.canvas-size-tool');
+    const sizeField = document.querySelector('.canvas-size');
+    resizeButton.addEventListener('click', () => {
+      sizeField.classList.toggle('hide');
+    });
+
+    const buttonsListener = (e) => {
+      let target = e.target;
+      while (target !== this) {
+        if (target.tagName === 'BUTTON' || target.tagName === 'IMG') {
+          const action = e.target.dataset.action;
+          switch (action) {
+            case 'small':
+              console.log('small');
+              paintField.width = 320;
+              paintField.height = 320;
+              break;
+            case 'medium':
+              console.log('medium');
+              paintField.width = 640;
+              paintField.height = 640;
+              break;
+            case 'large':
+              console.log('large');
+              paintField.width = 320;
+              paintField.height = 320;
+              break;
+            default:
+              return;
+          }
+          return;
+        }
+        target = target.parentNode;
+      }
+    };
+    sizeChangerBlock.addEventListener('click', buttonsListener);
+  }
 }

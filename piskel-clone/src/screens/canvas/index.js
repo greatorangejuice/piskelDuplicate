@@ -1,6 +1,6 @@
 import Tools from './tools/toolsbar';
 import GetPosition from './tools/postionGetting';
-import GetResizeTool from './tools/fieldResize';
+// import GetResizeTool from './tools/fieldResize';
 import CreatePictures from './canvasField/canvas';
 
 export default class App {
@@ -11,11 +11,12 @@ export default class App {
     canvas.startAnimation();
     canvas.setFullscreen();
     canvas.addShot();
+    canvas.changeFieldSize();
     const tools = new Tools();
     tools.setToolsbar();
     const coords = new GetPosition();
     coords.getCoordinate();
-    const resize = new GetResizeTool();
-    resize.getResizeField();
+    // const resize = new GetResizeTool();
+    // resize.getResizeField();
   }
 }
