@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import GetInitialCanvas from '../canvasField/initialcanvas';
 // import PixelArtDrawer from './pixelLine';
 /* eslint-disable prefer-destructuring */
@@ -9,39 +10,42 @@ export default class Tools {
     // const ctx = canvas.getContext('2d');
     const frame = new GetInitialCanvas();
 
-    // const getPen = () => {
-    //   context.lineCap = 'square';
+    const getPen = () => {
+      context.lineCap = 'square';
 
-    //   let x = 0;
-    //   let y = 0;
-    //   let isMouseDown = false;
+      let x = 0;
+      let y = 0;
+      let isMouseDown = false;
 
-    //   const stopDrawing = () => {
-    //     isMouseDown = false;
-    //   };
-    //   const startDrawing = (event) => {
-    //     isMouseDown = true;
-    //     [x, y] = [event.offsetX, event.offsetY];
-    //   };
-    //   const drawLine = (event) => {
-    //     if (isMouseDown) {
-    //       const newX = event.offsetX;
-    //       const newY = event.offsetY;
-    //       // console.log(x, y);
-    //       // console.log(newX, newY);
-    //       context.beginPath();
-    //       context.moveTo(x, y); // * 10 = 3d tube
-    //       context.lineTo(newX, newY);
-    //       context.stroke();
-    //       [x, y] = [newX, newY];
-    //     }
-    //   };
+      const stopDrawing = () => {
+        isMouseDown = false;
+      };
+      const startDrawing = (event) => {
+        isMouseDown = true;
+        [x, y] = [event.offsetX, event.offsetY];
+      };
+      const drawLine = (event) => {
+        if (isMouseDown) {
+          const newX = event.offsetX;
+          const newY = event.offsetY;
+          context.beginPath();
+          context.moveTo(x, y); // * 10 = 3d tube
+          context.lineTo(newX, newY);
+          context.fillRect(newX, newY, 10, 10);
 
-    //   canvas.addEventListener('mousedown', startDrawing);
-    //   canvas.addEventListener('mousemove', drawLine);
-    //   canvas.addEventListener('mouseup', stopDrawing);
-    //   canvas.addEventListener('mouseout', stopDrawing);
-    // };
+          // console.log(`newX: ${newX}, ceilX: ${Math.ceil(newX / 10) * 10}`);
+          // context.fillRect(Math.ceil(newX / 10) * 10, Math.ceil(newY / 10) * 10, 10, 10);
+
+          context.stroke();
+          [x, y] = [newX, newY];
+        }
+      };
+
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', drawLine);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+    };
 
     const getTriangle = () => {
       console.log('triangle-tool');
@@ -119,6 +123,7 @@ export default class Tools {
             case 'pen-tool':
               console.log('pen-tool');
               // goPen();
+              getPen();
               break;
             case 'bucket-tool':
               console.log('bucket-tool');

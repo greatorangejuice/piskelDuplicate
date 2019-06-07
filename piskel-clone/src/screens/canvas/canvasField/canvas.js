@@ -1,4 +1,33 @@
 /* eslint-disable prefer-destructuring */
+class Frame {
+  constructor() {
+    const canvas = document.querySelector('.canvas');
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, 256, 256);
+
+    const previousActiveShot = document.querySelector('.active-frame');
+    if (previousActiveShot) {
+      previousActiveShot.className = 'frame';
+    }
+    const shots = document.querySelector('.shots');
+    const nextShot = document.createElement('canvas');
+    nextShot.width = 128;
+    nextShot.height = 128;
+    nextShot.className = 'frame active-frame';
+    const shotsWrapper = document.createElement('div');
+    shotsWrapper.className = 'frame-wrap';
+    shots.appendChild(shotsWrapper);
+    shotsWrapper.appendChild(nextShot);
+
+    const deleteBTN = document.createElement('button');
+    deleteBTN.className = 'delete-frame';
+    shotsWrapper.appendChild(deleteBTN);
+  }
+
+  destroy() {
+    console.log('УСТРОЙ ДЕСТРОЙ');
+  }
+}
 export default class CreatePictures {
   constructor() {
     this.speed = 0;
@@ -74,7 +103,9 @@ export default class CreatePictures {
 
   initAddShotButton() {
     const addShotButton = document.querySelector('.add-frame-tool');
-    addShotButton.addEventListener('click', this.addShot.bind(this));
+    // addShotButton.addEventListener('click', this.addShot.bind(this));
+    // eslint-disable-next-line no-new
+    addShotButton.addEventListener('click', () => { new Frame(); });
   }
 
   startAnimation() {
@@ -153,17 +184,3 @@ export default class CreatePictures {
     sizeChangerBlock.addEventListener('click', buttonsListener);
   }
 }
-
-// class Frame {
-//   constructor(block) {
-
-//   }
-
-//  deleteShot() {
-
-//  }
-// }
-
-
-// const val =
-// button.addEventListener('click', )
