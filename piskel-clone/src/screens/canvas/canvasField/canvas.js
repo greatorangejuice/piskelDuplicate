@@ -41,7 +41,7 @@ export default class CreatePictures {
     shotsWrapper.appendChild(deleteBTN);
 
     deleteBTN.addEventListener('click', (e) => {
-      e.target.closest('div').remove();
+      e.target.parentNode.remove();
     });
 
     const copyBTN = document.createElement('button');
@@ -153,3 +153,17 @@ export default class CreatePictures {
     sizeChangerBlock.addEventListener('click', buttonsListener);
   }
 }
+
+// class Frame {
+//   constructor(block) {
+
+//   }
+
+//  deleteShot() {
+
+//  }
+// }
+
+
+// const val =
+// button.addEventListener('click', )
