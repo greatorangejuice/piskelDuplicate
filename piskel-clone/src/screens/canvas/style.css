@@ -1,1 +1,219 @@
-*{overflow-x:hidden}canvas{-ms-interpolation-mode:nearest-neighbor;image-rendering:-moz-crisp-edges;image-rendering:pixelated;background-image:url(/src/screens/canvas/images/bg.png)}.grid{display:grid;grid-template-areas:"header header header header" "tools frames canvas-field layers";grid-template-rows:50px 1fr;grid-template-columns:0.5fr 256px 3fr 1fr;height:100vh}.grid .header{grid-area:header}.grid .tools-bar{grid-area:tools;display:flex;align-items:center}.grid .frames-bar{grid-area:frames;display:flex;flex-direction:column;position:relative}.grid .add-frame-tool{display:flex;align-items:center;justify-content:space-between;position:absolute;right:0;width:85px;height:40px;margin:2px;border:3px solid #000;border-radius:5px;background-color:#fff}.grid .frame{border:1px solid black;margin:5px 0}.grid .frame-wrap{display:flex;align-items:center}.grid .delete-frame{width:20px;height:20px;background-image:url("/../../src/screens/canvas/images/garbage.svg")}.grid .copy-frame{width:20px;height:20px;background-image:url("/../../src/screens/canvas/images/copy.svg")}.grid .frames-counter{position:absolute;top:10px;left:5px;width:20px;height:20px}.grid .layers-field{display:flex}.grid .canvas-field{grid-area:canvas-field;display:flex;justify-content:center}.grid .layers-tools{grid-area:layers;display:flex;flex-direction:column}.grid .animated-canvas{width:128px;height:128px;border:1px solid black}.grid .animation{border:1px solid black}.tool{width:45px;height:40px;margin:2px;border:1px solid black;border-radius:5px;background-color:white}.delete-frame:hover,.add-frame-tool:hover,.tool:hover{background-color:#808080}.canvas-tools{display:flex;flex-direction:column}.canvas-field-properties{margin-top:10px}.canvas-size{position:absolute;right:5px;-webkit-animation:display 1s ease-in-out;animation:display 1s ease-in-out}@-webkit-keyframes display{from{position:fixed;right:-700px}}@keyframes display{from{position:fixed;right:-700px}}.hide{display:none}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-pixelated;
+      image-rendering: pixelated;
+  background-image: url(/src/screens/canvas/images/bg.png);
+}
+
+.paint-field {
+  -webkit-transform: scale(2, 2);
+          transform: scale(2, 2);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.grid {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "header header header header" "tools frames canvas-field layers";
+  -ms-grid-rows: 50px 1fr;
+      grid-template-rows: 50px 1fr;
+  -ms-grid-columns: 0.5fr 256px 3fr 1fr;
+      grid-template-columns: 0.5fr 256px 3fr 1fr;
+  height: 100vh;
+}
+
+.grid .header {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-area: header;
+}
+
+.grid .tools-bar {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: tools;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.grid .frames-bar {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: frames;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+}
+
+.grid .add-frame-tool {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: absolute;
+  right: 0;
+  width: 85px;
+  height: 40px;
+  margin: 2px;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.grid .frame {
+  border: 1px solid black;
+  margin: 5px 0;
+}
+
+.grid .frame-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.grid .delete-frame {
+  width: 20px;
+  height: 20px;
+  background-image: url("/../../src/screens/canvas/images/garbage.svg");
+}
+
+.grid .copy-frame {
+  width: 20px;
+  height: 20px;
+  background-image: url("/../../src/screens/canvas/images/copy.svg");
+}
+
+.grid .frames-counter {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.grid .layers-field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.grid .canvas-field {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: canvas-field;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.grid .layers-tools {
+  -ms-grid-row: 2;
+  -ms-grid-column: 4;
+  grid-area: layers;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.grid .animated-canvas {
+  width: 128px;
+  height: 128px;
+  border: 1px solid black;
+}
+
+.grid .animation {
+  border: 1px solid black;
+}
+
+.tool {
+  width: 45px;
+  height: 40px;
+  margin: 2px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.delete-frame:hover,
+.add-frame-tool:hover,
+.tool:hover {
+  background-color: #808080;
+}
+
+.canvas-tools {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.canvas-field-properties {
+  margin-top: 10px;
+}
+
+.canvas-size {
+  position: absolute;
+  right: 5px;
+  -webkit-animation: display 1s ease-in-out;
+          animation: display 1s ease-in-out;
+}
+
+@-webkit-keyframes display {
+  from {
+    position: fixed;
+    right: -700px;
+  }
+}
+
+@keyframes display {
+  from {
+    position: fixed;
+    right: -700px;
+  }
+}
+
+.hide {
+  display: none;
+}
+/*# sourceMappingURL=style.css.map */

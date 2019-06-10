@@ -1,5 +1,5 @@
 import Tools from './tools/toolsbar';
-import GetPosition from './tools/postionGetting';
+import GetPaintFieldParams from './tools/postionGetting';
 // import GetResizeTool from './tools/fieldResize';
 import CreatePictures from './canvasField/canvas';
 
@@ -14,9 +14,8 @@ export default class App {
     canvas.changeFieldSize();
     const tools = new Tools();
     tools.setToolsbar();
-    const coords = new GetPosition();
+    const coords = new GetPaintFieldParams();
     coords.getCoordinate();
-    // const resize = new GetResizeTool();
-    // resize.getResizeField();
+    coords.changeZoom();
   }
 }

@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import GetInitialCanvas from '../canvasField/initialcanvas';
+// import GetInitialCanvas from '../canvasField/initialcanvas';
 // import PixelArtDrawer from './pixelLine';
 /* eslint-disable prefer-destructuring */
 export default class Tools {
   setToolsbar() {
     const canvasTools = document.querySelector('.canvas-tools');
-    const canvas = document.querySelector('.canvas');
+    const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
     // const ctx = canvas.getContext('2d');
-    const frame = new GetInitialCanvas();
+    // const frame = new GetInitialCanvas();
 
     const getPen = () => {
       context.lineCap = 'square';
@@ -30,11 +30,11 @@ export default class Tools {
           const newY = event.offsetY;
           context.beginPath();
           context.moveTo(x, y); // * 10 = 3d tube
-          context.lineTo(newX, newY);
-          context.fillRect(newX, newY, 10, 10);
+          // context.lineTo(newX, newY);
+          // context.fillRect(newX, newY, 10, 10);
 
           // console.log(`newX: ${newX}, ceilX: ${Math.ceil(newX / 10) * 10}`);
-          // context.fillRect(Math.ceil(newX / 10) * 10, Math.ceil(newY / 10) * 10, 10, 10);
+          context.fillRect(Math.ceil(newX / 10) * 10, Math.ceil(newY / 10) * 10, 10, 10);
 
           context.stroke();
           [x, y] = [newX, newY];
@@ -56,7 +56,8 @@ export default class Tools {
       context.scale(2, 2);
     };
     const paintBucket = () => {
-      frame.getFrame();
+      // frame.getFrame();
+      console.log('paintBucket');
     };
     const clearField = () => {
       // context.clearRect(0, 0, canvas.width, canvas.height);

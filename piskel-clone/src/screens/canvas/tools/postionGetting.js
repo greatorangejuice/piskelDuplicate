@@ -1,12 +1,26 @@
-export default class GetPosition {
+export default class GetPaintFieldParams {
   getCoordinate() {
-    const canvas = document.querySelector('.canvas');
+    const canvas = document.querySelector('.paint-field');
     const xCoord = document.querySelector('.x-coord');
     const yCoord = document.querySelector('.y-coord');
 
     canvas.addEventListener('mousemove', (e) => {
-      xCoord.innerText = e.offsetX;
-      yCoord.innerText = e.offsetY;
+      xCoord.innerText = `X: ${e.offsetX}`;
+      yCoord.innerText = `Y: ${e.offsetY}`;
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      xCoord.innerText = '';
+      yCoord.innerText = '';
+    });
+  }
+
+  changeZoom() {
+    // const canvas = document.querySelector('.paint-field');
+    const canvasField = document.querySelector('.canvas-field');
+    canvasField.addEventListener('scroll', (e) => {
+      e.preventDefault();
+      console.log('scrolled!');
     });
   }
 }

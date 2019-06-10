@@ -1,10 +1,20 @@
 * {
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 canvas {
   image-rendering: pixelated;
   background-image: url(/src/screens/canvas/images/bg.png);
+  // overflow-x: visible;
+}
+
+.paint-field {
+  transform: scale(2,2);
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .grid {
@@ -15,6 +25,7 @@ canvas {
   grid-template-rows: 50px 1fr;
   grid-template-columns: 0.5fr 256px 3fr 1fr;
   height: 100vh;
+
 
   .header {
     grid-area: header;
@@ -85,6 +96,7 @@ canvas {
     grid-area: canvas-field;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .layers-tools {

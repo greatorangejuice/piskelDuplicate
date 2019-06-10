@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 class Frame {
   constructor() {
-    const canvas = document.querySelector('.canvas');
+    const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, 256, 256);
 
@@ -22,30 +22,41 @@ class Frame {
     const deleteBTN = document.createElement('button');
     deleteBTN.className = 'delete-frame';
     shotsWrapper.appendChild(deleteBTN);
+
+    deleteBTN.addEventListener('click', this.destroy);
   }
 
-  destroy() {
+  destroy(e) {
+    e.target.parentNode.remove();
+    const previousFrames = document.querySelectorAll('.frame');
+    if (previousFrames) {
+      previousFrames[previousFrames.length - 1].className = 'frame active-frame';
+    }
     console.log('УСТРОЙ ДЕСТРОЙ');
   }
 }
 export default class CreatePictures {
   constructor() {
     this.speed = 0;
+    this.paintFieldSize = 0;
   }
 
   initCanvas() {
-    const canvas = document.querySelector('.canvas');
-    canvas.width = 256;
-    canvas.height = 256;
+    const canvas = document.querySelector('.paint-field');
     canvas.addEventListener('mouseup', this.getFrame);
   }
 
   getFrame() {
     const canvas = document.querySelector('.active-frame');
     const context = canvas.getContext('2d');
-
-    const image = document.querySelector('.canvas');
-    context.drawImage(image, 0, 0, 256, 256, 0, 0, 128, 128);
+    const image = document.querySelector('.paint-field');
+    // const draw = () => {
+    //   console.log(this.width);
+    //   console.log(image.width);
+    // };
+    // draw();
+    console.log(image.width);
+    context.drawImage(image, 0, 0, image.width, this.width, 0, 0, 128, 128);
   }
 
   addShot() {
@@ -85,8 +96,9 @@ export default class CreatePictures {
       const image = e.target.parentNode.firstChild;
       context.drawImage(image, 0, 0);
 
-      const paintField = document.querySelector('.canvas');
+      const paintField = document.querySelector('.paint-field');
       const paintFieldContext = paintField.getContext('2d');
+      console.log(image.width);
       paintFieldContext.drawImage(image, 0, 0, 128, 128, 0, 0, 256, 256, 0, 0);
     });
   }
@@ -96,7 +108,7 @@ export default class CreatePictures {
   }
 
   clearCanvasField() {
-    const canvas = document.querySelector('.canvas');
+    const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, 256, 256);
   }
@@ -142,8 +154,7 @@ export default class CreatePictures {
   }
 
   changeFieldSize() {
-    const paintField = document.querySelector('.canvas');
-    // const context = paintField.getContext('2d');
+    const paintField = document.querySelector('.paint-field');
     const sizeChangerBlock = document.querySelector('.canvas-size ');
 
     const resizeButton = document.querySelector('.canvas-size-tool');
@@ -152,6 +163,12 @@ export default class CreatePictures {
       sizeField.classList.toggle('hide');
     });
 
+    const updateCanvasInfo = (param) => {
+      const infoField = document.querySelector('.size');
+      infoField.innerText = `[${param}x${param}]`;
+      this.paintFieldSize = param;
+    };
+
     const buttonsListener = (e) => {
       let target = e.target;
       while (target !== this) {
@@ -159,19 +176,19 @@ export default class CreatePictures {
           const action = e.target.dataset.action;
           switch (action) {
             case 'small':
-              console.log('small');
-              paintField.width = 320;
-              paintField.height = 320;
+              paintField.width = 32;
+              paintField.height = 32;
+              updateCanvasInfo(32);
               break;
             case 'medium':
-              console.log('medium');
-              paintField.width = 640;
-              paintField.height = 640;
+              paintField.width = 64;
+              paintField.height = 64;
+              updateCanvasInfo(64);
               break;
             case 'large':
-              console.log('large');
-              paintField.width = 320;
-              paintField.height = 320;
+              paintField.width = 128;
+              paintField.height = 128;
+              updateCanvasInfo(128);
               break;
             default:
               return;
