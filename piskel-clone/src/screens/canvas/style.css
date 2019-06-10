@@ -63,6 +63,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   position: relative;
+  overflow-x: hidden;
 }
 
 .grid .add-frame-tool {

@@ -6,11 +6,11 @@ import CreatePictures from './canvasField/canvas';
 export default class App {
   start() {
     const canvas = new CreatePictures();
-    canvas.initCanvas();
+    canvas.framesUpdateListener();
     canvas.initAddShotButton();
     canvas.startAnimation();
     canvas.setFullscreen();
-    canvas.addShot();
+    // canvas.addShot();
     canvas.changeFieldSize();
     const tools = new Tools();
     tools.setToolsbar();
