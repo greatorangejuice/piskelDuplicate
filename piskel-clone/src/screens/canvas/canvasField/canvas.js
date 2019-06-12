@@ -29,6 +29,10 @@ class Frame {
     shotsWrapper.appendChild(copyBTN);
 
     copyBTN.addEventListener('click', this.copy);
+
+    const swapBTN = document.createElement('button');
+    swapBTN.className = 'swap-frame';
+    shotsWrapper.appendChild(swapBTN);
   }
 
   destroy(e) {
@@ -218,5 +222,28 @@ export default class CreatePictures {
       }
     };
     sizeChangerBlock.addEventListener('click', buttonsListener);
+  }
+
+  changeActiveFrame() {
+    const paintField = document.querySelector('.paint-field');
+    const paintFieldcontext = paintField.getContext('2d');
+    const framesBlock = document.querySelector('.shots');
+    const func = (e) => {
+      const target = e.target;
+      while (target !== this) {
+        if (target.tagName === 'CANVAS') {
+          const previousActiveFrame = document.querySelector('.active-frame');
+          e.target.className = 'frame active-frame';
+          previousActiveFrame.className = 'frame';
+
+          const currentActiveFrame = e.target;
+          paintFieldcontext.clearRect(0, 0, paintField.width, paintField.height);
+          paintFieldcontext.drawImage(currentActiveFrame, 0, 0);
+          return;
+        }
+        return;
+      }
+    };
+    framesBlock.addEventListener('click', func);
   }
 }

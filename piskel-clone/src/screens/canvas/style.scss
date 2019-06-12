@@ -85,6 +85,12 @@ body {
     background-image: url('/../../src/screens/canvas/images/copy.svg');
   }
 
+  .swap-frame {
+    width: 20px;
+    height: 20px;
+    background-image: url('/../../src/screens/canvas/images/sort.svg');
+  }
+
   .frames-counter {
     position: absolute;
     top: 10px;

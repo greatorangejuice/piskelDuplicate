@@ -10,6 +10,7 @@ export default class App {
     canvas.initAddShotButton();
     canvas.startAnimation();
     canvas.setFullscreen();
+    canvas.changeActiveFrame();
     // canvas.addShot();
     canvas.changeFieldSize();
     const tools = new Tools();
