@@ -138,6 +138,19 @@ body {
 .canvas-tools {
   display: flex;
   flex-direction: column;
+  .pen-size-tool {
+    display: flex;
+  }
+  .pen-size {
+    width: 20px;
+    height: 20px;
+    margin: 3px;
+    background-color: red;
+  }
+  .color {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .canvas-field-properties{
