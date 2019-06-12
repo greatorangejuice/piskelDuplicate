@@ -133,6 +133,8 @@ export default class Tools {
     const swapColor = () => {
       const primaryColor = document.querySelector('.primary');
       const secondaryColor = document.querySelector('.secondary');
+      console.log(primaryColor);
+      console.log(secondaryColor);
       const temp = primaryColor.value;
       primaryColor.value = secondaryColor.value;
       secondaryColor.value = temp;
