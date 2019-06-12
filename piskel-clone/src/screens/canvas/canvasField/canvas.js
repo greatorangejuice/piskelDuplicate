@@ -75,7 +75,6 @@ export default class CreatePictures {
     const context = frame.getContext('2d');
     const image = document.querySelector('.paint-field');
 
-    console.log(image.width);
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, 128, 128);
   }
 
