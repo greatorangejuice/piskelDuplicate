@@ -10,7 +10,7 @@ canvas {
 }
 
 .paint-field {
-  transform: scale(2,2);
+  transform: scale(2, 2);
 }
 
 body {
@@ -138,22 +138,47 @@ body {
 .canvas-tools {
   display: flex;
   flex-direction: column;
+
   .pen-size-tool {
     display: flex;
   }
+
   .pen-size {
     width: 20px;
     height: 20px;
     margin: 3px;
     background-color: red;
   }
+
+  .colors {
+    display: flex;
+  }
+
   .color {
-    width: 30px;
-    height: 30px;
+    border-radius: 32px;
+    margin-right: 1px;
+    border: 1px solid black;
   }
 }
 
-.canvas-field-properties{
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+
+  width: 32px;
+  height: 32px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 32px;
+}
+
+.canvas-field-properties {
   margin-top: 10px;
 }
 

@@ -18,12 +18,9 @@ export default class Tools {
       console.log('triangle-tool');
     };
     const changeSize = () => {
-      canvas.style.width = `${32}px`;
       console.log('change size');
-      context.scale(2, 2);
     };
     const paintBucket = () => {
-      // frame.getFrame();
       console.log('paintBucket');
     };
     const clearField = () => {
@@ -133,6 +130,14 @@ export default class Tools {
       canvas.addEventListener('mouseout', stopDrawing);
     };
 
+    const swapColor = () => {
+      const primaryColor = document.querySelector('.primary');
+      const secondaryColor = document.querySelector('.secondary');
+      const temp = primaryColor.value;
+      primaryColor.value = secondaryColor.value;
+      secondaryColor.value = temp;
+    };
+
     const getActionButtons = (e) => {
       let target = e.target;
       while (target !== this) {
@@ -160,6 +165,10 @@ export default class Tools {
             case 'trash-tool':
               console.log('clearField');
               clearField();
+              break;
+            case 'swap-color':
+              console.log('swap color');
+              swapColor();
               break;
             default:
               return;
