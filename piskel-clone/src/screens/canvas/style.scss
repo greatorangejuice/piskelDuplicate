@@ -151,6 +151,7 @@ body {
 
   .pen-size-tool {
     display: flex;
+    align-items: center;
   }
 
   .pen-size {
@@ -228,4 +229,8 @@ input[type=range]::-webkit-slider-thumb {
   height: 7px;
   border: 1px solid #bdc3c7;
   background-color: #fff;
+}
+
+.pixel-size {
+  width: 50px;
 }

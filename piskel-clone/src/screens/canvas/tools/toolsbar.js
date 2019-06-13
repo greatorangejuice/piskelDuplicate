@@ -2,14 +2,20 @@
 /* eslint-disable prefer-destructuring */
 export default class Tools {
   constructor() {
-    const canvas = document.querySelector('.paint-field');
-    this.currentPaintFieldWidth = canvas.width;
-    console.log(canvas.width);
-    // const primaryColor = document.querySelector('.primary');
+    // const canvas = document.querySelector('.paint-field');
+    // this.currentPaintFieldWidth = canvas.width;
+    const sizeButton = document.querySelector('.line-size-tool');
     const pixelWidthInput = document.querySelector('.pixel-size');
     this.pixelWidth = 4;
     pixelWidthInput.addEventListener('input', () => {
       this.pixelWidth = pixelWidthInput.value;
+      sizeButton.innerText = `${this.pixelWidth}`;
+    });
+
+    const inputRange = document.querySelector('.pixel-size');
+    sizeButton.addEventListener('click', () => {
+      inputRange.classList.toggle('hide');
+      sizeButton.innerText = 'Pen size';
     });
   }
 
@@ -20,12 +26,6 @@ export default class Tools {
 
     const getTriangle = () => {
       console.log('triangle-tool');
-    };
-    const changeSize = (param) => {
-      // if(param === 1) {
-
-      // };
-      console.log(param);
     };
     const paintBucket = () => {
       console.log('paintBucket');
@@ -42,7 +42,6 @@ export default class Tools {
       context.fillStyle = primaryColor.value;
       context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
         Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
-      console.log(this.pixelWidth);
     };
 
     const brethPen = () => {
@@ -157,10 +156,10 @@ export default class Tools {
               console.log('pen-tool');
               brethPen();
               break;
-            case 'line-size-tool':
-              console.log('pixel size');
-              showInputRange();
-              break;
+            // case 'line-size-tool':
+            //   console.log('pixel size');
+            //   showInputRange();
+            //   break;
             case 'pen-tool-test':
               console.log('circle');
               circle();
@@ -171,9 +170,6 @@ export default class Tools {
               break;
             case 'triangle-tool':
               getTriangle();
-              break;
-            case 'canvas-size-tool':
-              changeSize();
               break;
             case 'trash-tool':
               console.log('clearField');
@@ -188,7 +184,6 @@ export default class Tools {
           }
           return;
         }
-        // target = target.parentnode;
         return;
       }
     };
