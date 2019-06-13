@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 canvas {
@@ -57,6 +58,7 @@ body {
     border: 3px solid rgb(0, 0, 0);
     border-radius: 5px;
     background-color: rgb(255, 255, 255);
+    line-height: 13px;
   }
 
   .frame {
@@ -215,7 +217,7 @@ input[type=range] {
 
 input[type=range]::-webkit-slider-thumb {
  -webkit-appearance: none;
- background-color: #ecf0f1;
+ background-color: #126377;
  border: 1px solid #bdc3c7;
  width: 20px;
  height: 20px;
@@ -227,9 +229,15 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border-radius: 8px;
   height: 7px;
-  border: 1px solid #bdc3c7;
+  border: 1px solid #460e1a;
   background-color: #fff;
 }
+
+
+input[type=range]::-webkit-slider-thumb:hover {
+ border: 1px solid #460e1a;
+}
+
 
 .pixel-size {
   width: 50px;
