@@ -6,19 +6,26 @@ export default class Tools {
     this.currentPaintFieldWidth = canvas.width;
     console.log(canvas.width);
     // const primaryColor = document.querySelector('.primary');
+    const pixelWidthInput = document.querySelector('.pixel-size');
+    this.pixelWidth = 4;
+    pixelWidthInput.addEventListener('input', () => {
+      this.pixelWidth = pixelWidthInput.value;
+    });
   }
 
   setToolsbar() {
     const canvasTools = document.querySelector('.canvas-tools');
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
-    context.strokeStyle = 'red';
 
     const getTriangle = () => {
       console.log('triangle-tool');
     };
-    const changeSize = () => {
-      console.log('change size');
+    const changeSize = (param) => {
+      // if(param === 1) {
+
+      // };
+      console.log(param);
     };
     const paintBucket = () => {
       console.log('paintBucket');
@@ -33,7 +40,9 @@ export default class Tools {
     const drawPixel = (x, y) => {
       const primaryColor = document.querySelector('.primary');
       context.fillStyle = primaryColor.value;
-      context.fillRect(Math.ceil(x / 4) * 4, Math.ceil(y / 4) * 4, 4, 4);
+      context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
+        Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
+      console.log(this.pixelWidth);
     };
 
     const brethPen = () => {
@@ -133,15 +142,13 @@ export default class Tools {
     const swapColor = () => {
       const primaryColor = document.querySelector('.primary');
       const secondaryColor = document.querySelector('.secondary');
-      console.log(primaryColor);
-      console.log(secondaryColor);
       const temp = primaryColor.value;
       primaryColor.value = secondaryColor.value;
       secondaryColor.value = temp;
     };
 
     const getActionButtons = (e) => {
-      let target = e.target;
+      const target = e.target;
       while (target !== this) {
         if (target.tagName === 'BUTTON' || target.tagName === 'IMG') {
           const action = e.target.dataset.action;
@@ -149,6 +156,10 @@ export default class Tools {
             case 'pen-tool':
               console.log('pen-tool');
               brethPen();
+              break;
+            case 'line-size-tool':
+              console.log('pixel size');
+              showInputRange();
               break;
             case 'pen-tool-test':
               console.log('circle');
@@ -177,7 +188,8 @@ export default class Tools {
           }
           return;
         }
-        target = target.parentnode;
+        // target = target.parentnode;
+        return;
       }
     };
     canvasTools.addEventListener('click', getActionButtons);

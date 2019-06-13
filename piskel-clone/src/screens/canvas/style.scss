@@ -174,7 +174,6 @@ body {
 input[type="color"] {
   -webkit-appearance: none;
   border: none;
-
   width: 32px;
   height: 32px;
 }
@@ -207,4 +206,26 @@ input[type="color"]::-webkit-color-swatch {
 
 .hide {
   display: none;
+}
+
+input[type=range] {
+  -webkit-appearance: none
+}
+
+input[type=range]::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #ecf0f1;
+ border: 1px solid #bdc3c7;
+ width: 20px;
+ height: 20px;
+ border-radius: 10px;
+ cursor: pointer;
+}
+
+.input[type=range] {
+  -webkit-appearance: none;
+  border-radius: 8px;
+  height: 7px;
+  border: 1px solid #bdc3c7;
+  background-color: #fff;
 }

@@ -16,15 +16,21 @@
       <div class="canvas-tools">
 
           <div class="pen-size-tool">
+             <button data-action="line-size-tool" class="pen-tool tool" id="pen-tool">Pen size</button>
+              <div class="test">
+                <input type="range" min="1" max="15" step="1" class="pixel-size input" value="4"> <label class = "current-size">4</label>
+              </div>
+
+
+            <!-- <div class="pen-size"></div>
             <div class="pen-size"></div>
-            <div class="pen-size"></div>
-            <div class="pen-size"></div>
+            <div class="pen-size"></div> -->
           </div>
-          <button data-action="pen-tool" class="pen-tool tool" id="pen-tool"><img data-action="pen-tool" src="../../../src/screens/canvas/images/pencil.svg" width="25" height="25" alt="pencil"></button>
-          <button data-action="pen-tool-test" class="pen-tool-test tool"><img data-action="pen-tool-test" src="../../../src/screens/canvas/images/circle-shape-outline.svg" width="25" height="25" alt="pencil"></button>
-          <button data-action="bucket-tool" class="bucket-tool tool" id="bucket-tool"><img data-action="bucket-tool" src="./../../src/screens/canvas/images/paint-bucket.svg" width="25" height="25" alt="paintbucket"></button>
-          <button data-action="rectangle-tool" class="rectangle-tool tool" id="rectangle-tool"><img data-action="rectangle-tool" src="./../../src/screens/canvas/images/photo-frame.svg" width="25" height="25" alt="rectagle"></button>
-          <button data-action="trash-tool" class="trash-tool tool" id="trash-tool"><img data-action="trash-tool" src="./../../src/screens/canvas/images/garbage.svg" width="25" height="25" alt="garbage"></button>
+            <button data-action="pen-tool" class="pen-tool tool" id="pen-tool"><img data-action="pen-tool" src="../../../src/screens/canvas/images/pencil.svg" width="25" height="25" alt="pencil"></button>
+            <button data-action="pen-tool-test" class="pen-tool-test tool"><img data-action="pen-tool-test" src="../../../src/screens/canvas/images/circle-shape-outline.svg" width="25" height="25" alt="pencil"></button>
+            <button data-action="bucket-tool" class="bucket-tool tool" id="bucket-tool"><img data-action="bucket-tool" src="./../../src/screens/canvas/images/paint-bucket.svg" width="25" height="25" alt="paintbucket"></button>
+            <button data-action="rectangle-tool" class="rectangle-tool tool" id="rectangle-tool"><img data-action="rectangle-tool" src="./../../src/screens/canvas/images/photo-frame.svg" width="25" height="25" alt="rectagle"></button>
+            <button data-action="trash-tool" class="trash-tool tool" id="trash-tool"><img data-action="trash-tool" src="./../../src/screens/canvas/images/garbage.svg" width="25" height="25" alt="garbage"></button>
 
           <div class="colors">
             <input type="color" class="color primary">
@@ -49,7 +55,7 @@
       <canvas class="animation" width="128" height="128"></canvas>
       <div class="properties">
           <button class="fullscreen-tool">Fullscreen</button>
-          <input type="range" min="0" max="24" step="1" class="speed" value="0"> <label class = "current-speed">0</label>
+          <input type="range" min="0" max="24" step="1" class="speed input" value="0"> <label class = "current-speed">0</label>
       </div>
       <div class="canvas-field-properties">
         <button data-action="canvas-size-tool" class="canvas-size-tool">Field size</button>
