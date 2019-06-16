@@ -126,15 +126,15 @@ export default class CreatePictures {
   //   });
   // }
 
-  addCloneShot() {
-    this.addShot();
-  }
+  // addCloneShot() {
+  //   this.addShot();
+  // }
 
-  clearCanvasField() {
-    const canvas = document.querySelector('.paint-field');
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, 256, 256);
-  }
+  // clearCanvasField() {
+  //   const canvas = document.querySelector('.paint-field');
+  //   const context = canvas.getContext('2d');
+  //   context.clearRect(0, 0, 256, 256);
+  // }
 
   initAddShotButton() {
     const addShotButton = document.querySelector('.add-frame-tool');

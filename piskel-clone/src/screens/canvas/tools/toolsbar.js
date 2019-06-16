@@ -23,6 +23,27 @@ export default class Tools {
     const canvasTools = document.querySelector('.canvas-tools');
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
+    const currentToolsListeners = {};
+
+    const addFunctionsInState = (event, func) => {
+      currentToolsListeners[event] = func;
+    };
+    const testFunc = () => {
+      console.log('test');
+    };
+    addFunctionsInState('click', testFunc);
+
+    console.log(currentToolsListeners);
+    console.log(Object.keys(currentToolsListeners));
+    const testDelete = () => {
+      Object.keys(currentToolsListeners).forEach((key) => {
+        console.log(key);
+        console.log(currentToolsListeners[key]);
+        canvas.removeEventListener(key, currentToolsListeners[key]);
+      });
+      // Добавить удаление класса active или что-нибудь подобного.
+    };
+    testDelete();
 
     const getTriangle = () => {
       console.log('triangle-tool');
