@@ -28,22 +28,14 @@ export default class Tools {
     const addFunctionsInState = (event, func) => {
       currentToolsListeners[event] = func;
     };
-    const testFunc = () => {
-      console.log('test');
-    };
-    addFunctionsInState('click', testFunc);
 
-    console.log(currentToolsListeners);
-    console.log(Object.keys(currentToolsListeners));
-    const testDelete = () => {
+    const clearCurrentState = () => {
       Object.keys(currentToolsListeners).forEach((key) => {
-        console.log(key);
-        console.log(currentToolsListeners[key]);
         canvas.removeEventListener(key, currentToolsListeners[key]);
+        Object.keys(currentToolsListeners).forEach((value) => { delete currentToolsListeners[value]; });
       });
       // Добавить удаление класса active или что-нибудь подобного.
     };
-    testDelete();
 
     const getTriangle = () => {
       console.log('triangle-tool');
@@ -111,7 +103,12 @@ export default class Tools {
       canvas.addEventListener('mousedown', startDrawing);
       canvas.addEventListener('mousemove', drawLine);
       canvas.addEventListener('mouseup', stopDrawing);
-      // canvas.addEventListener('mouseout', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      addFunctionsInState('mousedown', startDrawing);
+      addFunctionsInState('mousemove', drawLine);
+      addFunctionsInState('mouseup', stopDrawing);
+      addFunctionsInState('mouseout', stopDrawing);
     };
 
     const circle = () => {
@@ -177,10 +174,6 @@ export default class Tools {
               console.log('pen-tool');
               brethPen();
               break;
-            // case 'line-size-tool':
-            //   console.log('pixel size');
-            //   showInputRange();
-            //   break;
             case 'pen-tool-test':
               console.log('circle');
               circle();
@@ -195,6 +188,7 @@ export default class Tools {
             case 'trash-tool':
               console.log('clearField');
               clearField();
+              clearCurrentState();
               break;
             case 'swap-color':
               console.log('swap color');

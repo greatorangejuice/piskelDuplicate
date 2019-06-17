@@ -19,12 +19,6 @@
           <div class="pen-size-tool">
              <button data-action="line-size-tool" class="line-size-tool tool" id="pen-tool">Pen size</button>
              <input type="range" min="1" max="10" step="1" class="pixel-size input hide" value="4">
-
-
-
-            <!-- <div class="pen-size"></div>
-            <div class="pen-size"></div>
-            <div class="pen-size"></div> -->
           </div>
             <button data-action="pen-tool" class="pen-tool tool" id="pen-tool"><img data-action="pen-tool" src="../../../src/screens/canvas/images/pencil.svg" width="25" height="25" alt="pencil"></button>
             <button data-action="pen-tool-test" class="pen-tool-test tool"><img data-action="pen-tool-test" src="../../../src/screens/canvas/images/circle-shape-outline.svg" width="25" height="25" alt="pencil"></button>
@@ -48,11 +42,13 @@
     </div>
     <div class="canvas-field">
       <div>
-        <canvas id="renderer" class="paint-field" width="128" height="128"></canvas>
+        <canvas class="paint-field" width="128" height="128"></canvas>
       </div>
     </div>
     <div class="layers-tools">
-      <canvas class="animation" width="128" height="128"></canvas>
+      <div>
+        <canvas class="animation" width="128" height="128"></canvas>
+      </div>
       <div class="properties">
           <button class="fullscreen-tool">Fullscreen</button>
           <input type="range" min="0" max="24" step="1" class="speed input" value="0"> <label class = "current-speed">0</label>
