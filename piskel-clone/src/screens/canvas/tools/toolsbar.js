@@ -53,18 +53,15 @@ export default class Tools {
       frameContext.clearRect(0, 0, activeFrame.width, activeFrame.height);
     };
 
-    const drawPixel = (x, y, eraser = 0) => {
+    const drawPixel = (x, y, eraser) => {
       const primaryColor = document.querySelector('.primary');
       context.fillStyle = primaryColor.value;
       if (eraser === 0) {
         context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
           Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
-        console.log('drawing');
       } else if (eraser === 1) {
-        context.fillStyle = 'red';
         context.clearRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
           Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
-        console.log('erasing');
       }
     };
 
@@ -252,13 +249,17 @@ export default class Tools {
           switch (action) {
             case 'pen-tool':
               console.log('pen-tool');
+              clearCurrentState();
               brethPen();
+              break;
+            case 'eraser':
+              clearCurrentState();
+              brethPen(1);
               break;
             case 'pen-tool-test':
               console.log('circle');
               // circle();
               clearCurrentState();
-              brethPen(1);
               break;
             case 'bucket-tool':
               console.log('bucket-tool');

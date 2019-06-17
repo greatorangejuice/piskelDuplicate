@@ -75,6 +75,7 @@ export default class CreatePictures {
     const frame = document.querySelector('.active-frame');
     const context = frame.getContext('2d');
     const image = document.querySelector('.paint-field');
+    console.log('getFrame');
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
   }
 
@@ -94,7 +95,6 @@ export default class CreatePictures {
       if (this.speed > 0) {
         const frames = [...document.querySelector('.shots').children];
         context.clearRect(0, 0, animation.width, animation.height);
-        // eslint-disable-next-line max-len
         context.drawImage(frames[count % frames.length].firstElementChild, 0, 0, frameCanvas.width, frameCanvas.height);
         count += 1;
       }
