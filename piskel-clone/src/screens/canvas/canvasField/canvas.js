@@ -37,6 +37,13 @@ class Frame {
     swapBTN.className = 'swap-frame';
     shotsWrapper.appendChild(swapBTN);
     Frame.counter += 1;
+    this.test();
+  }
+
+  static test() {
+    const swapBTN = document.querySelectorAll('.swap-frame');
+    const shots = document.querySelectorAll('.frame');
+    swapBTN.addEventListener('click', this.swap.bind(shots));
   }
 
   destroy(e) {
@@ -64,81 +71,15 @@ class Frame {
   }
 
   swap() {
-    function move() {
-      document.body.style.cursor = "url('./assets/move.png'), auto";
-      let tempValue = null;
-
-      function handleDragStart(e) {
-        tempValue = this;
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-      }
-
-      function handleDragOver(e) {
-        if (e.preventDefault) {
-          e.preventDefault();
-        }
-        e.dataTransfer.dropEffect = 'move';
-        return false;
-      }
-
-      function handleDragEnter() {
-        this.classList.add('over');
-      }
-
-      function handleDragLeave() {
-        this.classList.remove('over');
-      }
-
-      function handleDrop(e) {
-        if (e.stopPropagation) {
-          e.stopPropagation();
-        }
-        if (tempValue !== this) {
-          tempValue.style.order = window.getComputedStyle(this).order;
-          const prevBlockId = tempValue.id;
-          state.order[prevBlockId] = window.getComputedStyle(this).order;
-          e.target.style.order = e.dataTransfer.getData('text/html');
-          const currentBlockId = e.target.id;
-          state.order[currentBlockId] = e.dataTransfer.getData('text/html');
-
-          // updateStateInLocalStorage();
-        }
-
-        return false;
-      }
-
-      function handleDragEnd() {
-        [].forEach.call(cols, (col) => {
-          col.classList.remove('over');
-        });
-      }
-
-      let cols = document.querySelectorAll('.square');
-
-      [].forEach.call(cols, (col) => {
-        col.addEventListener('dragstart', handleDragStart, false);
-        col.addEventListener('dragenter', handleDragEnter, false);
-        col.addEventListener('dragover', handleDragOver, false);
-        col.addEventListener('dragleave', handleDragLeave, false);
-        col.addEventListener('drop', handleDrop, false);
-        col.addEventListener('dragend', handleDragEnd, false);
-      });
-
-      document.addEventListener('keyup', (e) => {
-        if (e.keyCode === '27') {
-          [].forEach.call(cols, (col) => {
-            col.removeEventListener('dragstart', handleDragStart, false);
-            col.removeEventListener('dragenter', handleDragEnter, false);
-            col.removeEventListener('dragover', handleDragOver, false);
-            col.removeEventListener('dragleave', handleDragLeave, false);
-            col.removeEventListener('drop', handleDrop, false);
-            col.removeEventListener('dragend', handleDragEnd, false);
-          });
-          document.body.style.cursor = '';
-        }
-      });
-    }
+    console.log(this);
+    const handleDragStart = () => {
+      this.style.opacity = '0.4';
+      console.log(this);
+    };
+    const cols = document.querySelectorAll('.frame');
+    [].forEach.call(cols, (col) => {
+      col.addEventListener('dragstart', handleDragStart.bind(this));
+    });
   }
 }
 Frame.counter = 1;
