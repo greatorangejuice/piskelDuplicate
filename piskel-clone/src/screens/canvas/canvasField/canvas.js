@@ -16,6 +16,9 @@ class Frame {
     nextShot.className = 'frame active-frame';
     const shotsWrapper = document.createElement('div');
     shotsWrapper.className = 'frame-wrap';
+    nextShot.draggable = 'true';
+    nextShot.id = `frame${Frame.counter}`;
+    nextShot.style.order = Frame.counter;
     shots.appendChild(shotsWrapper);
     shotsWrapper.appendChild(nextShot);
 
@@ -33,6 +36,7 @@ class Frame {
     const swapBTN = document.createElement('button');
     swapBTN.className = 'swap-frame';
     shotsWrapper.appendChild(swapBTN);
+    Frame.counter += 1;
   }
 
   destroy(e) {
@@ -58,7 +62,86 @@ class Frame {
     context.drawImage(image, 0, 0, paintField.width, paintField.height, 0, 0, 128, 128, 0, 0);
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
   }
+
+  swap() {
+    function move() {
+      document.body.style.cursor = "url('./assets/move.png'), auto";
+      let tempValue = null;
+
+      function handleDragStart(e) {
+        tempValue = this;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+      }
+
+      function handleDragOver(e) {
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+      }
+
+      function handleDragEnter() {
+        this.classList.add('over');
+      }
+
+      function handleDragLeave() {
+        this.classList.remove('over');
+      }
+
+      function handleDrop(e) {
+        if (e.stopPropagation) {
+          e.stopPropagation();
+        }
+        if (tempValue !== this) {
+          tempValue.style.order = window.getComputedStyle(this).order;
+          const prevBlockId = tempValue.id;
+          state.order[prevBlockId] = window.getComputedStyle(this).order;
+          e.target.style.order = e.dataTransfer.getData('text/html');
+          const currentBlockId = e.target.id;
+          state.order[currentBlockId] = e.dataTransfer.getData('text/html');
+
+          // updateStateInLocalStorage();
+        }
+
+        return false;
+      }
+
+      function handleDragEnd() {
+        [].forEach.call(cols, (col) => {
+          col.classList.remove('over');
+        });
+      }
+
+      let cols = document.querySelectorAll('.square');
+
+      [].forEach.call(cols, (col) => {
+        col.addEventListener('dragstart', handleDragStart, false);
+        col.addEventListener('dragenter', handleDragEnter, false);
+        col.addEventListener('dragover', handleDragOver, false);
+        col.addEventListener('dragleave', handleDragLeave, false);
+        col.addEventListener('drop', handleDrop, false);
+        col.addEventListener('dragend', handleDragEnd, false);
+      });
+
+      document.addEventListener('keyup', (e) => {
+        if (e.keyCode === '27') {
+          [].forEach.call(cols, (col) => {
+            col.removeEventListener('dragstart', handleDragStart, false);
+            col.removeEventListener('dragenter', handleDragEnter, false);
+            col.removeEventListener('dragover', handleDragOver, false);
+            col.removeEventListener('dragleave', handleDragLeave, false);
+            col.removeEventListener('drop', handleDrop, false);
+            col.removeEventListener('dragend', handleDragEnd, false);
+          });
+          document.body.style.cursor = '';
+        }
+      });
+    }
+  }
 }
+Frame.counter = 1;
 export default class CreatePictures {
   constructor() {
     new Frame();
@@ -81,7 +164,9 @@ export default class CreatePictures {
 
   initAddShotButton() {
     const addShotButton = document.querySelector('.add-frame-tool');
-    addShotButton.addEventListener('click', () => { new Frame(); });
+    addShotButton.addEventListener('click', () => {
+      new Frame();
+    });
   }
 
   startAnimation() {

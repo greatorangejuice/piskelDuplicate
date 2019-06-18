@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
 /* eslint-disable prefer-destructuring */
 export default class Tools {
@@ -54,12 +56,15 @@ export default class Tools {
     };
 
     const drawPixel = (x, y, eraser) => {
+      console.log('drawing!');
       const primaryColor = document.querySelector('.primary');
       context.fillStyle = primaryColor.value;
       if (eraser === 0) {
+        console.log('without eraser');
         context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
           Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
       } else if (eraser === 1) {
+        console.log('eraser');
         context.clearRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
           Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
       }
@@ -120,18 +125,18 @@ export default class Tools {
     };
 
     // const circle = () => {
-    //   let x1 = 0;
-    //   let y1 = 0;
+    //   let x0 = 0;
+    //   let y0 = 0;
     //   let isMouseDown = false;
     //   let R = 0;
-    //   let x2 = 0;
-    //   let y2 = 0;
+    //   let x = 0;
+    //   let y = 0;
     //   let delta = 1 - 2 * R;
     //   let error = 0;
 
     //   const startDrawing = (e) => {
     //     isMouseDown = true;
-    //     [x1, y1] = [e.offsetX, e.offsetY];
+    //     [x0, y0] = [e.offsetX, e.offsetY];
     //   };
 
     //   const stopDrawing = () => {
@@ -140,22 +145,28 @@ export default class Tools {
 
     //   const drawCircle = (e) => {
     //     if (!isMouseDown) return;
-    //     [x2, y2] = [e.offsetX, e.offsetY];
-    //     R = x2 - x1;
+    //     [x, y] = [e.offsetX, e.offsetY];
+    //     R = x - x0;
     //     delta = 1 - 2 * R;
-    //     while (y2 >= 0) {
-    //       drawPixel(x1 + 2, y1 + y2);
-    //       drawPixel(x1 + 2, y1 - y2);
-    //       drawPixel(x1 - 2, y1 + y2);
-    //       drawPixel(x1 - 2, y1 - y2);
-    //       error = 2 * (delta + y2) - 1;
-    //       while ((delta < 0) && (error <= 0)) {
-    //         delta += 2 * ++x2 + 1;
+    //     while (y0 >= 0) {
+    //       drawPixel(x + x0, y + y0);
+    //       drawPixel(x + x0, y - y0);
+    //       drawPixel(x - x0, y + y0);
+    //       drawPixel(x - x0, y - y0);
+    //       error = 2 * (delta + y0) - 1;
+    //       if (delta < 0 && error <= 0) {
+    //         x0++;
+    //         delta += 2 * x0 + 1;
+    //         continue;
     //       }
-    //       while ((delta > 0) && (error > 0)) {
-    //         delta -= 2 * --y2 + 1;
+    //       if (delta > 0 && error > 0) {
+    //         y0--;
+    //         delta -= 2 * y0 + 1;
+    //         continue;
     //       }
-    //       delta += 2 * (++x2 - y2--);
+    //       x0++;
+    //       delta += 2 * (x0 - y0);
+    //       y0--;
     //     }
     //   };
     //   canvas.addEventListener('mousedown', startDrawing);
@@ -163,6 +174,68 @@ export default class Tools {
     //   canvas.addEventListener('mouseup', stopDrawing);
     //   canvas.addEventListener('mouseout', stopDrawing);
     // };
+    const drawPix = (x, y) => {
+      console.log('drawing!');
+      const primaryColor = document.querySelector('.primary');
+      context.fillStyle = primaryColor.value;
+      context.fillRect(x, y, 1, 1);
+    };
+
+    const brethCircle = () => {
+      let x0;
+      let y0;
+      let x;
+      let y;
+      let gap;
+      let radius;
+      // eslint-disable-next-line no-unused-vars
+      let isMouseDown = false;
+
+      const startDrawing = (e) => {
+        isMouseDown = true;
+        [x0, y0] = [e.offsetX, e.offsetY];
+      };
+
+      const stopDrawing = () => {
+        isMouseDown = false;
+      };
+
+      const drawCircle = (e) => {
+        [x, y] = [e.offsetX, e.offsetY];
+        radius = x - x0;
+        y0 = radius;
+        let delta = (2 - 2 * radius);
+        while (y0 >= 0) {
+          drawPix(x + x0, y - y0);
+          drawPix(x - x0, y - y0);
+          drawPix(x - x0, y + y0);
+          drawPix(x + x0, y + y0);
+          gap = 2 * (delta + y0) - 1;
+          if (delta < 0 && gap <= 0) {
+            x0++;
+            delta += 2 * x0 + 1;
+            continue;
+          }
+          if (delta > 0 && gap > 0) {
+            y0--;
+            delta -= 2 * y0 + 1;
+            continue;
+          }
+          x0++;
+          delta += 2 * (x0 - y0);
+          y0--;
+        }
+      };
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', drawCircle);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      addFunctionsInState('mousedown', startDrawing);
+      addFunctionsInState('mousemove', drawCircle);
+      addFunctionsInState('mouseup', stopDrawing);
+      addFunctionsInState('mouseout', stopDrawing);
+    };
 
     const swapColor = () => {
       const primaryColor = document.querySelector('.primary');
@@ -241,6 +314,92 @@ export default class Tools {
     //   context.putImageData(colorLayer, 0, 0);
     // };
 
+    const getPixelPos = (x, y) => (y * canvas.width + x) * 4;
+
+    const matchStartColor = (data, pos, startColor) => (data[pos] === startColor.r && data[pos + 1] === startColor.g && data[pos + 2] === startColor.b && data[pos + 3] === startColor.a);
+
+    const colorPixel = (data, pos, color) => {
+      data[pos] = color.r || 0;
+      data[pos + 1] = color.g || 0;
+      data[pos + 2] = color.b || 0;
+      // eslint-disable-next-line no-prototype-builtins
+      data[pos + 3] = color.hasOwnProperty('a') ? color.a : 255;
+    };
+
+    const floodFill = (startX, startY, fillColor) => {
+      // var srcImg = ctx.getImageData(0,0,canvas.width,canvas.height);
+      // var srcData = srcImg.data;
+      const dstImg = context.getImageData(0, 0, canvas.width, canvas.height);
+      const dstData = dstImg.data;
+
+      const startPos = getPixelPos(startX, startY);
+      const startColor = {
+        r: dstData[startPos],
+        g: dstData[startPos + 1],
+        b: dstData[startPos + 2],
+        a: dstData[startPos + 3],
+      };
+      const todo = [
+        [startX, startY],
+      ];
+
+      while (todo.length) {
+        const pos = todo.pop();
+        const x = pos[0];
+        let y = pos[1];
+        let currentPos = getPixelPos(x, y);
+
+        while ((y-- >= 0) && matchStartColor(dstData, currentPos, startColor)) {
+          currentPos -= canvas.width * 4;
+        }
+
+        currentPos += canvas.width * 4;
+        ++y;
+        let reachLeft = false;
+        let reachRight = false;
+
+        while ((y++ < canvas.height - 1) && matchStartColor(dstData, currentPos, startColor)) {
+          colorPixel(dstData, currentPos, fillColor);
+
+          if (x > 0) {
+            if (matchStartColor(dstData, currentPos - 4, startColor)) {
+              if (!reachLeft) {
+                todo.push([x - 1, y]);
+                reachLeft = true;
+              }
+            } else if (reachLeft) {
+              reachLeft = false;
+            }
+          }
+
+          if (x < canvas.width - 1) {
+            if (matchStartColor(dstData, currentPos + 4, startColor)) {
+              if (!reachRight) {
+                todo.push([x + 1, y]);
+                reachRight = true;
+              }
+            } else if (reachRight) {
+              reachRight = false;
+            }
+          }
+
+          currentPos += canvas.width * 4;
+        }
+      }
+
+      context.putImageData(dstImg, 0, 0);
+    };
+
+    // eslint-disable-next-line func-names
+    canvas.onclick = function (e) {
+      const startX = e.offsetX;
+      const startY = e.offsetY;
+      floodFill(startX, startY, {
+        r: 255,
+      });
+    };
+
+
     const getActionButtons = (e) => {
       const target = e.target;
       while (target !== this) {
@@ -258,8 +417,9 @@ export default class Tools {
               break;
             case 'pen-tool-test':
               console.log('circle');
-              // circle();
               clearCurrentState();
+              // circle();
+              brethCircle();
               break;
             case 'bucket-tool':
               console.log('bucket-tool');
@@ -290,42 +450,79 @@ export default class Tools {
   }
 }
 
-// const ctx = canvas.getContext('2d');
-// const frame = new GetInitialCanvas();
+// function move() {
+//   document.body.style.cursor = "url('./assets/move.png'), auto";
+//   var tempValue = null;
 
-// const getPen = () => {
-//   context.lineCap = 'square';
+//   function handleDragStart(e) {
+//     tempValue = this;
+//     e.dataTransfer.effectAllowed = 'move';
+//     e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+//   }
 
-//   let x = 0;
-//   let y = 0;
-//   let isMouseDown = false;
-
-//   const stopDrawing = () => {
-//     isMouseDown = false;
-//   };
-//   const startDrawing = (event) => {
-//     isMouseDown = true;
-//     [x, y] = [event.offsetX, event.offsetY];
-//   };
-//   const drawLine = (event) => {
-//     if (isMouseDown) {
-//       const newX = event.offsetX;
-//       const newY = event.offsetY;
-//       context.beginPath();
-//       context.moveTo(x, y); // * 10 = 3d tube
-//       // context.lineTo(newX, newY);
-//       // context.fillRect(newX, newY, 10, 10);
-
-//       // console.log(`newX: ${newX}, ceilX: ${Math.ceil(newX / 10) * 10}`);
-//       context.fillRect(Math.ceil(newX / 4) * 4, Math.ceil(newY / 4) * 4, 4, 4);
-
-//       context.stroke();
-//       [x, y] = [newX, newY];
+//   function handleDragOver(e) {
+//     if (e.preventDefault) {
+//       e.preventDefault();
 //     }
-//   };
+//     e.dataTransfer.dropEffect = 'move';
+//     return false;
+//   }
 
-//   canvas.addEventListener('mousedown', startDrawing);
-//   canvas.addEventListener('mousemove', drawLine);
-//   canvas.addEventListener('mouseup', stopDrawing);
-//   canvas.addEventListener('mouseout', stopDrawing);
-// };
+//   function handleDragEnter() {
+//     this.classList.add('over');
+//   }
+
+//   function handleDragLeave() {
+//     this.classList.remove('over');
+//   }
+
+//   function handleDrop(e) {
+//     if (e.stopPropagation) {
+//       e.stopPropagation();
+//     }
+//     if (tempValue != this) {
+//       tempValue.style.order = window.getComputedStyle(this).order;
+//       let prevBlockId = tempValue.id;
+//       state.order[prevBlockId] = window.getComputedStyle(this).order;
+//       e.target.style.order = e.dataTransfer.getData('text/html');
+//       let currentBlockId = e.target.id;
+//       state.order[currentBlockId] = e.dataTransfer.getData('text/html');
+
+//       updateStateInLocalStorage();
+//     }
+
+//     return false;
+//   }
+
+//   function handleDragEnd() {
+
+//     [].forEach.call(cols, function (col) {
+//       col.classList.remove('over');
+//     });
+//   }
+
+//   var cols = document.querySelectorAll('.square');
+
+//   [].forEach.call(cols, function (col) {
+//     col.addEventListener('dragstart', handleDragStart, false);
+//     col.addEventListener('dragenter', handleDragEnter, false);
+//     col.addEventListener('dragover', handleDragOver, false);
+//     col.addEventListener('dragleave', handleDragLeave, false);
+//     col.addEventListener('drop', handleDrop, false);
+//     col.addEventListener('dragend', handleDragEnd, false);
+//   });
+
+//   document.addEventListener('keyup', (e) => {
+//     if (e.keyCode == "27") {
+//       [].forEach.call(cols, function (col) {
+//         col.removeEventListener('dragstart', handleDragStart, false);
+//         col.removeEventListener('dragenter', handleDragEnter, false);
+//         col.removeEventListener('dragover', handleDragOver, false);
+//         col.removeEventListener('dragleave', handleDragLeave, false);
+//         col.removeEventListener('drop', handleDrop, false);
+//         col.removeEventListener('dragend', handleDragEnd, false);
+//       });
+//       document.body.style.cursor = "";
+//     }
+//   })
+// }
