@@ -2,6 +2,7 @@ import Tools from './tools/toolsbar';
 import GetPaintFieldParams from './tools/postionGetting';
 import CreatePictures from './canvasField/canvas';
 
+
 export default class App {
   start() {
     const canvas = new CreatePictures();

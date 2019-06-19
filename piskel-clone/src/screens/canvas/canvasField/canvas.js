@@ -37,7 +37,7 @@ class Frame {
     swapBTN.className = 'swap-frame';
     shotsWrapper.appendChild(swapBTN);
     Frame.counter += 1;
-    this.test();
+    // this.test();
   }
 
   static test() {
@@ -98,6 +98,7 @@ export default class CreatePictures {
   getFrame() {
     const frame = document.querySelector('.active-frame');
     const context = frame.getContext('2d');
+    context.imageSmoothingEnabled = false;
     const image = document.querySelector('.paint-field');
     console.log('getFrame');
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
