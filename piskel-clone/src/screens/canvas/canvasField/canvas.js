@@ -16,9 +16,14 @@ class Frame {
     nextShot.className = 'frame active-frame';
     const shotsWrapper = document.createElement('div');
     shotsWrapper.className = 'frame-wrap';
-    nextShot.draggable = 'true';
-    nextShot.id = `frame${Frame.counter}`;
-    nextShot.style.order = Frame.counter;
+
+    shotsWrapper.id = `frame${Frame.counter}`;
+    shotsWrapper.style.order = Frame.counter;
+    shotsWrapper.draggable = 'true';
+
+    // nextShot.draggable = 'true';
+    // nextShot.id = `frame${Frame.counter}`;
+    // nextShot.style.order = Frame.counter;
     shots.appendChild(shotsWrapper);
     shotsWrapper.appendChild(nextShot);
 
@@ -32,20 +37,60 @@ class Frame {
     shotsWrapper.appendChild(copyBTN);
 
     copyBTN.addEventListener('click', this.copy);
-
-    const swapBTN = document.createElement('button');
-    swapBTN.className = 'swap-frame';
-    shotsWrapper.appendChild(swapBTN);
     Frame.counter += 1;
-    // this.test();
-    // const swapper = document.querySelector('.swapper');
-    // swapper.addEventListener('click', this.swap.bind(nextShot));
-  }
 
-  static test() {
-    const nextShot = document.querySelector('.frame');
-    const swapper = document.querySelector('.swapper');
-    swapper.addEventListener('click', this.swap.bind(nextShot));
+    let tempValue = null;
+    function handleDragStart(e) {
+      tempValue = this;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+    }
+
+    function handleDragOver(e) {
+      console.log('dragOver');
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move';
+      return false;
+    }
+
+    function handleDragEnter() {
+      console.log('dragEnter');
+      this.classList.add('over');
+    }
+
+    function handleDragLeave() {
+      console.log('dragLeave');
+      this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
+      console.log('HANDLE DROP');
+      e.dataTransfer.dropEffect = 'move';
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+      if (tempValue !== this) {
+        tempValue.style.order = window.getComputedStyle(this).order;
+        e.target.style.order = e.dataTransfer.getData('text/html');
+      }
+      return false;
+    }
+
+    function handleDragEnd() {
+      console.log('dragEnd');
+      // this/e.target is the source node.
+      const frames = Array.from(document.querySelectorAll('.frame-wrap'));
+      frames.forEach(frame => frame.classList.remove('over'));
+    }
+
+    shotsWrapper.addEventListener('dragstart', handleDragStart.bind(shotsWrapper), false);
+    shotsWrapper.addEventListener('dragenter', handleDragOver.bind(shotsWrapper), false);
+    shotsWrapper.addEventListener('dragover', handleDragEnter.bind(shotsWrapper), false);
+    shotsWrapper.addEventListener('dragleave', handleDragLeave.bind(shotsWrapper), false);
+    shotsWrapper.addEventListener('drop', handleDrop.bind(shotsWrapper), false);
+    shotsWrapper.addEventListener('dragend', handleDragEnd.bind(shotsWrapper), false);
   }
 
   destroy(e) {
@@ -70,18 +115,6 @@ class Frame {
     const paintFieldContext = paintField.getContext('2d');
     context.drawImage(image, 0, 0, paintField.width, paintField.height, 0, 0, 128, 128, 0, 0);
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
-  }
-
-  swap() {
-    console.log(this);
-    const handleDragStart = () => {
-      this.style.opacity = '0.4';
-      console.log(this);
-    };
-    const frames = Array.from(document.querySelectorAll('.frame'));
-    frames.forEach((frame) => {
-      frame.addEventListener('dragstart', handleDragStart);
-    });
   }
 }
 Frame.counter = 1;
