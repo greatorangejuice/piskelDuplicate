@@ -433,8 +433,6 @@ export default class Tools {
     //     r: 255,
     //   });
     // };
-
-
     const getActionButtons = (e) => {
       const target = e.target;
       while (target !== this) {
@@ -453,6 +451,7 @@ export default class Tools {
             case 'pen-tool-test':
               console.log('circle');
               clearCurrentState();
+              // swapperTest();
               // circle();
               // brethCircle();
               // testCircle();

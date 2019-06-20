@@ -38,12 +38,14 @@ class Frame {
     shotsWrapper.appendChild(swapBTN);
     Frame.counter += 1;
     // this.test();
+    // const swapper = document.querySelector('.swapper');
+    // swapper.addEventListener('click', this.swap.bind(nextShot));
   }
 
   static test() {
-    const swapBTN = document.querySelectorAll('.swap-frame');
-    const shots = document.querySelectorAll('.frame');
-    swapBTN.addEventListener('click', this.swap.bind(shots));
+    const nextShot = document.querySelector('.frame');
+    const swapper = document.querySelector('.swapper');
+    swapper.addEventListener('click', this.swap.bind(nextShot));
   }
 
   destroy(e) {
@@ -76,9 +78,9 @@ class Frame {
       this.style.opacity = '0.4';
       console.log(this);
     };
-    const cols = document.querySelectorAll('.frame');
-    [].forEach.call(cols, (col) => {
-      col.addEventListener('dragstart', handleDragStart.bind(this));
+    const frames = Array.from(document.querySelectorAll('.frame'));
+    frames.forEach((frame) => {
+      frame.addEventListener('dragstart', handleDragStart);
     });
   }
 }

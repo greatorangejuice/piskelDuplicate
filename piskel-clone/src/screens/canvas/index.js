@@ -1,6 +1,7 @@
 import Tools from './tools/toolsbar';
 import GetPaintFieldParams from './tools/postionGetting';
 import CreatePictures from './canvasField/canvas';
+// import SwapFrames from './tools/swapframes';
 
 
 export default class App {
@@ -17,5 +18,7 @@ export default class App {
     const coords = new GetPaintFieldParams();
     coords.getCoordinate();
     coords.changeZoom();
+    // const swap = new SwapFrames();
+    // swap.goSwap();
   }
 }
