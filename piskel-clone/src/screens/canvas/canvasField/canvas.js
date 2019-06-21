@@ -56,12 +56,12 @@ class Frame {
     }
 
     function handleDragEnter() {
-      console.log('dragEnter');
+      // console.log('dragEnter');
       this.classList.add('over');
     }
 
     function handleDragLeave() {
-      console.log('dragLeave');
+      // console.log('dragLeave');
       this.classList.remove('over');
     }
 

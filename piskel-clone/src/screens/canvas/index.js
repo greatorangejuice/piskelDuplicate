@@ -1,6 +1,7 @@
 import Tools from './tools/toolsbar';
 import GetPaintFieldParams from './tools/postionGetting';
 import CreatePictures from './canvasField/canvas';
+import GoogleAuth from '../../authorization/googleAuth';
 // import SwapFrames from './tools/swapframes';
 
 
@@ -20,5 +21,8 @@ export default class App {
     coords.changeZoom();
     // const swap = new SwapFrames();
     // swap.goSwap();
+    const google = new GoogleAuth();
+    google.init();
+    google.getCurrentUser();
   }
 }
