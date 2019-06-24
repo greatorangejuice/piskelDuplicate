@@ -26,12 +26,14 @@ body {
   grid-template-rows: 50px 1fr;
   grid-template-columns: 0.5fr 256px 3fr 1fr;
   height: 100vh;
+  background-color: #555555;
 
 
   .header {
     grid-area: header;
     display: flex;
     justify-content: flex-end;
+    background-color: rgba(236, 223, 223, 0.267);
   }
 
   .tools-bar {
