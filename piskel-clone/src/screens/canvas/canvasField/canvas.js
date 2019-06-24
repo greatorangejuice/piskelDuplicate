@@ -135,7 +135,6 @@ export default class CreatePictures {
     const context = frame.getContext('2d');
     context.imageSmoothingEnabled = false;
     const image = document.querySelector('.paint-field');
-    console.log('getFrame');
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
   }
 

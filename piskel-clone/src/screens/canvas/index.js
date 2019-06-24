@@ -23,6 +23,6 @@ export default class App {
     // swap.goSwap();
     const google = new GoogleAuth();
     google.init();
-    google.getCurrentUser();
+    // google.getCurrentUser();
   }
 }
