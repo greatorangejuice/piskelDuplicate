@@ -49,15 +49,14 @@ export default class GoogleAuth {
     signOutButton.addEventListener('click', signOut);
   }
 
-  getCurrentUser() {
-    const func = () => {
-      console.log(googleUser);
-      const auth2 = window.gapi.auth2.getAuthInstance();
-      auth2.signIn().then((googleUser) => {
-        const profile = googleUser.getBasicProfile();
-        console.log(`NAME: ${profile.getName}`);
-      });
-    };
-    func();
-  }
+  // getCurrentUser() {
+  //   const func = () => {
+  //     const auth2 = window.gapi.auth2.getAuthInstance();
+  //     auth2.signIn().then((googleUser) => {
+  //       const profile = googleUser.getBasicProfile();
+  //       console.log(`NAME: ${profile.getName}`);
+  //     });
+  //   };
+  //   func();
+  // }
 }
