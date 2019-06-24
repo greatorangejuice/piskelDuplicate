@@ -61,7 +61,10 @@ export default class Tools {
         context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
           Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
       } else if (eraser === 1) {
+        const activeFrame = document.querySelector('.active-frame');
+        const activeFrameContext = activeFrame.getContext('2d');
         console.log('eraser');
+        activeFrameContext.clearRect(0, 0, 128, 128);
         context.clearRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
           Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
       }
