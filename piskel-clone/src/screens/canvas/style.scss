@@ -30,6 +30,8 @@ body {
 
   .header {
     grid-area: header;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .tools-bar {
@@ -254,4 +256,14 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 .over {
   border: 5px dashed rgb(214, 211, 20);
+}
+
+.google-auth {
+  display: flex;
+  margin: 10px;
+  align-items: center;
+}
+
+.welcome {
+  font-size: 14px;
 }

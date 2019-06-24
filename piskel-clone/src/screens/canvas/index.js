@@ -2,7 +2,6 @@ import Tools from './tools/toolsbar';
 import GetPaintFieldParams from './tools/postionGetting';
 import CreatePictures from './canvasField/canvas';
 import GoogleAuth from '../../authorization/googleAuth';
-// import SwapFrames from './tools/swapframes';
 
 
 export default class App {
@@ -24,5 +23,6 @@ export default class App {
     const google = new GoogleAuth();
     google.init();
     // google.getCurrentUser();
+    canvas.testAnim();
   }
 }

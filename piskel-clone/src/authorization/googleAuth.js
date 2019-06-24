@@ -14,7 +14,7 @@ export default class GoogleAuth {
 
   init() {
     const signIn = () => {
-      const test = document.querySelector('.test');
+      const welcome = document.querySelector('.welcome');
       const auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signIn().then((googleUser) => {
         // метод возвращает объект пользователя
@@ -30,7 +30,10 @@ export default class GoogleAuth {
         // токен
         const { id_token } = googleUser.getAuthResponse();
         console.log(`ID Token: ${id_token}`);
-        test.innerHTML = `Full Name: ${profile.getName()}`;
+        welcome.innerHTML = `Hi, dear ${profile.getName()}`;
+        // const signIn = document.querySelector('.signIn');
+        // console.log(singIn);
+        signIn.classList.add = 'hide';
         this.state.name = profile.getName();
         this.state.imgUrl = profile.getImageUrl;
       });

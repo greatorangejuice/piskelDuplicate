@@ -1,4 +1,6 @@
 /* eslint-disable prefer-destructuring */
+import GIF from '../../../gifExporter/gif';
+
 class Frame {
   constructor() {
     const canvas = document.querySelector('.paint-field');
@@ -248,5 +250,35 @@ export default class CreatePictures {
       }
     };
     framesBlock.addEventListener('click', func);
+  }
+
+  addLayer() {
+    const activeFrameWrap = document.querySelector('.frame-wrap');
+    const newLayer = document.createElement('canvas');
+    newLayer.width = 128;
+    newLayer.height = 128;
+    activeFrameWrap.appendChild(newLayer);
+    const context = newLayer.getContext('2d');
+    context.fillRect(5, 5, 10, 10);
+  }
+
+  testAnim() {
+    const createGif = () => {
+      const paintField = document.querySelector('.paint-field');
+      const context = paintField.getContext('2d');
+      const gif = new GIF({
+        workers: 2,
+        quality: 10,
+      });
+      gif.addFrame(context, { delay: 200 });
+      gif.render();
+    };
+
+    const button = document.querySelector('.testAnim');
+    button.addEventListener('click', createGif);
+  }
+
+  initAnim() {
+
   }
 }
