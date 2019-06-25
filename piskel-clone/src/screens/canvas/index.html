@@ -31,11 +31,14 @@
              <input type="range" min="1" max="10" step="1" class="pixel-size input hide" value="4">
           </div>
             <button data-action="pen-tool" class="pen-tool tool" id="pen-tool"><img data-action="pen-tool" src="../../../src/screens/canvas/images/pencil.svg" width="25" height="25" alt="pencil"></button>
+            <button data-action="mirror-pen-tool" class="mirror-pen-tool tool" id="mirror-pen-tool"><img data-action="mirror-pen-tool" src="../../../src/screens/canvas/images/mirror-pen.svg" width="25" height="25" alt="mirror-pen"></button>
             <button data-action="pen-tool-test" class="pen-tool-test tool"><img data-action="pen-tool-test" src="../../../src/screens/canvas/images/circle-shape-outline.svg" width="25" height="25" alt="pencil"></button>
             <button data-action="bucket-tool" class="bucket-tool tool" id="bucket-tool"><img data-action="bucket-tool" src="./../../src/screens/canvas/images/paint-bucket.svg" width="25" height="25" alt="paintbucket"></button>
             <button data-action="rectangle-tool" class="rectangle-tool tool" id="rectangle-tool"><img data-action="rectangle-tool" src="./../../src/screens/canvas/images/photo-frame.svg" width="25" height="25" alt="rectagle"></button>
             <button data-action="trash-tool" class="trash-tool tool" id="trash-tool"><img data-action="trash-tool" src="./../../src/screens/canvas/images/garbage.svg" width="25" height="25" alt="garbage"></button>
             <button data-action="eraser" class="eraser tool" id="eraser"><img data-action="eraser" src="./../../src/screens/canvas/images/eraser.svg" width="25" height="25" alt="eraser"></button>
+            <button data-action="zoom" class="zoom tool" id="zoom"><img data-action="zoom" src="./../../src/screens/canvas/images/zoom.svg" width="25" height="25" alt="zoom"></button>
+            <!-- <button data-action="zoom" class="zoom tool" id="zoom"><img data-action="zoom" src="./../../src/screens/canvas/images/zoom.svg" width="25" height="25" alt="zoom"></button> -->
 
           <div class="colors">
             <input type="color" class="color primary">
@@ -57,7 +60,7 @@
       </div>
     </div>
     <div class="layers-tools">
-      <div>
+      <div class="canvas-animation-wrapper">
         <canvas class="animation" width="128" height="128"></canvas>
       </div>
       <div class="properties">
@@ -81,8 +84,6 @@
         <button data-action="medium" class="medium-size">64x64</button>
         <button data-action="large" class="large-size">128x128</button>
     </div>
-    <canvas width="128" height="128" class="testCanvas"></canvas>
-    <button class="testAnim">test</button>
     </div>
     <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
   </div>

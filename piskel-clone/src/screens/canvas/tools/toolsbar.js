@@ -16,6 +16,11 @@ export default class Tools {
       inputRange.classList.toggle('hide');
       sizeButton.innerText = 'Pen size';
     });
+
+    // const listener = new window.keypress.Listener();
+    // listener.simple_combo('shift s', () => {
+    //   console.log('You pressed shift and s');
+    // });
   }
 
   setToolsbar() {
@@ -23,7 +28,7 @@ export default class Tools {
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
     const currentToolsListeners = {};
-
+    console.log(this.pixelWidth);
     const addFunctionsInState = (event, func) => {
       currentToolsListeners[event] = func;
     };
@@ -86,6 +91,7 @@ export default class Tools {
       };
 
       const drawLine = (e) => {
+        document.body.style.cursor = "url('../../../src/screens/canvas/images/pencil-edit-button.png'), auto";
         if (!isMouseDown) return;
         [x2, y2] = [e.offsetX, e.offsetY];
         deltaX = Math.abs(x2 - x1);
@@ -110,6 +116,103 @@ export default class Tools {
           }
         }
       };
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', drawLine);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      addFunctionsInState('mousedown', startDrawing);
+      addFunctionsInState('mousemove', drawLine);
+      addFunctionsInState('mouseup', stopDrawing);
+      addFunctionsInState('mouseout', stopDrawing);
+    };
+
+    const mirrorPen = (eraser = 0) => {
+      let x1 = 0;
+      let y1 = 0;
+      let x2 = 0;
+      let y2 = 0;
+      let deltaX = 0;
+      let deltaY = 0;
+      let isMouseDown = false;
+
+      const startDrawing = (e) => {
+        isMouseDown = true;
+        [x1, y1] = [Math.abs(canvas.width - e.offsetX), e.offsetY];
+      };
+
+      const stopDrawing = () => {
+        isMouseDown = false;
+      };
+
+      const drawLine = (e) => {
+        if (!isMouseDown) return;
+        [x2, y2] = [Math.abs(canvas.width - e.offsetX), e.offsetY];
+        deltaX = Math.abs(x2 - x1);
+        deltaY = Math.abs(y2 - y1);
+        const signX = x1 < x2 ? 1 : -1;
+        const signY = y1 < y2 ? 1 : -1;
+        let error = deltaX - deltaY;
+        drawPixel(x2, y2, eraser);
+
+        while (x1 !== x2 || y1 !== y2) {
+          drawPixel(x1, y1, eraser);
+          const error2 = error * 2;
+
+          if (error2 > -deltaY) {
+            error -= deltaY;
+            x1 += signX;
+          }
+
+          if (error2 < deltaX) {
+            error += deltaX;
+            y1 += signY;
+          }
+        }
+      };
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', drawLine);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      addFunctionsInState('mousedown', startDrawing);
+      addFunctionsInState('mousemove', drawLine);
+      addFunctionsInState('mouseup', stopDrawing);
+      addFunctionsInState('mouseout', stopDrawing);
+    };
+
+    const rectangle = () => {
+      let x = 0;
+      let y = 0;
+      let width = 0;
+      let height = 0;
+      let isMouseDown = false;
+      const primaryColor = document.querySelector('.primary');
+      context.fillStyle = primaryColor;
+
+      const startDrawing = (e) => {
+        isMouseDown = true;
+        [x, y] = [e.offsetX, e.offsetY];
+      };
+
+      const stopDrawing = () => {
+        isMouseDown = false;
+      };
+
+      const drawLine = (e) => {
+        if (isMouseDown) {
+          context.clearRect(x, y, width, height);
+          context.beginPath();
+          context.lineWidth = this.pixelWidth;
+          console.log(this.pixelWidth);
+          width = e.offsetX - x;
+          height = e.offsetY - y;
+          context.fillRect(x, y, width, height);
+          // context.rect(x, y, width, height);
+          // context.stroke();
+        }
+      };
+
       canvas.addEventListener('mousedown', startDrawing);
       canvas.addEventListener('mousemove', drawLine);
       canvas.addEventListener('mouseup', stopDrawing);
@@ -448,6 +551,12 @@ export default class Tools {
               clearCurrentState();
               brethPen(1);
               break;
+            case 'mirror-pen-tool':
+              console.log('mirror pen');
+              clearCurrentState();
+              brethPen();
+              mirrorPen();
+              break;
             case 'pen-tool-test':
               console.log('circle');
               clearCurrentState();
@@ -460,6 +569,10 @@ export default class Tools {
               console.log('bucket-tool');
               // paintBucket();
               // testBucket();
+              break;
+            case 'rectangle-tool':
+              console.log('rec');
+              rectangle();
               break;
             case 'triangle-tool':
               getTriangle();

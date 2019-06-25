@@ -24,7 +24,7 @@ body {
     "header header header header"
     "tools frames canvas-field layers";
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 0.5fr 256px 3fr 1fr;
+  grid-template-columns: 0.3fr 256px 3fr 270px;
   height: 100vh;
   background-color: #555555;
 
@@ -33,7 +33,7 @@ body {
     grid-area: header;
     display: flex;
     justify-content: flex-end;
-    background-color: rgba(236, 223, 223, 0.267);
+    background-color: rgba(14, 13, 13, 0.397);
   }
 
   .tools-bar {
@@ -114,6 +114,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #dacfcf5c;
   }
 
   .layers-tools {
@@ -131,6 +132,10 @@ body {
 
   .animation {
     border: 1px solid black;
+    transform: scale(2);
+    position: absolute;
+    right: 60px;
+    top: 64px;
   }
 }
 
@@ -195,7 +200,11 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .canvas-field-properties {
-  margin-top: 10px;
+  margin: 5px;
+}
+
+.properties {
+  margin: 5px;
 }
 
 .canvas-size {
@@ -268,4 +277,14 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 .welcome {
   font-size: 14px;
+}
+
+.signOutButton {
+  color: white;
+}
+
+.canvas-animation-wrapper {
+  position: relative;
+  width: 256px;
+  height: 256px;
 }

@@ -2,10 +2,11 @@ import Tools from './tools/toolsbar';
 import GetPaintFieldParams from './tools/postionGetting';
 import CreatePictures from './canvasField/canvas';
 import GoogleAuth from '../../authorization/googleAuth';
-
+// import KeyPress from '../../keypressLib/keypress/'
 
 export default class App {
   start() {
+    // const keyPress = new KeyPress();
     const canvas = new CreatePictures();
     canvas.framesUpdateListener();
     canvas.initAddShotButton();
@@ -23,6 +24,6 @@ export default class App {
     const google = new GoogleAuth();
     google.init();
     // google.getCurrentUser();
-    canvas.testAnim();
+    // canvas.testAnim();
   }
 }

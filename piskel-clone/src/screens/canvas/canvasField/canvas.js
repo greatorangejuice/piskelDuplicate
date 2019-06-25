@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import GIF from '../../../gifExporter/gif';
+// import GIF from '../../../gifExporter/gif';
 
 class Frame {
   constructor() {
@@ -158,7 +158,7 @@ export default class CreatePictures {
       if (this.speed > 0) {
         const frames = [...document.querySelector('.shots').children];
         context.clearRect(0, 0, animation.width, animation.height);
-        context.drawImage(frames[count % frames.length].firstElementChild, 0, 0, frameCanvas.width, frameCanvas.height);
+        context.drawImage(frames[count % frames.length].firstElementChild, 0, 0, frameCanvas.width, frameCanvas.height, 0, 0, animation.width, animation.height);
         count += 1;
       }
     };
@@ -262,21 +262,21 @@ export default class CreatePictures {
     context.fillRect(5, 5, 10, 10);
   }
 
-  testAnim() {
-    const createGif = () => {
-      const paintField = document.querySelector('.paint-field');
-      const context = paintField.getContext('2d');
-      const gif = new GIF({
-        workers: 2,
-        quality: 10,
-      });
-      gif.addFrame(context, { delay: 200 });
-      gif.render();
-    };
+  // testAnim() {
+  //   const createGif = () => {
+  //     const paintField = document.querySelector('.paint-field');
+  //     const context = paintField.getContext('2d');
+  //     const gif = new GIF({
+  //       workers: 2,
+  //       quality: 10,
+  //     });
+  //     gif.addFrame(context, { delay: 200 });
+  //     gif.render();
+  //   };
 
-    const button = document.querySelector('.testAnim');
-    button.addEventListener('click', createGif);
-  }
+  //   // const button = document.querySelector('.testAnim');
+  //   // button.addEventListener('click', createGif);
+  // }
 
   initAnim() {
 
