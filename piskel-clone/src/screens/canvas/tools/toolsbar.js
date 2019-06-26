@@ -269,6 +269,43 @@ export default class Tools {
       addFunctionsInState('mouseout', stopDrawing);
     };
 
+    const move = () => {
+      let isMouseDown = false;
+      let x = 0;
+      let y = 0;
+      let deltaX = 0;
+      let deltaY = 0;
+      let imageData = null;
+
+      const startDrawing = (e) => {
+        isMouseDown = true;
+        [x, y] = [e.offsetX, e.offsetY];
+        imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      };
+
+      const stopDrawing = () => {
+        isMouseDown = false;
+      };
+
+      const drawLine = (e) => {
+        if (isMouseDown) {
+          // context.clearRect(0, 0, canvas.width, canvas.height);
+          clearField();
+          [deltaX, deltaY] = [e.offsetX - x, e.offsetY - y];
+          context.putImageData(imageData, deltaX, deltaY);
+        }
+      };
+
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', drawLine);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      addFunctionsInState('mousedown', startDrawing);
+      addFunctionsInState('mousemove', drawLine);
+      addFunctionsInState('mouseup', stopDrawing);
+      addFunctionsInState('mouseout', stopDrawing);
+    };
     // const circle = () => {
     //   let x0 = 0;
     //   let y0 = 0;
@@ -631,6 +668,10 @@ export default class Tools {
             case 'swap-color':
               console.log('swap color');
               swapColor();
+              break;
+            case 'move':
+              console.log('move');
+              move();
               break;
             default:
               return;
