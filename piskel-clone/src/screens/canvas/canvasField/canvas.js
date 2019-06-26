@@ -122,6 +122,20 @@ export default class PictureCreator {
     this.paintFieldSize = 0;
   }
 
+  init() {
+    this.framesUpdateListener();
+    this.initAddShotButton();
+    this.startAnimation();
+    this.setFullscreen();
+    this.changeActiveFrame();
+    this.changeFieldSize();
+  }
+
+  framesUpdateListener() {
+    const canvas = document.querySelector('.paint-field');
+    canvas.addEventListener('mouseup', this.getFrame);
+  }
+
   getFrame() {
     const frame = document.querySelector('.active-frame');
     const context = frame.getContext('2d');
@@ -130,130 +144,116 @@ export default class PictureCreator {
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
   }
 
-  init() {
-    const startAnimation = () => {
-      let count = 0;
-      const animation = document.querySelector('.animation');
-      const context = animation.getContext('2d');
-      const inputRange = document.querySelector('.speed');
-      const frameCanvas = document.querySelector('.frame');
+  initAddShotButton() {
+    const addShotButton = document.querySelector('.add-frame-tool');
+    addShotButton.addEventListener('click', () => {
+      new Frame();
+    });
+  }
 
-      const start = () => {
-        if (this.speed > 0) {
-          const frames = [...document.querySelector('.shots').children];
-          context.clearRect(0, 0, animation.width, animation.height);
-          context.drawImage(frames[count % frames.length].firstElementChild, 0, 0, frameCanvas.width, frameCanvas.height, 0, 0, animation.width, animation.height);
-          count += 1;
-        }
-      };
-      let timer = setInterval(() => start(), 1000 / Number(this.speed));
+  startAnimation() {
+    let count = 0;
+    const animation = document.querySelector('.animation');
+    const context = animation.getContext('2d');
+    const inputRange = document.querySelector('.speed');
+    const frameCanvas = document.querySelector('.frame');
 
-      inputRange.addEventListener('input', () => {
-        this.speed = inputRange.value;
-        clearInterval(timer);
-        timer = setInterval(() => start(), 1000 / Number(this.speed));
-        const labelAnimation = document.querySelector('.current-speed');
-        labelAnimation.innerHTML = `${this.speed} FPS`;
-      });
+    const start = () => {
+      if (this.speed > 0) {
+        const frames = [...document.querySelector('.shots').children];
+        context.clearRect(0, 0, animation.width, animation.height);
+        context.drawImage(frames[count % frames.length].firstElementChild, 0, 0, frameCanvas.width, frameCanvas.height, 0, 0, animation.width, animation.height);
+        count += 1;
+      }
+    };
+    let timer = setInterval(() => start(), 1000 / Number(this.speed));
+
+    inputRange.addEventListener('input', () => {
+      this.speed = inputRange.value;
+      clearInterval(timer);
+      timer = setInterval(() => start(), 1000 / Number(this.speed));
+      const labelAnimation = document.querySelector('.current-speed');
+      labelAnimation.innerHTML = `${this.speed} FPS`;
+    });
+  }
+
+  setFullscreen() {
+    const fullscreenButton = document.querySelector('.fullscreen-tool');
+    fullscreenButton.addEventListener('click', () => {
+      const canvasAnimation = document.querySelector('.animation');
+      canvasAnimation.requestFullscreen();
+    });
+  }
+
+  changeFieldSize() {
+    const paintField = document.querySelector('.paint-field');
+    const sizeChangerBlock = document.querySelector('.canvas-size ');
+
+    const resizeButton = document.querySelector('.canvas-size-tool');
+    const sizeField = document.querySelector('.canvas-size');
+    resizeButton.addEventListener('click', () => {
+      sizeField.classList.toggle('hide');
+    });
+
+    const updateCanvasInfo = (param) => {
+      const infoField = document.querySelector('.size');
+      infoField.innerText = `[${param}x${param}]`;
+      this.paintFieldSize = param;
     };
 
-    const setFullscreen = () => {
-      const fullscreenButton = document.querySelector('.fullscreen-tool');
-      fullscreenButton.addEventListener('click', () => {
-        const canvasAnimation = document.querySelector('.animation');
-        canvasAnimation.requestFullscreen();
-      });
-    };
-
-    const changeFieldSize = () => {
-      const paintField = document.querySelector('.paint-field');
-      const sizeChangerBlock = document.querySelector('.canvas-size ');
-
-      const resizeButton = document.querySelector('.canvas-size-tool');
-      const sizeField = document.querySelector('.canvas-size');
-      resizeButton.addEventListener('click', () => {
-        sizeField.classList.toggle('hide');
-      });
-
-      const updateCanvasInfo = (param) => {
-        const infoField = document.querySelector('.size');
-        infoField.innerText = `[${param}x${param}]`;
-        this.paintFieldSize = param;
-      };
-
-      const buttonsListener = (e) => {
-        let target = e.target;
-        while (target !== this) {
-          if (target.tagName === 'BUTTON' || target.tagName === 'IMG') {
-            const action = e.target.dataset.action;
-            switch (action) {
-              case 'small':
-                paintField.width = 32;
-                paintField.height = 32;
-                updateCanvasInfo(32);
-                break;
-              case 'medium':
-                paintField.width = 64;
-                paintField.height = 64;
-                updateCanvasInfo(64);
-                break;
-              case 'large':
-                paintField.width = 128;
-                paintField.height = 128;
-                updateCanvasInfo(128);
-                break;
-              default:
-                return;
-            }
-            return;
-          }
-          target = target.parentNode;
-        }
-      };
-      sizeChangerBlock.addEventListener('click', buttonsListener);
-    };
-
-    const changeActiveFrame = () => {
-      const paintField = document.querySelector('.paint-field');
-      const paintFieldcontext = paintField.getContext('2d');
-      const framesBlock = document.querySelector('.shots');
-      const func = (e) => {
-        const target = e.target;
-        while (target !== this) {
-          if (target.tagName === 'CANVAS') {
-            const previousActiveFrame = document.querySelector('.active-frame');
-            e.target.className = 'frame active-frame';
-            previousActiveFrame.className = 'frame';
-
-            const currentActiveFrame = e.target;
-            paintFieldcontext.clearRect(0, 0, paintField.width, paintField.height);
-            paintFieldcontext.drawImage(currentActiveFrame, 0, 0);
-            return;
+    const buttonsListener = (e) => {
+      let target = e.target;
+      while (target !== this) {
+        if (target.tagName === 'BUTTON' || target.tagName === 'IMG') {
+          const action = e.target.dataset.action;
+          switch (action) {
+            case 'small':
+              paintField.width = 32;
+              paintField.height = 32;
+              updateCanvasInfo(32);
+              break;
+            case 'medium':
+              paintField.width = 64;
+              paintField.height = 64;
+              updateCanvasInfo(64);
+              break;
+            case 'large':
+              paintField.width = 128;
+              paintField.height = 128;
+              updateCanvasInfo(128);
+              break;
+            default:
+              return;
           }
           return;
         }
-      };
-      framesBlock.addEventListener('click', func);
+        target = target.parentNode;
+      }
     };
+    sizeChangerBlock.addEventListener('click', buttonsListener);
+  }
 
-    const initAddShotButton = () => {
-      const addShotButton = document.querySelector('.add-frame-tool');
-      addShotButton.addEventListener('click', () => {
-        new Frame();
-      });
+  changeActiveFrame() {
+    const paintField = document.querySelector('.paint-field');
+    const paintFieldcontext = paintField.getContext('2d');
+    const framesBlock = document.querySelector('.shots');
+    const func = (e) => {
+      const target = e.target;
+      while (target !== this) {
+        if (target.tagName === 'CANVAS') {
+          const previousActiveFrame = document.querySelector('.active-frame');
+          e.target.className = 'frame active-frame';
+          previousActiveFrame.className = 'frame';
+
+          const currentActiveFrame = e.target;
+          paintFieldcontext.clearRect(0, 0, paintField.width, paintField.height);
+          paintFieldcontext.drawImage(currentActiveFrame, 0, 0);
+          return;
+        }
+        return;
+      }
     };
-
-    const framesUpdateListener = () => {
-      const canvas = document.querySelector('.paint-field');
-      canvas.addEventListener('mouseup', this.getFrame);
-    };
-
-    startAnimation();
-    setFullscreen();
-    changeFieldSize();
-    changeActiveFrame();
-    initAddShotButton();
-    framesUpdateListener();
+    framesBlock.addEventListener('click', func);
   }
 
   addLayer() {

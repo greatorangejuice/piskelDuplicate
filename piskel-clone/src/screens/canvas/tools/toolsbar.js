@@ -225,7 +225,48 @@ export default class Tools {
     };
 
     const secondRectangle = () => {
+      let x = 0;
+      let y = 0;
+      let lastX = 0;
+      let lastY = 0;
+      let width = 0;
+      let height = 0;
+      let isMouseDown = false;
+      const primaryColor = document.querySelector('.primary');
+      context.fillStyle = primaryColor;
 
+      const startDrawing = (e) => {
+        isMouseDown = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+      };
+
+      const stopDrawing = () => {
+        isMouseDown = false;
+      };
+
+      const drawLine = (e) => {
+        [x, y] = [e.offsetX, e.offsetY];
+        if (isMouseDown) {
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.beginPath();
+          width = x - lastX;
+          height = y - lastY;
+          context.rect(lastX, lastY, width, height);
+          context.strokeStyle = 'black';
+          context.lineWidth = 10;
+          context.stroke();
+        }
+      };
+
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', drawLine);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      addFunctionsInState('mousedown', startDrawing);
+      addFunctionsInState('mousemove', drawLine);
+      addFunctionsInState('mouseup', stopDrawing);
+      addFunctionsInState('mouseout', stopDrawing);
     };
 
     // const circle = () => {
@@ -564,10 +605,6 @@ export default class Tools {
             case 'pen-tool-test':
               console.log('circle');
               clearCurrentState();
-              // swapperTest();
-              // circle();
-              // brethCircle();
-              // testCircle();
               break;
             case 'bucket-tool':
               console.log('bucket-tool');
@@ -577,6 +614,11 @@ export default class Tools {
             case 'rectangle-tool':
               console.log('rec');
               rectangle();
+              break;
+            case 'second-rectangle-tool':
+              console.log('rec');
+              // rectangle();
+              secondRectangle();
               break;
             case 'triangle-tool':
               getTriangle();
