@@ -685,6 +685,9 @@ export default class Tools {
               console.log('move');
               move();
               break;
+            case 'pipette':
+              console.log('pipette');
+              break;
             default:
               return;
           }
