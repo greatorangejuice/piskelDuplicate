@@ -21,7 +21,7 @@ class Frame {
 
     shotsWrapper.id = `frame${Frame.counter}`;
     shotsWrapper.style.order = Frame.counter;
-    shotsWrapper.draggable = 'true';
+    shotsWrapper.draggable = true;
 
     // nextShot.draggable = 'true';
     // nextShot.id = `frame${Frame.counter}`;
@@ -40,59 +40,14 @@ class Frame {
 
     copyBTN.addEventListener('click', this.copy);
     Frame.counter += 1;
+    this.tempValue = null;
 
-    let tempValue = null;
-    function handleDragStart(e) {
-      tempValue = this;
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-    }
-
-    function handleDragOver(e) {
-      console.log('dragOver');
-      if (e.preventDefault) {
-        e.preventDefault();
-      }
-      e.dataTransfer.dropEffect = 'move';
-      return false;
-    }
-
-    function handleDragEnter() {
-      // console.log('dragEnter');
-      this.classList.add('over');
-    }
-
-    function handleDragLeave() {
-      // console.log('dragLeave');
-      this.classList.remove('over');
-    }
-
-    function handleDrop(e) {
-      console.log('HANDLE DROP');
-      e.dataTransfer.dropEffect = 'move';
-      if (e.stopPropagation) {
-        e.stopPropagation();
-      }
-      if (tempValue !== this) {
-        tempValue.style.order = window.getComputedStyle(this).order;
-        e.target.style.order = e.dataTransfer.getData('text/html');
-      }
-      return false;
-    }
-
-    function handleDragEnd() {
-      console.log('dragEnd');
-      // this/e.target is the source node.
-      const frames = Array.from(document.querySelectorAll('.frame-wrap'));
-      frames.forEach(frame => frame.classList.remove('over'));
-    }
-
-    shotsWrapper.addEventListener('dragstart', handleDragStart.bind(shotsWrapper), false);
-    shotsWrapper.addEventListener('dragenter', handleDragOver.bind(shotsWrapper), false);
-    shotsWrapper.addEventListener('dragover', handleDragEnter.bind(shotsWrapper), false);
-    shotsWrapper.addEventListener('dragleave', handleDragLeave.bind(shotsWrapper), false);
-    shotsWrapper.addEventListener('drop', handleDrop.bind(shotsWrapper), false);
-    shotsWrapper.addEventListener('dragend', handleDragEnd.bind(shotsWrapper), false);
+    shotsWrapper.addEventListener('dragstart', this.handleDragStart.bind(shotsWrapper));
+    shotsWrapper.addEventListener('dragenter', this.handleDragOver.bind(shotsWrapper));
+    shotsWrapper.addEventListener('dragover', this.handleDragEnter.bind(shotsWrapper));
+    shotsWrapper.addEventListener('dragleave', this.handleDragLeave.bind(shotsWrapper));
+    shotsWrapper.addEventListener('drop', this.handleDrop.bind(shotsWrapper));
+    shotsWrapper.addEventListener('dragend', this.handleDragEnd.bind(shotsWrapper));
   }
 
   destroy(e) {
@@ -118,7 +73,50 @@ class Frame {
     context.drawImage(image, 0, 0, paintField.width, paintField.height, 0, 0, 128, 128, 0, 0);
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
   }
+
+
+  handleDragStart(e) {
+    this.tempValue = this;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+  }
+
+  handleDragOver(e) {
+    console.log('dragOver');
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+  }
+
+  handleDragEnter() {
+    // console.log('dragEnter');
+    this.classList.add('over');
+  }
+
+  handleDragLeave() {
+    // console.log('dragLeave');
+    this.classList.remove('over');
+  }
+
+  handleDrop(e) {
+    console.log('HANDLE DROP');
+    e.dataTransfer.dropEffect = 'move';
+    if (this.tempValue !== this) {
+      this.tempValue.style.order = window.getComputedStyle(this).order;
+      e.target.style.order = e.dataTransfer.getData('text/html');
+    }
+    return false;
+  }
+
+  handleDragEnd() {
+    console.log('dragEnd');
+    const frames = Array.from(document.querySelectorAll('.frame-wrap'));
+    frames.forEach(frame => frame.classList.remove('over'));
+  }
 }
+// STATIC FIELD
 Frame.counter = 1;
 export default class CreatePictures {
   constructor() {
