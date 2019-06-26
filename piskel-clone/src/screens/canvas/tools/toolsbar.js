@@ -25,11 +25,14 @@ export default class Tools {
       // eslint-disable-next-line no-alert
       alert('you pressed p!');
     });
+  }
 
-    // const listener = new window.keypress.Listener();
-    // listener.simple_combo('shift s', () => {
-    //   console.log('You pressed shift and s');
-    // });
+  initKeyBinder() {
+    const keyBinder = document.querySelector('.keybinder');
+    const modalWindow = document.querySelector('.key-list');
+    keyBinder.addEventListener('click', () => {
+      modalWindow.classList.toggle('hide');
+    });
   }
 
   setToolsbar() {
@@ -693,80 +696,3 @@ export default class Tools {
     canvasTools.addEventListener('click', getActionButtons);
   }
 }
-
-// function move() {
-//   document.body.style.cursor = "url('./assets/move.png'), auto";
-//   var tempValue = null;
-
-//   function handleDragStart(e) {
-//     tempValue = this;
-//     e.dataTransfer.effectAllowed = 'move';
-//     e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-//   }
-
-//   function handleDragOver(e) {
-//     if (e.preventDefault) {
-//       e.preventDefault();
-//     }
-//     e.dataTransfer.dropEffect = 'move';
-//     return false;
-//   }
-
-//   function handleDragEnter() {
-//     this.classList.add('over');
-//   }
-
-//   function handleDragLeave() {
-//     this.classList.remove('over');
-//   }
-
-//   function handleDrop(e) {
-//     if (e.stopPropagation) {
-//       e.stopPropagation();
-//     }
-//     if (tempValue != this) {
-//       tempValue.style.order = window.getComputedStyle(this).order;
-//       let prevBlockId = tempValue.id;
-//       state.order[prevBlockId] = window.getComputedStyle(this).order;
-//       e.target.style.order = e.dataTransfer.getData('text/html');
-//       let currentBlockId = e.target.id;
-//       state.order[currentBlockId] = e.dataTransfer.getData('text/html');
-
-//       updateStateInLocalStorage();
-//     }
-
-//     return false;
-//   }
-
-//   function handleDragEnd() {
-
-//     [].forEach.call(cols, function (col) {
-//       col.classList.remove('over');
-//     });
-//   }
-
-//   var cols = document.querySelectorAll('.square');
-
-//   [].forEach.call(cols, function (col) {
-//     col.addEventListener('dragstart', handleDragStart, false);
-//     col.addEventListener('dragenter', handleDragEnter, false);
-//     col.addEventListener('dragover', handleDragOver, false);
-//     col.addEventListener('dragleave', handleDragLeave, false);
-//     col.addEventListener('drop', handleDrop, false);
-//     col.addEventListener('dragend', handleDragEnd, false);
-//   });
-
-//   document.addEventListener('keyup', (e) => {
-//     if (e.keyCode == "27") {
-//       [].forEach.call(cols, function (col) {
-//         col.removeEventListener('dragstart', handleDragStart, false);
-//         col.removeEventListener('dragenter', handleDragEnter, false);
-//         col.removeEventListener('dragover', handleDragOver, false);
-//         col.removeEventListener('dragleave', handleDragLeave, false);
-//         col.removeEventListener('drop', handleDrop, false);
-//         col.removeEventListener('dragend', handleDragEnd, false);
-//       });
-//       document.body.style.cursor = "";
-//     }
-//   })
-// }
