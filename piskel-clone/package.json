@@ -14,6 +14,7 @@
     "url": "https://github.com/rolling-scopes-school/greatorangejuice-2019Q1"
   },
   "dependencies": {
+    "hotkeys-js": "^3.6.11",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

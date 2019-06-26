@@ -1,4 +1,6 @@
 /* eslint-disable prefer-destructuring */
+import hotkeys from 'hotkeys-js';
+
 export default class Tools {
   constructor() {
     // const canvas = document.querySelector('.paint-field');
@@ -15,6 +17,13 @@ export default class Tools {
     sizeButton.addEventListener('click', () => {
       inputRange.classList.toggle('hide');
       sizeButton.innerText = 'Pen size';
+    });
+
+    // eslint-disable-next-line no-unused-vars
+    hotkeys('shift+p', (event, handler) => {
+      event.preventDefault();
+      // eslint-disable-next-line no-alert
+      alert('you pressed p!');
     });
 
     // const listener = new window.keypress.Listener();
