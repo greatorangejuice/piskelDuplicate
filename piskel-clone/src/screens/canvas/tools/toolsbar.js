@@ -72,7 +72,7 @@ export default class Tools {
       }
     };
 
-    const brethPen = (eraser = 0) => {
+    const pen = (eraser = 0) => {
       let x1 = 0;
       let y1 = 0;
       let x2 = 0;
@@ -222,6 +222,10 @@ export default class Tools {
       addFunctionsInState('mousemove', drawLine);
       addFunctionsInState('mouseup', stopDrawing);
       addFunctionsInState('mouseout', stopDrawing);
+    };
+
+    const secondRectangle = () => {
+
     };
 
     // const circle = () => {
@@ -545,16 +549,16 @@ export default class Tools {
             case 'pen-tool':
               console.log('pen-tool');
               clearCurrentState();
-              brethPen();
+              pen();
               break;
             case 'eraser':
               clearCurrentState();
-              brethPen(1);
+              pen(1);
               break;
             case 'mirror-pen-tool':
               console.log('mirror pen');
               clearCurrentState();
-              brethPen();
+              pen();
               mirrorPen();
               break;
             case 'pen-tool-test':

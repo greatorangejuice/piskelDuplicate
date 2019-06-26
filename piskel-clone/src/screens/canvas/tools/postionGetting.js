@@ -14,13 +14,4 @@ export default class PaintFieldParamsGetter {
       yCoord.innerText = '';
     });
   }
-
-  changeZoom() {
-    // const canvas = document.querySelector('.paint-field');
-    const canvasField = document.querySelector('.canvas-field');
-    canvasField.addEventListener('scroll', (e) => {
-      e.preventDefault();
-      console.log('scrolled!');
-    });
-  }
 }
