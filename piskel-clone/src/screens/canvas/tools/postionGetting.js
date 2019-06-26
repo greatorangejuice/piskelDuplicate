@@ -1,4 +1,4 @@
-export default class GetPaintFieldParams {
+export default class PaintFieldParamsGetter {
   getCoordinate() {
     const canvas = document.querySelector('.paint-field');
     const xCoord = document.querySelector('.x-coord');

@@ -2,6 +2,7 @@
 // import GIF from '../../../gifExporter/gif';
 
 class Frame {
+  // static counter = 1;
   constructor() {
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
@@ -9,33 +10,32 @@ class Frame {
 
     const previousActiveShot = document.querySelector('.active-frame');
     if (previousActiveShot) {
-      previousActiveShot.className = 'frame';
+      // previousActiveShot.className = 'frame';
+      previousActiveShot.classList.remove('active-frame');
     }
     const shots = document.querySelector('.shots');
     const nextShot = document.createElement('canvas');
     nextShot.width = 128;
     nextShot.height = 128;
-    nextShot.className = 'frame active-frame';
+    // nextShot.className = 'frame active-frame';
+    nextShot.classList.add('frame', ['active-frame']);
     const shotsWrapper = document.createElement('div');
-    shotsWrapper.className = 'frame-wrap';
+    shotsWrapper.classList.add('frame-wrap');
 
     shotsWrapper.id = `frame${Frame.counter}`;
     shotsWrapper.style.order = Frame.counter;
     shotsWrapper.draggable = true;
 
-    // nextShot.draggable = 'true';
-    // nextShot.id = `frame${Frame.counter}`;
-    // nextShot.style.order = Frame.counter;
     shots.appendChild(shotsWrapper);
     shotsWrapper.appendChild(nextShot);
 
     const deleteBTN = document.createElement('button');
-    deleteBTN.className = 'delete-frame';
+    deleteBTN.classList.add('delete-frame');
     shotsWrapper.appendChild(deleteBTN);
     deleteBTN.addEventListener('click', this.destroy);
 
     const copyBTN = document.createElement('button');
-    copyBTN.className = 'copy-frame';
+    copyBTN.classList.add('copy-frame');
     shotsWrapper.appendChild(copyBTN);
 
     copyBTN.addEventListener('click', this.copy);
@@ -73,7 +73,6 @@ class Frame {
     context.drawImage(image, 0, 0, paintField.width, paintField.height, 0, 0, 128, 128, 0, 0);
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
   }
-
 
   handleDragStart(e) {
     this.tempValue = this;
@@ -118,7 +117,7 @@ class Frame {
 }
 // STATIC FIELD
 Frame.counter = 1;
-export default class CreatePictures {
+export default class PictureCreator {
   constructor() {
     new Frame();
     this.speed = 0;
@@ -258,25 +257,5 @@ export default class CreatePictures {
     activeFrameWrap.appendChild(newLayer);
     const context = newLayer.getContext('2d');
     context.fillRect(5, 5, 10, 10);
-  }
-
-  // testAnim() {
-  //   const createGif = () => {
-  //     const paintField = document.querySelector('.paint-field');
-  //     const context = paintField.getContext('2d');
-  //     const gif = new GIF({
-  //       workers: 2,
-  //       quality: 10,
-  //     });
-  //     gif.addFrame(context, { delay: 200 });
-  //     gif.render();
-  //   };
-
-  //   // const button = document.querySelector('.testAnim');
-  //   // button.addEventListener('click', createGif);
-  // }
-
-  initAnim() {
-
   }
 }

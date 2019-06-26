@@ -32,8 +32,12 @@ body {
   .header {
     grid-area: header;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     background-color: rgba(14, 13, 13, 0.397);
+    img {
+      height: 35px;
+    }
   }
 
   .tools-bar {
