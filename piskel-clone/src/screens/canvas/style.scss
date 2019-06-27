@@ -15,10 +15,11 @@ canvas {
 }
 
 .primary-paint-field {
-  transform: scale(2,2);
+  transform: scale(2, 2);
   position: absolute;
 
 }
+
 .paint-field-block {
   position: relative;
 }
@@ -173,6 +174,8 @@ body {
 .canvas-tools {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  height: 400px;
 
   .pen-size-tool {
     display: flex;
