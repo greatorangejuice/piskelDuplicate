@@ -5,6 +5,11 @@ export default class Tools {
   constructor() {
     // const canvas = document.querySelector('.paint-field');
     // this.currentPaintFieldWidth = canvas.width;
+    this.canvasTools = document.querySelector('.canvas-tools');
+    this.canvas = document.querySelector('.paint-field');
+    this.context = this.canvas.getContext('2d');
+
+
     const sizeButton = document.querySelector('.line-size-tool');
     const pixelWidthInput = document.querySelector('.pixel-size');
     this.pixelWidth = 4;
@@ -40,7 +45,6 @@ export default class Tools {
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
     const currentToolsListeners = {};
-    console.log(this.pixelWidth);
     const addFunctionsInState = (event, func) => {
       currentToolsListeners[event] = func;
     };
@@ -58,10 +62,6 @@ export default class Tools {
     const getTriangle = () => {
       console.log('triangle-tool');
     };
-    // const paintBucket = () => {
-    //   const test = context.getImageData(0, 0, 128, 128);
-    //   console.log(test.data);
-    // };
     const clearField = () => {
       const activeFrame = document.querySelector('.active-frame');
       const frameContext = activeFrame.getContext('2d');
@@ -69,7 +69,7 @@ export default class Tools {
       frameContext.clearRect(0, 0, activeFrame.width, activeFrame.height);
     };
 
-    const drawPixel = (x, y, eraser) => {
+    const drawPixel = (x, y, eraser = 0) => {
       const primaryColor = document.querySelector('.primary');
       context.fillStyle = primaryColor.value;
       if (eraser === 0) {
@@ -84,60 +84,60 @@ export default class Tools {
       }
     };
 
-    const pen = (eraser = 0) => {
-      let x1 = 0;
-      let y1 = 0;
-      let x2 = 0;
-      let y2 = 0;
-      let deltaX = 0;
-      let deltaY = 0;
-      let isMouseDown = false;
+    // const pen = (eraser = 0) => {
+    //   let x1 = 0;
+    //   let y1 = 0;
+    //   let x2 = 0;
+    //   let y2 = 0;
+    //   let deltaX = 0;
+    //   let deltaY = 0;
+    //   let isMouseDown = false;
 
-      const startDrawing = (e) => {
-        isMouseDown = true;
-        [x1, y1] = [e.offsetX, e.offsetY];
-      };
+    //   const startDrawing = (e) => {
+    //     isMouseDown = true;
+    //     [x1, y1] = [e.offsetX, e.offsetY];
+    //   };
 
-      const stopDrawing = () => {
-        isMouseDown = false;
-      };
+    //   const stopDrawing = () => {
+    //     isMouseDown = false;
+    //   };
 
-      const drawLine = (e) => {
-        document.body.style.cursor = "url('../../../src/screens/canvas/images/pencil-edit-button.png'), auto";
-        if (!isMouseDown) return;
-        [x2, y2] = [e.offsetX, e.offsetY];
-        deltaX = Math.abs(x2 - x1);
-        deltaY = Math.abs(y2 - y1);
-        const signX = x1 < x2 ? 1 : -1;
-        const signY = y1 < y2 ? 1 : -1;
-        let error = deltaX - deltaY;
-        drawPixel(x2, y2, eraser);
+    //   const drawLine = (e) => {
+    //     document.body.style.cursor = "url('../../../src/screens/canvas/images/pencil-edit-button.png'), auto";
+    //     if (!isMouseDown) return;
+    //     [x2, y2] = [e.offsetX, e.offsetY];
+    //     deltaX = Math.abs(x2 - x1);
+    //     deltaY = Math.abs(y2 - y1);
+    //     const signX = x1 < x2 ? 1 : -1;
+    //     const signY = y1 < y2 ? 1 : -1;
+    //     let error = deltaX - deltaY;
+    //     drawPixel(x2, y2, eraser);
 
-        while (x1 !== x2 || y1 !== y2) {
-          drawPixel(x1, y1, eraser);
-          const error2 = error * 2;
+    //     while (x1 !== x2 || y1 !== y2) {
+    //       drawPixel(x1, y1, eraser);
+    //       const error2 = error * 2;
 
-          if (error2 > -deltaY) {
-            error -= deltaY;
-            x1 += signX;
-          }
+    //       if (error2 > -deltaY) {
+    //         error -= deltaY;
+    //         x1 += signX;
+    //       }
 
-          if (error2 < deltaX) {
-            error += deltaX;
-            y1 += signY;
-          }
-        }
-      };
-      canvas.addEventListener('mousedown', startDrawing);
-      canvas.addEventListener('mousemove', drawLine);
-      canvas.addEventListener('mouseup', stopDrawing);
-      canvas.addEventListener('mouseout', stopDrawing);
+    //       if (error2 < deltaX) {
+    //         error += deltaX;
+    //         y1 += signY;
+    //       }
+    //     }
+    //   };
+    //   canvas.addEventListener('mousedown', startDrawing);
+    //   canvas.addEventListener('mousemove', drawLine);
+    //   canvas.addEventListener('mouseup', stopDrawing);
+    //   canvas.addEventListener('mouseout', stopDrawing);
 
-      addFunctionsInState('mousedown', startDrawing);
-      addFunctionsInState('mousemove', drawLine);
-      addFunctionsInState('mouseup', stopDrawing);
-      addFunctionsInState('mouseout', stopDrawing);
-    };
+    //   addFunctionsInState('mousedown', startDrawing);
+    //   addFunctionsInState('mousemove', drawLine);
+    //   addFunctionsInState('mouseup', stopDrawing);
+    //   addFunctionsInState('mouseout', stopDrawing);
+    // };
 
     const mirrorPen = (eraser = 0) => {
       let x1 = 0;
@@ -301,7 +301,6 @@ export default class Tools {
 
       const drawLine = (e) => {
         if (isMouseDown) {
-          // context.clearRect(0, 0, canvas.width, canvas.height);
           clearField();
           [deltaX, deltaY] = [e.offsetX - x, e.offsetY - y];
           context.putImageData(imageData, deltaX, deltaY);
@@ -320,15 +319,19 @@ export default class Tools {
     };
 
     const circle = () => {
-      let x1;
-      let y1;
-      let x2;
-      let y2;
+      // let x1;
+      // let y1;
+      // let x2;
+      // let y2;
       let isMouseDown = false;
+      let x;
+      let y;
+      // let x0;
+      // let y0;
 
       const startDrawing = (e) => {
         isMouseDown = true;
-        [x1, y1] = [e.offsetX, e.offsetY];
+        [x, y] = [e.offsetX, e.offsetY];
       };
 
       const stopDrawing = () => {
@@ -337,29 +340,31 @@ export default class Tools {
 
       const drawCircle = (e) => {
         if (!isMouseDown) return;
-        [x2, y2] = [e.offsetX, e.offsetY];
-        const radius = Math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2));
-        let x0 = 0;
-        let y0 = radius;
+        const [x0, y0] = [e.offsetX, e.offsetY];
+        const radius = Math.sqrt(((x0 - x) ** 2) + ((y0 - y) ** 2));
+        let x1 = 0;
+        let y1 = radius;
         let gap = 0;
         let delta = (1 - 2 * radius);
+        context.clearRect(0, 0, 128, 128);
+        // context.clearRect(x0, y0, 128, 128);
 
-        while (y0 >= 0) {
-          drawPixel(x2 + x1, y2 - y1);
-          drawPixel(x2 - x1, y2 - y1);
-          drawPixel(x2 - x1, y2 + y1);
-          drawPixel(x2 + x1, y2 + y1);
-          gap = 2 * (delta + y0) - 1;
+        while (y1 >= 0) {
+          drawPixel(x + x1, y - y1);
+          drawPixel(x - x1, y - y1);
+          drawPixel(x - x1, y + y1);
+          drawPixel(x + x1, y + y1);
+          gap = 2 * (delta + y1) - 1;
           if (delta < 0 && gap <= 0) {
-            x0 += 1;
-            delta += 2 * x0 + 1;
+            x1 += 1;
+            delta += 2 * x1 + 1;
           } else if (delta > 0 && gap > 0) {
-            y0 -= 1;
-            delta -= 2 * y0 + 1;
+            y1 -= 1;
+            delta -= 2 * y1 + 1;
           } else {
-            x0 += 1;
-            delta += 2 * (x0 - y0);
-            y0 -= 1;
+            x1 += 1;
+            delta += 2 * (x1 - y1);
+            y1 -= 1;
           }
         }
       };
@@ -547,18 +552,16 @@ export default class Tools {
           const action = e.target.dataset.action;
           switch (action) {
             case 'pen-tool':
-              console.log('pen-tool');
               clearCurrentState();
-              pen();
+              this.pen();
               break;
             case 'eraser':
               clearCurrentState();
-              pen(1);
+              this.pen(1);
               break;
             case 'mirror-pen-tool':
-              console.log('mirror pen');
               clearCurrentState();
-              pen();
+              this.pen();
               mirrorPen();
               break;
             case 'pen-tool-test':
@@ -572,12 +575,11 @@ export default class Tools {
               // testBucket();
               break;
             case 'rectangle-tool':
-              console.log('rec');
+              clearCurrentState();
               rectangle();
               break;
             case 'second-rectangle-tool':
-              console.log('rec');
-              // rectangle();
+              clearCurrentState();
               secondRectangle();
               break;
             case 'triangle-tool':
@@ -592,8 +594,13 @@ export default class Tools {
               console.log('swap color');
               swapColor();
               break;
+            case 'zoom':
+              console.log('zoom');
+              this.zoom();
+              break;
             case 'move':
               console.log('move');
+              clearCurrentState();
               move();
               break;
             case 'pipette':
@@ -608,5 +615,79 @@ export default class Tools {
       }
     };
     canvasTools.addEventListener('click', getActionButtons);
+  }
+
+  zoom() {
+    console.log('Zooom me!');
+  }
+
+  pen(eraser = 0) {
+    const drawPixel = (x, y) => {
+      const primaryColor = document.querySelector('.primary');
+      this.context.fillStyle = primaryColor.value;
+      if (eraser === 0) {
+        this.context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
+          Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
+      } else if (eraser === 1) {
+        const activeFrame = document.querySelector('.active-frame');
+        const activeFrameContext = activeFrame.getContext('2d');
+        activeFrameContext.clearRect(0, 0, 128, 128);
+        this.context.clearRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
+          Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
+      }
+    };
+
+    let x1 = 0;
+    let y1 = 0;
+    let x2 = 0;
+    let y2 = 0;
+    let deltaX = 0;
+    let deltaY = 0;
+    let isMouseDown = false;
+
+    const startDrawing = (e) => {
+      isMouseDown = true;
+      [x1, y1] = [e.offsetX, e.offsetY];
+    };
+
+    const stopDrawing = () => {
+      isMouseDown = false;
+    };
+
+    const drawLine = (e) => {
+      document.body.style.cursor = "url('../../../src/screens/canvas/images/pencil-edit-button.png'), auto";
+      if (!isMouseDown) return;
+      [x2, y2] = [e.offsetX, e.offsetY];
+      deltaX = Math.abs(x2 - x1);
+      deltaY = Math.abs(y2 - y1);
+      const signX = x1 < x2 ? 1 : -1;
+      const signY = y1 < y2 ? 1 : -1;
+      let error = deltaX - deltaY;
+      drawPixel(x2, y2, eraser);
+
+      while (x1 !== x2 || y1 !== y2) {
+        drawPixel(x1, y1, eraser);
+        const error2 = error * 2;
+
+        if (error2 > -deltaY) {
+          error -= deltaY;
+          x1 += signX;
+        }
+
+        if (error2 < deltaX) {
+          error += deltaX;
+          y1 += signY;
+        }
+      }
+    };
+    this.canvas.addEventListener('mousedown', startDrawing);
+    this.canvas.addEventListener('mousemove', drawLine);
+    this.canvas.addEventListener('mouseup', stopDrawing);
+    this.canvas.addEventListener('mouseout', stopDrawing);
+
+    // addFunctionsInState('mousedown', startDrawing);
+    // addFunctionsInState('mousemove', drawLine);
+    // addFunctionsInState('mouseup', stopDrawing);
+    // addFunctionsInState('mouseout', stopDrawing);
   }
 }

@@ -14,6 +14,15 @@ canvas {
   transform: scale(2, 2);
 }
 
+.primary-paint-field {
+  transform: scale(2,2);
+  position: absolute;
+
+}
+.paint-field-block {
+  position: relative;
+}
+
 body {
   overflow-x: hidden;
 }

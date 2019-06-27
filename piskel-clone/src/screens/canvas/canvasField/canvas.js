@@ -44,7 +44,7 @@ class Frame {
     shotsWrapper.addEventListener('dragenter', this.handleDragOver.bind(shotsWrapper));
     shotsWrapper.addEventListener('dragover', this.handleDragEnter.bind(shotsWrapper));
     shotsWrapper.addEventListener('dragleave', this.handleDragLeave.bind(shotsWrapper));
-    shotsWrapper.addEventListener('drop', this.handleDrop.bind(shotsWrapper));
+    shotsWrapper.addEventListener('mouseup', this.handleDrop.bind(shotsWrapper));
     shotsWrapper.addEventListener('dragend', this.handleDragEnd.bind(shotsWrapper));
   }
 
@@ -99,7 +99,12 @@ class Frame {
 
   handleDrop(e) {
     console.log('HANDLE DROP');
-    e.dataTransfer.dropEffect = 'move';
+    // this/e.target is current target element.
+    if (e.stopPropagation) {
+      e.stopPropagation(); // Stops some browsers from redirecting.
+    }
+
+    // e.dataTransfer.dropEffect = 'move';
     if (this.tempValue !== this) {
       this.tempValue.style.order = window.getComputedStyle(this).order;
       e.target.style.order = e.dataTransfer.getData('text/html');
@@ -132,8 +137,8 @@ export default class PictureCreator {
   }
 
   framesUpdateListener() {
-    const canvas = document.querySelector('.paint-field');
-    canvas.addEventListener('mouseup', this.getFrame);
+    const paintField = document.querySelector('.paint-field');
+    paintField.addEventListener('mouseup', this.getFrame);
   }
 
   getFrame() {
@@ -141,6 +146,8 @@ export default class PictureCreator {
     const context = frame.getContext('2d');
     context.imageSmoothingEnabled = false;
     const image = document.querySelector('.paint-field');
+    const imageContext = image.getContext('2d');
+    imageContext.drawImage(frame, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
   }
 
@@ -155,6 +162,7 @@ export default class PictureCreator {
     let count = 0;
     const animation = document.querySelector('.animation');
     const context = animation.getContext('2d');
+    context.imageSmoothingEnabled = false;
     const inputRange = document.querySelector('.speed');
     const frameCanvas = document.querySelector('.frame');
 
