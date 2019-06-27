@@ -4,6 +4,7 @@ import GoogleAuth from '../../authorization/googleAuth';
 import PictureCreator from './canvasField/canvas';
 import Filters from './tools/filters';
 import Tooltips from './tools/tooltips';
+import Hotkeys from './tools/hotkeys';
 
 export default class App {
   start() {
@@ -20,5 +21,7 @@ export default class App {
     filter.initTools();
     const tooltips = new Tooltips();
     tooltips.init();
+    const hotkeys = new Hotkeys();
+    hotkeys.init();
   }
 }

@@ -73,5 +73,11 @@ export default class Tooltips {
       placement: 'right',
       content: 'Color Picker (<span style="color: aqua;">Ctrl+P</span>)',
     });
+
+    tippy('.bright', {
+      animation: 'shift-away',
+      placement: 'right',
+      content: 'Bright | Darker (<span style="color: aqua;">B | Shift+B</span>)',
+    });
   }
 }

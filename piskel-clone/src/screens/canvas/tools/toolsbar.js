@@ -1,6 +1,4 @@
 /* eslint-disable prefer-destructuring */
-import hotkeys from 'hotkeys-js';
-
 export default class Tools {
   constructor() {
     // const canvas = document.querySelector('.paint-field');
@@ -23,13 +21,6 @@ export default class Tools {
     sizeButton.addEventListener('click', () => {
       inputRange.classList.toggle('hide');
       sizeButton.innerText = 'Pen size';
-    });
-
-    // eslint-disable-next-line no-unused-vars
-    hotkeys('shift+p', (event, handler) => {
-      event.preventDefault();
-      // eslint-disable-next-line no-alert
-      alert('you pressed p!');
     });
   }
 
@@ -81,7 +72,7 @@ export default class Tools {
               break;
             case 'second-rectangle-tool':
               this.clearCurrentState();
-              this.secondRectangle();
+              this.emptyRectangle();
               break;
             case 'triangle-tool':
               getTriangle();
@@ -105,8 +96,10 @@ export default class Tools {
             case 'pipette':
               console.log('pipette');
               break;
-            case 'greyscale':
-              console.log('greyscale');
+            case 'bright':
+              this.clearCurrentState();
+              this.bright();
+              console.log('bright');
               break;
             default:
               return;
@@ -331,7 +324,7 @@ export default class Tools {
     this.addFunctionsInState('mouseout', stopDrawing);
   }
 
-  secondRectangle() {
+  emptyRectangle() {
     let x = 0;
     let y = 0;
     let lastX = 0;
@@ -411,6 +404,30 @@ export default class Tools {
     this.addFunctionsInState('mousemove', drawLine);
     this.addFunctionsInState('mouseup', stopDrawing);
     this.addFunctionsInState('mouseout', stopDrawing);
+  }
+
+  bright() {
+    let x1;
+    let y1;
+    let startX;
+    let startY;
+    let coordX1;
+    let coordY1;
+
+    const changeBright = (e) => {
+      const widthPixel = this.canvas.width / 128;
+      x1 = e.offsetX;
+      y1 = e.offsetY;
+      coordX1 = Math.floor(x1 / widthPixel);
+      coordY1 = Math.floor(y1 / widthPixel);
+      startX = coordX1 * widthPixel;
+      startY = coordY1 * widthPixel;
+      const imgData = this.context.getImageData(startX, startY, 1, 1);
+      const color = `rgb(${imgData.data[0] * 1.1}, ${imgData.data[1] * 1.1}, ${imgData.data[2] * 1.1})`;
+      this.context.fillStyle = color;
+      this.context.fillRect(startX, startY, widthPixel, widthPixel);
+    };
+    this.canvas.addEventListener('click', changeBright);
   }
 }
 // ////////////////////////////////// PAINT
