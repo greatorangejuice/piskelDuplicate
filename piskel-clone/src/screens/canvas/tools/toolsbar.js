@@ -8,7 +8,6 @@ export default class Tools {
     this.context = this.canvas.getContext('2d');
     this.currentToolsListeners = {};
 
-
     const sizeButton = document.querySelector('.line-size-tool');
     const pixelWidthInput = document.querySelector('.pixel-size');
     this.pixelWidth = 4;
@@ -415,7 +414,8 @@ export default class Tools {
     let coordY1;
 
     const changeBright = (e) => {
-      const widthPixel = this.canvas.width / 128;
+      const widthPixel = this.canvas.width / 16;
+      console.log(widthPixel);
       x1 = e.offsetX;
       y1 = e.offsetY;
       coordX1 = Math.floor(x1 / widthPixel);
