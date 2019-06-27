@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "hotkeys-js": "^3.6.11",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "tippy.js": "^4.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

@@ -3,6 +3,7 @@ import PaintFieldParamsGetter from './tools/postionGetting';
 import GoogleAuth from '../../authorization/googleAuth';
 import PictureCreator from './canvasField/canvas';
 import Filters from './tools/filters';
+import Tooltips from './tools/tooltips';
 
 export default class App {
   start() {
@@ -17,5 +18,7 @@ export default class App {
     google.init();
     const filter = new Filters();
     filter.initTools();
+    const tooltips = new Tooltips();
+    tooltips.init();
   }
 }
