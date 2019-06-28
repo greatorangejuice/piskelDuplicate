@@ -40,13 +40,13 @@ class Frame {
     copyBTN.addEventListener('click', this.copy);
     Frame.counter += 1;
     this.tempValue = null;
-
-    shotsWrapper.addEventListener('dragstart', this.handleDragStart.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragenter', this.handleDragOver.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragover', this.handleDragEnter.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragleave', this.handleDragLeave.bind(shotsWrapper));
-    shotsWrapper.addEventListener('mouseup', this.handleDrop.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragend', this.handleDragEnd.bind(shotsWrapper));
+    this.dragSrcEl = null;
+    // shotsWrapper.addEventListener('dragstart', this.handleDragStart.bind(shotsWrapper));
+    // shotsWrapper.addEventListener('dragenter', this.handleDragOver.bind(shotsWrapper));
+    // shotsWrapper.addEventListener('dragover', this.handleDragEnter.bind(shotsWrapper));
+    // shotsWrapper.addEventListener('dragleave', this.handleDragLeave.bind(shotsWrapper));
+    // shotsWrapper.addEventListener('drop', this.handleDrop.bind(shotsWrapper));
+    // shotsWrapper.addEventListener('dragend', this.handleDragEnd.bind(shotsWrapper));
   }
 
   destroy(e) {
@@ -73,51 +73,51 @@ class Frame {
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
   }
 
-  handleDragStart(e) {
-    this.tempValue = this;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-  }
+  // handleDragStart(e) {
+  //   this.tempValue = this;
+  //   e.dataTransfer.effectAllowed = 'move';
+  //   e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+  // }
 
-  handleDragOver(e) {
-    console.log('dragOver');
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-    e.dataTransfer.dropEffect = 'move';
-    return false;
-  }
+  // handleDragOver(e) {
+  //   console.log('dragOver');
+  //   if (e.preventDefault) {
+  //     e.preventDefault();
+  //   }
+  //   e.dataTransfer.dropEffect = 'move';
+  //   return false;
+  // }
 
-  handleDragEnter() {
-    // console.log('dragEnter');
-    this.classList.add('over');
-  }
+  // handleDragEnter() {
+  //   // console.log('dragEnter');
+  //   this.classList.add('over');
+  // }
 
-  handleDragLeave() {
-    // console.log('dragLeave');
-    this.classList.remove('over');
-  }
+  // handleDragLeave() {
+  //   // console.log('dragLeave');
+  //   this.classList.remove('over');
+  // }
 
-  handleDrop(e) {
-    console.log('HANDLE DROP');
-    // this/e.target is current target element.
-    if (e.stopPropagation) {
-      e.stopPropagation(); // Stops some browsers from redirecting.
-    }
+  // handleDrop(e) {
+  //   console.log('HANDLE DROP');
+  //   // this/e.target is current target element.
+  //   if (e.stopPropagation) {
+  //     e.stopPropagation(); // Stops some browsers from redirecting.
+  //   }
 
-    // e.dataTransfer.dropEffect = 'move';
-    if (this.tempValue !== this) {
-      this.tempValue.style.order = window.getComputedStyle(this).order;
-      e.target.style.order = e.dataTransfer.getData('text/html');
-    }
-    return false;
-  }
+  //   // e.dataTransfer.dropEffect = 'move';
+  //   if (this.tempValue !== this) {
+  //     this.tempValue.style.order = window.getComputedStyle(this).order;
+  //     e.target.style.order = e.dataTransfer.getData('text/html');
+  //   }
+  //   return false;
+  // }
 
-  handleDragEnd() {
-    console.log('dragEnd');
-    const frames = Array.from(document.querySelectorAll('.frame-wrap'));
-    frames.forEach(frame => frame.classList.remove('over'));
-  }
+  // handleDragEnd() {
+  //   console.log('dragEnd');
+  //   const frames = Array.from(document.querySelectorAll('.frame-wrap'));
+  //   frames.forEach(frame => frame.classList.remove('over'));
+  // }
 }
 // STATIC FIELD
 Frame.counter = 1;
@@ -136,6 +136,7 @@ export default class PictureCreator {
     this.changeActiveFrame();
     this.changeFieldSize();
     this.listener();
+    this.trackFrameList();
   }
 
   framesUpdateListener() {
@@ -302,5 +303,79 @@ export default class PictureCreator {
   listener() {
     const button = document.querySelector('.gif');
     button.addEventListener('click', this.importGIF);
+  }
+
+  dragStartHandler(event) {
+    const { target } = event;
+    target.style.opacity = '0.4';
+
+    this.dragSrcEl = target;
+
+    const e = event;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', window.getComputedStyle(target).order);
+  }
+
+  dragOverHandle(event) {
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
+
+    const e = event;
+    e.dataTransfer.dropEffect = 'move';
+
+    return false;
+  }
+
+  dragEnterHandle(event) {
+    const { target } = event;
+    if (target.tagName.toLowerCase() === 'canvas') {
+      target.closest('.frame').classList.add('over');
+    }
+  }
+
+  dragLeaveHandle(event) {
+    const { target } = event;
+    if (target.tagName.toLowerCase() === 'canvas') {
+      target.closest('.frame').classList.remove('over');
+    }
+  }
+
+  dropHandle(event) {
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+
+    const { target } = event;
+    const element = target.closest('.frame');
+
+    if (this.dragSrcEl !== element) {
+      this.dragSrcEl.style.order = element.style.order;
+      element.style.order = event.dataTransfer.getData('text/html').slice(-1);
+    }
+
+    return false;
+  }
+
+  dragEndHandle(event) {
+    const over = document.querySelector('.over');
+    if (over) {
+      over.classList.remove('over');
+    }
+
+    const { target } = event;
+    target.style.opacity = '';
+    this.framesView.updateFramesNumbers();
+  }
+
+  trackFrameList() {
+    const frameList = document.querySelector('.shots');
+    // frameList.addEventListener('click', this.changeActiveFrame.bind(this));
+    frameList.addEventListener('dragstart', this.dragStartHandler);
+    frameList.addEventListener('dragenter', this.dragEnterHandle);
+    frameList.addEventListener('dragover', this.dragOverHandle);
+    frameList.addEventListener('dragleave', this.dragLeaveHandle);
+    frameList.addEventListener('drop', this.dropHandle);
+    frameList.addEventListener('dragend', this.dragEndHandle);
   }
 }
