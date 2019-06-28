@@ -147,8 +147,8 @@ export default class PictureCreator {
     context.imageSmoothingEnabled = false;
     const image = document.querySelector('.paint-field');
     const imageContext = image.getContext('2d');
-    imageContext.drawImage(frame, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
     context.drawImage(image, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
+    imageContext.drawImage(frame, 0, 0, image.width, image.width, 0, 0, frame.width, frame.height);
   }
 
   initAddShotButton() {
