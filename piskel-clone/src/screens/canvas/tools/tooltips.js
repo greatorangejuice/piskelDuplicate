@@ -91,5 +91,11 @@ export default class Tooltips {
       placement: 'right',
       content: 'Dithering (<span style="color: aqua;">D</span>)',
     });
+
+    tippy('.sepia', {
+      animation: 'shift-away',
+      placement: 'left',
+      content: 'Apply <span style="color: aqua;">SEPIA</span> filter',
+    });
   }
 }

@@ -139,6 +139,8 @@ export default class PictureCreator {
   framesUpdateListener() {
     const paintField = document.querySelector('.paint-field');
     paintField.addEventListener('mouseup', this.getFrame);
+    const sepiaFilter = document.querySelector('.sepia');
+    sepiaFilter.addEventListener('mouseup', this.getFrame);
   }
 
   getFrame() {

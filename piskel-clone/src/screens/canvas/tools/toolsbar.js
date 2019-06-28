@@ -515,6 +515,38 @@ export default class Tools {
 
     // }
   }
+
+  dithering() {
+
+    // this.clearCurrentState();
+    // let x0 = 0;
+    // let y0 = 0;
+    // let x1 = 0;
+    // let y1 = 0;
+    // let isMouseDown = false;
+
+
+    // const startDrawing = (e) => {
+    //   isMouseDown = true;
+    //   [x0, y0] = [e.offsetX, e.offsetY];
+    // };
+
+    // const stopDrawing = () => {
+    //   isMouseDown = false;
+    // };
+
+    // const drawLine = (e) => {
+    //   [x1, y] = [e.offsetX, e.offsetY];
+    //   startX = coordX * widthPixel;
+    //   startY = coordY * widthPixel;
+    //   if (startX % 20 === 0 && startY % 20 === 0) {
+    //     ctx.fillRect(startX, startY, widthPixel, widthPixel);
+    //   }
+    //   if (startX % 20 !== 0 && startY % 20 !== 0) {
+    //     ctx.fillRect(startX, startY, widthPixel, widthPixel);
+    //   }
+    // }
+  }
 }
 
 // ////////////////////////////////// PAINT
