@@ -34,7 +34,7 @@ body {
     "header header header header"
     "tools frames canvas-field layers";
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 0.3fr 256px 3fr 270px;
+  grid-template-columns: 120px 256px 2fr 270px;
   height: 100vh;
   background-color: #555555;
 
@@ -191,6 +191,7 @@ body {
 
   .colors {
     display: flex;
+    flex-direction: column;
   }
 
   .color {
@@ -327,6 +328,23 @@ input[type=range]::-webkit-slider-thumb:hover {
   height: 300px;
   background-color: #126377;
   z-index: 200;
+}
+
+.filters {
+  width: 90%;
+  height: 100px;
+  padding: 10px;
+  border: 2px solid yellow;
+}
+
+.filter-title {
+  background-color: yellow;
+  width: 60px;
+}
+
+.welcome {
+  margin: 5px;
+  color: #fff;
 }
 
 // .keyboard-buttons {

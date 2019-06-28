@@ -68,7 +68,7 @@ export default class Hotkeys {
     hotkeys('shift+b', (event) => {
       event.preventDefault();
       const tools = new Tools();
-      tools.bright();
+      tools.bright(0);
     });
     hotkeys('s', (event) => {
       event.preventDefault();

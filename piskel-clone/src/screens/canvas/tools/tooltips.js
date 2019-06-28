@@ -79,5 +79,17 @@ export default class Tooltips {
       placement: 'right',
       content: 'Bright | Darker (<span style="color: aqua;">B | Shift+B</span>)',
     });
+
+    tippy('.shape', {
+      animation: 'shift-away',
+      placement: 'right',
+      content: 'Shape (<span style="color: aqua;">S</span>)',
+    });
+
+    tippy('.dithering', {
+      animation: 'shift-away',
+      placement: 'right',
+      content: 'Dithering (<span style="color: aqua;">D</span>)',
+    });
   }
 }

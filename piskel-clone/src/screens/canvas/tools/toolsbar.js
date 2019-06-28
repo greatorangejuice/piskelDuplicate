@@ -11,6 +11,7 @@ export default class Tools {
     this.color = document.querySelector('.primary').value;
 
     this.frame = document.querySelector('.active-frame');
+    this.frameContext = this.frame.getContext('2d');
     this.image = document.querySelector('.paint-field');
     this.imageContext = this.image.getContext('2d');
 
@@ -59,25 +60,21 @@ export default class Tools {
               break;
             case 'mirror-pen-tool':
               this.clearCurrentState();
-
               this.mirrorPen();
               break;
             case 'circle':
               this.clearCurrentState();
-
               console.log('circle');
               this.circle();
               break;
             case 'bucket-tool':
               this.clearCurrentState();
-
               console.log('bucket-tool');
               // paintBucket();
               // testBucket();
               break;
             case 'rectangle-tool':
               this.clearCurrentState();
-
               this.rectangle();
               break;
             case 'second-rectangle-tool':
@@ -110,7 +107,12 @@ export default class Tools {
               break;
             case 'bright':
               this.clearCurrentState();
-              this.bright();
+              this.bright(1);
+              break;
+            case 'shape':
+              console.log('shape');
+              this.clearCurrentState();
+              this.shape();
               break;
             default:
               return;
@@ -123,9 +125,13 @@ export default class Tools {
     canvasTools.addEventListener('click', getActionButtons);
   }
 
-  zoom() {
+  zoom(way) {
     this.clearCurrentState();
     console.log('Zooom me!');
+    if (way) {
+      const field = document.querySelector('.paint-field');
+      field.style.transform = 'scale(3, 3)';
+    }
   }
 
   drawPixel(x, y, eraser = 0) {
@@ -177,6 +183,11 @@ export default class Tools {
       const signX = x1 < x2 ? 1 : -1;
       const signY = y1 < y2 ? 1 : -1;
       let error = deltaX - deltaY;
+      // if (dithering) {
+      //   if (x2 % 2) {
+      //     this.drawPixel(x2, y2, eraser);
+      //   }
+      // }
       this.drawPixel(x2, y2, eraser);
 
       while (x1 !== x2 || y1 !== y2) {
@@ -265,7 +276,7 @@ export default class Tools {
       let gap = 0;
       let delta = (1 - 2 * radius);
       this.context.clearRect(0, 0, 128, 128);
-      this.imageContext.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
+      this.context.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
 
       // this.context.clearRect(x, y, 64, 64);
 
@@ -319,13 +330,13 @@ export default class Tools {
 
     const drawLine = (e) => {
       if (isMouseDown) {
+        this.context.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
         this.context.clearRect(x, y, width, height);
         this.context.beginPath();
         width = e.offsetX - x;
         height = e.offsetY - y;
         this.context.fillStyle = this.primaryColor.value;
         this.context.fillRect(x, y, width, height);
-        this.imageContext.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
       }
     };
 
@@ -364,7 +375,7 @@ export default class Tools {
       [x, y] = [e.offsetX, e.offsetY];
       if (isMouseDown) {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.imageContext.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
+        this.context.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
         this.context.beginPath();
         width = x - lastX;
         height = y - lastY;
@@ -424,7 +435,7 @@ export default class Tools {
     this.addFunctionsInState('mouseout', stopDrawing);
   }
 
-  bright() {
+  bright(light = 1) {
     this.clearCurrentState();
     let x1;
     let y1;
@@ -434,6 +445,7 @@ export default class Tools {
     let coordY1;
 
     const changeBright = (e) => {
+      let color = null;
       const widthPixel = this.canvas.width / 16;
       console.log(widthPixel);
       x1 = e.offsetX;
@@ -451,19 +463,60 @@ export default class Tools {
         for (let i = 0; i < 4; i += 1) {
           if (imgData.data[i] === 0) imgData.data[i] = 10;
           arrColor.push(imgData.data[i]);
-          const color = `rgb(${imgData.data[0] * 2}, ${imgData.data[1] * 2}, ${imgData.data[2] * 2})`;
+          if (light) {
+            console.log('light');
+            color = `rgb(${imgData.data[0] * 2}, ${imgData.data[1] * 2}, ${imgData.data[2] * 2})`;
+          } else if (light === 0) {
+            console.log('dark');
+            color = `rgb(${imgData.data[0] * 0.8}, ${imgData.data[1] * 0.8}, ${imgData.data[2] * 0.8})`;
+          }
           this.context.fillStyle = color;
           this.context.fillRect(startX, startY, widthPixel, widthPixel);
         }
       }
     };
     this.canvas.addEventListener('click', changeBright);
+    this.addFunctionsInState('click', changeBright);
   }
 
-  // shape() {
+  shape() {
+    const paintAll = (e) => {
+      let color;
+      const widthPixel = this.canvas.width / this.canvas.width;
+      const [x0, y0] = [e.offsetX, e.offsetY];
+      const startX = Math.floor(x0 / widthPixel) * widthPixel;
+      const startY = Math.floor(y0 / widthPixel) * widthPixel;
+      if (e.which === 1) {
+        color = document.querySelector('.primary').value;
+      }
+      if (e.which === 3) {
+        color = document.querySelector('.secondary').value;
+      }
+      const imgData = this.context.getImageData(startX, startY, 1, 1);
+      const red = imgData.data[0];
+      const green = imgData.data[1];
+      const blue = imgData.data[2];
+      for (let x = 0; x < this.canvas.width; x += widthPixel) {
+        for (let y = 0; y < this.canvas.height; y += widthPixel) {
+          const imgDataPx = this.context.getImageData(x, y, 1, 1);
+          if (imgDataPx.data[0] === red && imgDataPx.data[1] === green
+            && imgDataPx.data[2] === blue) {
+            this.frameContext.fillStyle = color;
+            this.context.fillStyle = color;
+            this.context.fillRect(x, y, widthPixel, widthPixel);
+            this.frameContext.fillRect(x, y, widthPixel, widthPixel);
+          }
+        }
+      }
+    };
+    this.canvas.addEventListener('click', paintAll);
+    this.addFunctionsInState('click', paintAll);
+    // dithering() {
 
-  // }
+    // }
+  }
 }
+
 // ////////////////////////////////// PAINT
 
 // const getPixelPos = (x, y) => (y * canvas.width + x) * 4;

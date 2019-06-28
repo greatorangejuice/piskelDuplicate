@@ -13,8 +13,10 @@ export default class GoogleAuth {
 
 
   init() {
+    console.log();
+    const welcome = document.querySelector('.welcome');
+    const avatar = document.querySelector('.welcome-avatar');
     const signIn = () => {
-      const welcome = document.querySelector('.welcome');
       const auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signIn().then((googleUser) => {
         // метод возвращает объект пользователя
@@ -26,22 +28,33 @@ export default class GoogleAuth {
         console.log(`Family Name: ${profile.getFamilyName()}`);
         console.log(`Image URL: ${profile.getImageUrl()}`);
         console.log(`Email: ${profile.getEmail()}`);
-
+        console.log(`localStorage: ${localStorage}`);
+        console.log(`item: ${localStorage.getItem('stateInJSON')}`);
         // токен
+        this.state.name = `${profile.getName()}`;
+        this.state.imgUrl = `${profile.getImageUrl}`;
         const { id_token } = googleUser.getAuthResponse();
         console.log(`ID Token: ${id_token}`);
         welcome.innerHTML = `Hi, dear ${profile.getName()}`;
+        avatar.src = `${profile.getImageUrl()}`;
         // const signIn = document.querySelector('.signIn');
         // console.log(singIn);
-        signIn.classList.add = 'hide';
-        this.state.name = profile.getName();
-        this.state.imgUrl = profile.getImageUrl;
+        // signIn.classList.add = 'hide';
+        this.state.name = `${profile.getName()}`;
+        this.state.imgUrl = `${profile.getImageUrl()}`;
+        welcome.classList.remove('hide');
+        avatar.classList.remove('hide');
+
+        const stateInJSON = JSON.stringify(this.state);
+        localStorage.setItem('appState', stateInJSON);
       });
     };
     const signOut = () => {
       const auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(() => {
         console.log('User signed out.');
+        welcome.classList.add('hide');
+        avatar.classList.add('hide');
       });
     };
 
