@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 // import GIF from '../../../gifExporter/gif';
+import GIF from 'gif.js.optimized';
 
 class Frame {
   // static counter = 1;
@@ -134,6 +135,7 @@ export default class PictureCreator {
     this.setFullscreen();
     this.changeActiveFrame();
     this.changeFieldSize();
+    this.listener();
   }
 
   framesUpdateListener() {
@@ -272,5 +274,33 @@ export default class PictureCreator {
     activeFrameWrap.appendChild(newLayer);
     const context = newLayer.getContext('2d');
     context.fillRect(5, 5, 10, 10);
+  }
+
+  importGIF() {
+    const frameCanvas = document.querySelectorAll('.frame');
+    const gif = new GIF({
+      workers: 2,
+      workerScript: './dist/gif.worker.js',
+      quality: 10,
+      repeat: 0,
+      width: frameCanvas[0].width,
+      height: frameCanvas[0].height,
+      background: frameCanvas[0].style.background,
+    });
+    const save = document.querySelectorAll('.save')[0];
+    for (let i = 0; i < frameCanvas.length; i += 1) {
+      gif.addFrame(frameCanvas[i], { delay: 10 });
+    }
+    gif.on('finished', (blob) => {
+      save.href = URL.createObjectURL(blob);
+      save.innerHTML = 'Download';
+      console.log(save);
+    });
+    gif.render();
+  }
+
+  listener() {
+    const button = document.querySelector('.gif');
+    button.addEventListener('click', this.importGIF);
   }
 }
