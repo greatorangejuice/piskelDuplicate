@@ -276,7 +276,8 @@ export default class Tools {
       let gap = 0;
       let delta = (1 - 2 * radius);
       this.context.clearRect(0, 0, 128, 128);
-      this.context.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
+      const frame = document.querySelector('.active-frame');
+      this.context.drawImage(frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, frame.width, frame.height);
 
       // this.context.clearRect(x, y, 64, 64);
 
@@ -330,7 +331,8 @@ export default class Tools {
 
     const drawLine = (e) => {
       if (isMouseDown) {
-        this.context.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
+        const frame = document.querySelector('.active-frame');
+        this.context.drawImage(frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, frame.width, frame.height);
         this.context.clearRect(x, y, width, height);
         this.context.beginPath();
         width = e.offsetX - x;
@@ -374,8 +376,10 @@ export default class Tools {
     const drawLine = (e) => {
       [x, y] = [e.offsetX, e.offsetY];
       if (isMouseDown) {
+        const frame = document.querySelector('.active-frame');
+        this.context.drawImage(frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, frame.width, frame.height);
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.drawImage(this.frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, this.frame.width, this.frame.height);
+        this.context.drawImage(frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, frame.width, frame.height);
         this.context.beginPath();
         width = x - lastX;
         height = y - lastY;

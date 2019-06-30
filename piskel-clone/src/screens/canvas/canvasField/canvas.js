@@ -39,14 +39,7 @@ class Frame {
 
     copyBTN.addEventListener('click', this.copy);
     Frame.counter += 1;
-    this.tempValue = null;
     this.dragSrcEl = null;
-    // shotsWrapper.addEventListener('dragstart', this.handleDragStart.bind(shotsWrapper));
-    // shotsWrapper.addEventListener('dragenter', this.handleDragOver.bind(shotsWrapper));
-    // shotsWrapper.addEventListener('dragover', this.handleDragEnter.bind(shotsWrapper));
-    // shotsWrapper.addEventListener('dragleave', this.handleDragLeave.bind(shotsWrapper));
-    // shotsWrapper.addEventListener('drop', this.handleDrop.bind(shotsWrapper));
-    // shotsWrapper.addEventListener('dragend', this.handleDragEnd.bind(shotsWrapper));
   }
 
   destroy(e) {
@@ -89,9 +82,8 @@ export default class PictureCreator {
     this.setFullscreen();
     this.changeActiveFrame();
     this.changeFieldSize();
-    this.listener();
+    this.addGifListener();
     this.trackFrameList();
-    this.listener();
   }
 
   framesUpdateListener() {
@@ -100,6 +92,7 @@ export default class PictureCreator {
   }
 
   getFrame() {
+    console.log('get frame');
     const frame = document.querySelector('.active-frame');
     const context = frame.getContext('2d');
     context.imageSmoothingEnabled = false;
@@ -234,6 +227,7 @@ export default class PictureCreator {
 
   importGIF() {
     const frameCanvas = document.querySelectorAll('.frame');
+    const FPS = document.querySelector('.speed');
     const gif = new GIF({
       workers: 2,
       workerScript: './dist/gif.worker.js',
@@ -245,17 +239,17 @@ export default class PictureCreator {
     });
     const save = document.querySelectorAll('.save')[0];
     for (let i = 0; i < frameCanvas.length; i += 1) {
-      gif.addFrame(frameCanvas[i], { delay: 10 });
+      gif.addFrame(frameCanvas[i], { delay: FPS.value });
     }
     gif.on('finished', (blob) => {
       save.href = URL.createObjectURL(blob);
       save.innerHTML = 'Download';
-      console.log(save);
+      save.classList.add('link');
     });
     gif.render();
   }
 
-  listener() {
+  addGifListener() {
     const button = document.querySelector('.gif');
     button.addEventListener('click', this.importGIF);
   }
@@ -324,75 +318,11 @@ export default class PictureCreator {
 
   trackFrameList() {
     const frameList = document.querySelector('.shots');
-    // frameList.addEventListener('click', this.changeActiveFrame.bind(this));
     frameList.addEventListener('dragstart', this.dragStartHandler);
     frameList.addEventListener('dragenter', this.dragEnterHandle);
     frameList.addEventListener('dragover', this.dragOverHandle);
     frameList.addEventListener('dragleave', this.dragLeaveHandle);
     frameList.addEventListener('drop', this.dropHandle);
     frameList.addEventListener('dragend', this.dragEndHandle);
-  }
-
-  handleDragStart(e) {
-    this.tempValue = this;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-  }
-
-  handleDragOver(e) {
-    console.log('dragOver');
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-    e.dataTransfer.dropEffect = 'move';
-    return false;
-  }
-
-  handleDragEnter() {
-    // console.log('dragEnter');
-    this.classList.add('over');
-  }
-
-  handleDragLeave() {
-    // console.log('dragLeave');
-    this.classList.remove('over');
-  }
-
-  handleDrop(e) {
-    console.log('HANDLE DROP');
-    // this/e.target is current target element.
-    if (e.stopPropagation) {
-      e.stopPropagation(); // Stops some browsers from redirecting.
-    }
-
-    // e.dataTransfer.dropEffect = 'move';
-    if (this.tempValue !== this) {
-      this.tempValue.style.order = window.getComputedStyle(this).order;
-      e.target.style.order = e.dataTransfer.getData('text/html');
-    }
-    return false;
-  }
-
-  handleDragEnd() {
-    console.log('dragEnd');
-    const frames = Array.from(document.querySelectorAll('.frame-wrap'));
-    frames.forEach(frame => frame.classList.remove('over'));
-  }
-
-  addListener() {
-    const frameList = document.querySelector('.shots');
-    // frameList.addEventListener('dragstart', this.d);
-    // frameList.addEventListener('dragenter', this.dragEnterHandle);
-    // frameList.addEventListener('dragover', this.dragOverHandle);
-    // frameList.addEventListener('dragleave', this.dragLeaveHandle);
-    // frameList.addEventListener('drop', this.dropHandle);
-    // frameList.addEventListener('dragend', this.dragEndHandle);
-
-    frameList.addEventListener('dragstart', this.handleDragStart);
-    frameList.addEventListener('dragenter', this.handleDragOver);
-    frameList.addEventListener('dragover', this.handleDragEnter);
-    frameList.addEventListener('dragleave', this.handleDragLeave);
-    frameList.addEventListener('drop', this.handleDrop);
-    frameList.addEventListener('dragend', this.handleDragEnd);
   }
 }

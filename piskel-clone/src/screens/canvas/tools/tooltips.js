@@ -91,5 +91,11 @@ export default class Tooltips {
       placement: 'right',
       content: 'Dithering (<span style="color: aqua;">D</span>)',
     });
+
+    tippy('.add-frame-tool', {
+      animation: 'shift-away',
+      placement: 'bottom',
+      content: 'Add new frame (<span style="color: aqua;">F</span>)',
+    });
   }
 }
