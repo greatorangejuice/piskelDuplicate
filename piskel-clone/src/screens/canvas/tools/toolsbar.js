@@ -3,10 +3,10 @@ export default class Tools {
   constructor() {
     // const canvas = document.querySelector('.paint-field');
     // this.currentPaintFieldWidth = canvas.width;
+    this.currentToolsListeners = {};
     this.canvasTools = document.querySelector('.canvas-tools');
     this.canvas = document.querySelector('.paint-field');
     this.context = this.canvas.getContext('2d');
-    this.currentToolsListeners = {};
     this.primaryColor = document.querySelector('.primary');
     this.color = document.querySelector('.primary').value;
 
@@ -240,14 +240,14 @@ export default class Tools {
   }
 
   addFunctionsInState(event, func) {
-    this.currentToolsListeners[event] = func;
+    Tools.currentToolsListeners[event] = func;
   }
 
   clearCurrentState() {
-    Object.keys(this.currentToolsListeners).forEach((key) => {
-      this.canvas.removeEventListener(key, this.currentToolsListeners[key]);
-      Object.keys(this.currentToolsListeners).forEach((value) => {
-        delete this.currentToolsListeners[value];
+    Object.keys(Tools.currentToolsListeners).forEach((key) => {
+      this.canvas.removeEventListener(key, Tools.currentToolsListeners[key]);
+      Object.keys(Tools.currentToolsListeners).forEach((value) => {
+        delete Tools.currentToolsListeners[value];
       });
     });
     // Добавить удаление класса active или что-нибудь подобного.
@@ -519,7 +519,81 @@ export default class Tools {
 
     // }
   }
+
+  // colorPicker() {
+  //   const componentToHex = (c) => {
+  //     const hex = c.toString(16);
+  //     return hex.length === 1 ? `0${hex}` : hex;
+  //   };
+
+  //   const work = (r, g, b) => `#${RgbToHex.componentToHex(r)}${RgbToHex.componentToHex(g)}${RgbToHex.componentToHex(b)}`;
+  // }
+
+  // paintBucket() {
+  //   const isMatchStartColor = (x, y, color) => {
+  //     const { data } = this.context.getImageData(x, y, 1, 1);
+  //     return data[0] === color[0] && data[1] === color[1] && data[2] === color[2]
+  //       && data[3] === color[3];
+  //   };
+
+  //   const fill = (startX, startY, startColor, fillColor) => {
+  //     // const [startX, startY] = [e.offsetX, e.offsetY];
+  //     if (this.rgbToHex([...startColor].slice(0, -1)) === fillColor) return;
+  //     let reachLeft;
+  //     let reachRight;
+
+  //     const pixelStack = [[startX, startY]];
+  //     const canvasWidth = this.mainCanvas.width;
+  //     const canvasHeight = this.mainCanvas.height;
+
+  //     while (pixelStack.length) {
+  //       const newPos = pixelStack.pop();
+  //       const [x] = newPos;
+  //       let [, y] = newPos;
+
+  //       while (y >= 0 && isMatchStartColor(x, y, startColor)) {
+  //         y -= this.pixelWidth;
+  //       }
+  //       y += this.pixelWidth;
+  //       while (y < canvasHeight && isMatchStartColor(x, y, startColor)) {
+  //         this.drawPixel(x, y, fillColor);
+
+  //         if (x > 0) {
+  //           if (isMatchStartColor(x - this.pixelWidth, y, startColor)) {
+  //             if (!reachLeft) {
+  //               pixelStack.push([x - this.pixelWidth, y]);
+  //               reachLeft = true;
+  //             }
+  //           }
+  //           reachLeft = false;
+  //         }
+
+  //         if (x < canvasWidth) {
+  //           if (isMatchStartColor(x + this.pixelWidth, y, startColor)) {
+  //             if (!reachRight) {
+  //               pixelStack.push([x + this.pixelWidth, y]);
+  //               reachRight = true;
+  //             }
+  //           }
+  //           reachRight = false;
+  //         }
+
+  //         y += this.pixelWidth;
+  //       }
+  //       reachRight = false;
+  //       reachLeft = false;
+  //     }
+  //   };
+
+
+  //   // const mouseDownHandler = (event) => {
+  //   //   const [x1, y1] = [event.offsetX, event.offsetY];
+  //   //   const { data } = this.context.getImageData(x1, y1, 1, 1);
+  //   //   fill(x1, y1, data, event.which === 1 ? this.firstColor : this.secondColor);
+  //   // };
+  // }
 }
+Tools.currentToolsListeners = {};
 
 // ////////////////////////////////// PAINT
 
@@ -601,3 +675,30 @@ export default class Tools {
 
 
 // ////////////////////////////////// PAINT
+
+//  colorPicker {
+//   static componentToHex(c) {
+//     const hex = c.toString(16);
+//     return hex.length === 1 ?`0${hex}`: hex;
+//   }
+
+//   static work(r, g, b) {
+//     return `#${RgbToHex.componentToHex(r)}${RgbToHex.componentToHex(g)}${RgbToHex.componentToHex(b)}`;
+//   }
+
+//   picker(e, ctx) {
+//     let color;
+//     if (e.which === 1) {
+//       color = document.getElementById('colorOne');
+//     }
+//     if (e.which === 3) {
+//       color = document.getElementById('colorTwo');
+//     }
+//     const imgData = ctx.getImageData(e.offsetX, e.offsetY, 1, 1);
+//     const red = imgData.data[0];
+//     const green = imgData.data[1];
+//     const blue = imgData.data[2];
+//     const newColor = RgbToHex.work(red, green, blue);
+//     if (newColor !== '#000000') color.value = newColor;
+//   }
+// }
