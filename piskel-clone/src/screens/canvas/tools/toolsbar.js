@@ -312,6 +312,7 @@ export default class Tools {
   }
 
   rectangle() {
+    this.clearCurrentState();
     let x = 0;
     let y = 0;
     let width = 0;
