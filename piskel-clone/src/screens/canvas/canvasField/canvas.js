@@ -228,6 +228,7 @@ export default class PictureCreator {
   importGIF() {
     const frameCanvas = document.querySelectorAll('.frame');
     const FPS = document.querySelector('.speed');
+    console.log(`FPS value: ${FPS.value}`);
     const gif = new GIF({
       workers: 2,
       workerScript: './dist/gif.worker.js',
