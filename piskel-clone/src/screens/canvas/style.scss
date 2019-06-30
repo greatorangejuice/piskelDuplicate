@@ -152,6 +152,11 @@ body {
     right: 60px;
     top: 64px;
   }
+
+  .shots {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 // TOOLS

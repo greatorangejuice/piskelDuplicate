@@ -207,6 +207,16 @@ body {
   top: 64px;
 }
 
+.grid .shots {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .tool {
   width: 45px;
   height: 40px;

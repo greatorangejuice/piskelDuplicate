@@ -72,52 +72,6 @@ class Frame {
     context.drawImage(image, 0, 0, paintField.width, paintField.height, 0, 0, 128, 128, 0, 0);
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
   }
-
-  // handleDragStart(e) {
-  //   this.tempValue = this;
-  //   e.dataTransfer.effectAllowed = 'move';
-  //   e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-  // }
-
-  // handleDragOver(e) {
-  //   console.log('dragOver');
-  //   if (e.preventDefault) {
-  //     e.preventDefault();
-  //   }
-  //   e.dataTransfer.dropEffect = 'move';
-  //   return false;
-  // }
-
-  // handleDragEnter() {
-  //   // console.log('dragEnter');
-  //   this.classList.add('over');
-  // }
-
-  // handleDragLeave() {
-  //   // console.log('dragLeave');
-  //   this.classList.remove('over');
-  // }
-
-  // handleDrop(e) {
-  //   console.log('HANDLE DROP');
-  //   // this/e.target is current target element.
-  //   if (e.stopPropagation) {
-  //     e.stopPropagation(); // Stops some browsers from redirecting.
-  //   }
-
-  //   // e.dataTransfer.dropEffect = 'move';
-  //   if (this.tempValue !== this) {
-  //     this.tempValue.style.order = window.getComputedStyle(this).order;
-  //     e.target.style.order = e.dataTransfer.getData('text/html');
-  //   }
-  //   return false;
-  // }
-
-  // handleDragEnd() {
-  //   console.log('dragEnd');
-  //   const frames = Array.from(document.querySelectorAll('.frame-wrap'));
-  //   frames.forEach(frame => frame.classList.remove('over'));
-  // }
 }
 // STATIC FIELD
 Frame.counter = 1;
@@ -137,6 +91,7 @@ export default class PictureCreator {
     this.changeFieldSize();
     this.listener();
     this.trackFrameList();
+    this.listener();
   }
 
   framesUpdateListener() {
@@ -330,14 +285,14 @@ export default class PictureCreator {
   dragEnterHandle(event) {
     const { target } = event;
     if (target.tagName.toLowerCase() === 'canvas') {
-      target.closest('.frame').classList.add('over');
+      target.closest('.frame-wrap').classList.add('over');
     }
   }
 
   dragLeaveHandle(event) {
     const { target } = event;
     if (target.tagName.toLowerCase() === 'canvas') {
-      target.closest('.frame').classList.remove('over');
+      target.closest('.frame-wrap').classList.remove('over');
     }
   }
 
@@ -347,11 +302,11 @@ export default class PictureCreator {
     }
 
     const { target } = event;
-    const element = target.closest('.frame');
+    const element = target.closest('.frame-wrap');
 
     if (this.dragSrcEl !== element) {
       this.dragSrcEl.style.order = element.style.order;
-      element.style.order = event.dataTransfer.getData('text/html').slice(-1);
+      element.style.order = event.dataTransfer.getData('text/html');
     }
 
     return false;
@@ -365,7 +320,6 @@ export default class PictureCreator {
 
     const { target } = event;
     target.style.opacity = '';
-    this.framesView.updateFramesNumbers();
   }
 
   trackFrameList() {
@@ -377,5 +331,68 @@ export default class PictureCreator {
     frameList.addEventListener('dragleave', this.dragLeaveHandle);
     frameList.addEventListener('drop', this.dropHandle);
     frameList.addEventListener('dragend', this.dragEndHandle);
+  }
+
+  handleDragStart(e) {
+    this.tempValue = this;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
+  }
+
+  handleDragOver(e) {
+    console.log('dragOver');
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+  }
+
+  handleDragEnter() {
+    // console.log('dragEnter');
+    this.classList.add('over');
+  }
+
+  handleDragLeave() {
+    // console.log('dragLeave');
+    this.classList.remove('over');
+  }
+
+  handleDrop(e) {
+    console.log('HANDLE DROP');
+    // this/e.target is current target element.
+    if (e.stopPropagation) {
+      e.stopPropagation(); // Stops some browsers from redirecting.
+    }
+
+    // e.dataTransfer.dropEffect = 'move';
+    if (this.tempValue !== this) {
+      this.tempValue.style.order = window.getComputedStyle(this).order;
+      e.target.style.order = e.dataTransfer.getData('text/html');
+    }
+    return false;
+  }
+
+  handleDragEnd() {
+    console.log('dragEnd');
+    const frames = Array.from(document.querySelectorAll('.frame-wrap'));
+    frames.forEach(frame => frame.classList.remove('over'));
+  }
+
+  addListener() {
+    const frameList = document.querySelector('.shots');
+    // frameList.addEventListener('dragstart', this.d);
+    // frameList.addEventListener('dragenter', this.dragEnterHandle);
+    // frameList.addEventListener('dragover', this.dragOverHandle);
+    // frameList.addEventListener('dragleave', this.dragLeaveHandle);
+    // frameList.addEventListener('drop', this.dropHandle);
+    // frameList.addEventListener('dragend', this.dragEndHandle);
+
+    frameList.addEventListener('dragstart', this.handleDragStart);
+    frameList.addEventListener('dragenter', this.handleDragOver);
+    frameList.addEventListener('dragover', this.handleDragEnter);
+    frameList.addEventListener('dragleave', this.handleDragLeave);
+    frameList.addEventListener('drop', this.handleDrop);
+    frameList.addEventListener('dragend', this.handleDragEnd);
   }
 }
