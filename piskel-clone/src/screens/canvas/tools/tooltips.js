@@ -83,7 +83,7 @@ export default class Tooltips {
     tippy('.shape', {
       animation: 'shift-away',
       placement: 'right',
-      content: 'Shape (<span style="color: aqua;">S</span>)',
+      content: 'Shape (<span style="color: aqua;">S</span>) <br> Please, fill all field in another color!',
     });
 
     tippy('.dithering', {

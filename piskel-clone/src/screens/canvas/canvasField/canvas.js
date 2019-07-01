@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring */
-// import GIF from '../../../gifExporter/gif';
 import GIF from 'gif.js.optimized';
 
 class Frame {
@@ -94,7 +93,6 @@ export default class PictureCreator {
   }
 
   getFrame() {
-    console.log('get frame');
     const frame = document.querySelector('.active-frame');
     const context = frame.getContext('2d');
     context.imageSmoothingEnabled = false;
@@ -230,7 +228,6 @@ export default class PictureCreator {
   importGIF() {
     const frameCanvas = document.querySelectorAll('.frame');
     const FPS = document.querySelector('.speed');
-    console.log(`FPS value: ${FPS.value}`);
     const gif = new GIF({
       workers: 2,
       workerScript: './dist/gif.worker.js',

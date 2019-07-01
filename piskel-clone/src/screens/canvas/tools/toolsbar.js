@@ -70,8 +70,7 @@ export default class Tools {
             case 'bucket-tool':
               this.clearCurrentState();
               console.log('bucket-tool');
-              // paintBucket();
-              // testBucket();
+              this.paintBucket();
               break;
             case 'rectangle-tool':
               this.clearCurrentState();
@@ -114,6 +113,16 @@ export default class Tools {
               console.log('shape');
               this.clearCurrentState();
               this.shape();
+              break;
+            case 'rotate':
+              console.log('rotate');
+              this.clearCurrentState();
+              this.rotateImage();
+              break;
+            case 'dithering':
+              console.log('rotate');
+              this.clearCurrentState();
+              this.dithering();
               break;
             default:
               return;
@@ -523,36 +532,67 @@ export default class Tools {
     // }
   }
 
-  // dithering() {
+  dithering() {
+    this.clearCurrentState();
+    // let x0 = 0;
+    // let y0 = 0;
+    let x1 = 0;
+    let y1 = 0;
+    let isMouseDown = false;
 
-  //   this.clearCurrentState();
-  //   let x0 = 0;
-  //   let y0 = 0;
-  //   let x1 = 0;
-  //   let y1 = 0;
-  //   let isMouseDown = false;
+    const startDrawing = () => {
+      isMouseDown = true;
+      // [x0, y0] = [e.offsetX, e.offsetY];
+    };
 
-  //   const startDrawing = (e) => {
-  //     isMouseDown = true;
-  //     [x0, y0] = [e.offsetX, e.offsetY];
+    const stopDrawing = () => {
+      isMouseDown = false;
+    };
+
+    const drawLine = (e) => {
+      if (!isMouseDown) return;
+      console.log('draw');
+      [x1, y1] = [e.offsetX, e.offsetY];
+      const startX = x1 * this.pixelWidth;
+      const startY = y1 * this.pixelWidth;
+      if (startX % 20 === 0 && startY % 20 === 0) {
+        this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
+      }
+      if (startX % 20 !== 0 && startY % 20 !== 0) {
+        this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
+      }
+    };
+    this.canvas.addEventListener('mousedown', startDrawing);
+    this.canvas.addEventListener('mousemove', drawLine);
+    this.canvas.addEventListener('mouseup', stopDrawing);
+    this.canvas.addEventListener('mouseout', stopDrawing);
+
+    this.addFunctionsInState('mousedown', startDrawing);
+    this.addFunctionsInState('mousemove', drawLine);
+    this.addFunctionsInState('mouseup', stopDrawing);
+    this.addFunctionsInState('mouseout', stopDrawing);
+  }
+
+  // rgbToHex(r, g, b) {
+  //   console.log(r);
+  //   console.log(g);
+  //   console.log(b);
+  //   const componentToHex = (c) => {
+  //     const hex = c.toString(16);
+  //     return hex.length === 1 ? `0${hex}` : hex;
   //   };
 
-  //   const stopDrawing = () => {
-  //     isMouseDown = false;
-  //   };
-
-  //   const drawLine = (e) => {
-  //     [x1, y1] = [e.offsetX, e.offsetY];
-  //     const startX = x0 * this.pixelWidth;
-  //     const startY = coordY * this.pixelWidth;
-  //     if (startX % 20 === 0 && startY % 20 === 0) {
-  //       this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
-  //     }
-  //     if (startX % 20 !== 0 && startY % 20 !== 0) {
-  //       this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
-  //     }
-  //   };
+  //   const work = () => `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+  //   work(r, g, b);
   // }
+
+  rgbToHex(arr) {
+    const arrHex = arr.map((x) => {
+      const num = parseInt(x, 10).toString(16);
+      return (num.length === 1) ? `0${num}` : num;
+    });
+    return `#${arrHex.join('')}`;
+  }
 
   colorPicker() {
     const componentToHex = (c) => {
@@ -582,69 +622,100 @@ export default class Tools {
     this.addFunctionsInState('click', picker);
   }
 
-  // paintBucket() {
-  //   const isMatchStartColor = (x, y, color) => {
-  //     const { data } = this.context.getImageData(x, y, 1, 1);
-  //     return data[0] === color[0] && data[1] === color[1] && data[2] === color[2]
-  //       && data[3] === color[3];
-  //   };
+  paintBucket() {
+    const isMatchStartColor = (x, y, color) => {
+      const { data } = this.context.getImageData(x, y, 1, 1);
+      return data[0] === color[0] && data[1] === color[1] && data[2] === color[2]
+        && data[3] === color[3];
+    };
 
-  //   const fill = (startX, startY, startColor, fillColor) => {
-  //     // const [startX, startY] = [e.offsetX, e.offsetY];
-  //     if (this.rgbToHex([...startColor].slice(0, -1)) === fillColor) return;
-  //     let reachLeft;
-  //     let reachRight;
+    const fill = (startX, startY, startColor, fillColor) => {
+      console.log('fill?');
+      if (this.rgbToHex([...startColor].slice(0, -1)) === fillColor) return;
+      console.log('fill');
+      let reachLeft;
+      let reachRight;
 
-  //     const pixelStack = [[startX, startY]];
-  //     const canvasWidth = this.mainCanvas.width;
-  //     const canvasHeight = this.mainCanvas.height;
+      const pixelStack = [[startX, startY]];
+      const canvasWidth = this.canvas.width;
+      const canvasHeight = this.canvas.height;
+      console.log(pixelStack);
+      while (pixelStack.length) {
+        const newPos = pixelStack.pop();
+        const [x] = newPos;
+        let [, y] = newPos;
 
-  //     while (pixelStack.length) {
-  //       const newPos = pixelStack.pop();
-  //       const [x] = newPos;
-  //       let [, y] = newPos;
+        while (y >= 0 && isMatchStartColor(x, y, startColor)) {
+          y -= this.pixelWidth;
+        }
+        y += this.pixelWidth;
+        while (y < canvasHeight && isMatchStartColor(x, y, startColor)) {
+          this.drawPixel(x, y);
 
-  //       while (y >= 0 && isMatchStartColor(x, y, startColor)) {
-  //         y -= this.pixelWidth;
-  //       }
-  //       y += this.pixelWidth;
-  //       while (y < canvasHeight && isMatchStartColor(x, y, startColor)) {
-  //         this.drawPixel(x, y, fillColor);
+          if (x > 0) {
+            if (isMatchStartColor(x - this.pixelWidth, y, startColor)) {
+              if (!reachLeft) {
+                pixelStack.push([x - this.pixelWidth, y]);
+                reachLeft = true;
+              }
+            }
+            reachLeft = false;
+          }
 
-  //         if (x > 0) {
-  //           if (isMatchStartColor(x - this.pixelWidth, y, startColor)) {
-  //             if (!reachLeft) {
-  //               pixelStack.push([x - this.pixelWidth, y]);
-  //               reachLeft = true;
-  //             }
-  //           }
-  //           reachLeft = false;
-  //         }
+          if (x < canvasWidth) {
+            if (isMatchStartColor(x + this.pixelWidth, y, startColor)) {
+              if (!reachRight) {
+                pixelStack.push([x + this.pixelWidth, y]);
+                reachRight = true;
+              }
+            }
+            reachRight = false;
+          }
 
-  //         if (x < canvasWidth) {
-  //           if (isMatchStartColor(x + this.pixelWidth, y, startColor)) {
-  //             if (!reachRight) {
-  //               pixelStack.push([x + this.pixelWidth, y]);
-  //               reachRight = true;
-  //             }
-  //           }
-  //           reachRight = false;
-  //         }
+          y += this.pixelWidth;
+        }
+        reachRight = false;
+        reachLeft = false;
+      }
+    };
 
-  //         y += this.pixelWidth;
-  //       }
-  //       reachRight = false;
-  //       reachLeft = false;
-  //     }
-  //   };
+    const mouseDownHandler = (event) => {
+      const [x1, y1] = [event.offsetX, event.offsetY];
+      const { data } = this.context.getImageData(x1, y1, 1, 1);
+      console.log(data);
+      console.log(this.color);
+      fill(x1, y1, data, this.color);
+    };
 
+    this.canvas.addEventListener('click', mouseDownHandler);
+    this.addFunctionsInState('click', mouseDownHandler);
+  }
 
-  //   // const mouseDownHandler = (event) => {
-  //   //   const [x1, y1] = [event.offsetX, event.offsetY];
-  //   //   const { data } = this.context.getImageData(x1, y1, 1, 1);
-  //   //   fill(x1, y1, data, event.which === 1 ? this.firstColor : this.secondColor);
-  //   // };
-  // }
+  rotateImage() {
+    // const [x, y] = [e.offsetX, e.offsetY];
+    const image = document.querySelector('.paint-field');
+    const context = image.getContext('2d');
+    const frame = document.querySelector('.active-frame');
+    const frameContext = frame.getContext('2d');
+
+    context.save();
+    context.clearRect(0, 0, image.width, image.height); // очищаю поле
+    context.translate(image.width / 2, image.height / 2); // меняю ось
+    context.rotate(90 * Math.PI / 180); // поворачиваю
+    frameContext.drawImage(image, 0, 0); // закидываю на фрейм
+    context.clearRect(0, 0, image.width, image.height); // очищаю поле
+    context.drawImage(frame, image.width, image.height); // рисую
+    context.restore();
+
+    context.save();
+    context.clearRect(0, 0, image.width, image.width);
+    context.translate(image.width / 2, image.width / 2);
+    context.rotate((Math.PI / 180) * 90);
+    context.drawImage(frame, -image.width / 2, -image.width / 2);
+    frameContext.clearRect(0, 0, frame.width, frame.width);
+    frameContext.drawImage(image, 0, 0);
+    context.restore();
+  }
 }
 Tools.currentToolsListeners = {};
 
