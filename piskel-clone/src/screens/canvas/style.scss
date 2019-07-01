@@ -152,6 +152,11 @@ body {
     right: 60px;
     top: 64px;
   }
+
+  .shots {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 // TOOLS
@@ -347,6 +352,24 @@ input[type=range]::-webkit-slider-thumb:hover {
   color: #fff;
 }
 
+.link {
+  color: black;
+  text-decoration: none;
+  background-color: yellow;
+}
+
+a:hover {
+  color: rgb(39, 170, 153);
+}
+
+.active-tool {
+  position: absolute;
+  top: 10px;
+  left: 50;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+}
 // .keyboard-buttons {
 // //   display: grid;
 // //   grid-template-areas:

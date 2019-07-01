@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 // import GIF from '../../../gifExporter/gif';
+import GIF from 'gif.js.optimized';
 
 class Frame {
   // static counter = 1;
@@ -38,14 +39,7 @@ class Frame {
 
     copyBTN.addEventListener('click', this.copy);
     Frame.counter += 1;
-    this.tempValue = null;
-
-    shotsWrapper.addEventListener('dragstart', this.handleDragStart.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragenter', this.handleDragOver.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragover', this.handleDragEnter.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragleave', this.handleDragLeave.bind(shotsWrapper));
-    shotsWrapper.addEventListener('mouseup', this.handleDrop.bind(shotsWrapper));
-    shotsWrapper.addEventListener('dragend', this.handleDragEnd.bind(shotsWrapper));
+    this.dragSrcEl = null;
   }
 
   destroy(e) {
@@ -71,52 +65,6 @@ class Frame {
     context.drawImage(image, 0, 0, paintField.width, paintField.height, 0, 0, 128, 128, 0, 0);
     paintFieldContext.drawImage(image, 0, 0, paintField.width, paintField.height);
   }
-
-  handleDragStart(e) {
-    this.tempValue = this;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', window.getComputedStyle(this).order);
-  }
-
-  handleDragOver(e) {
-    console.log('dragOver');
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-    e.dataTransfer.dropEffect = 'move';
-    return false;
-  }
-
-  handleDragEnter() {
-    // console.log('dragEnter');
-    this.classList.add('over');
-  }
-
-  handleDragLeave() {
-    // console.log('dragLeave');
-    this.classList.remove('over');
-  }
-
-  handleDrop(e) {
-    console.log('HANDLE DROP');
-    // this/e.target is current target element.
-    if (e.stopPropagation) {
-      e.stopPropagation(); // Stops some browsers from redirecting.
-    }
-
-    // e.dataTransfer.dropEffect = 'move';
-    if (this.tempValue !== this) {
-      this.tempValue.style.order = window.getComputedStyle(this).order;
-      e.target.style.order = e.dataTransfer.getData('text/html');
-    }
-    return false;
-  }
-
-  handleDragEnd() {
-    console.log('dragEnd');
-    const frames = Array.from(document.querySelectorAll('.frame-wrap'));
-    frames.forEach(frame => frame.classList.remove('over'));
-  }
 }
 // STATIC FIELD
 Frame.counter = 1;
@@ -134,6 +82,8 @@ export default class PictureCreator {
     this.setFullscreen();
     this.changeActiveFrame();
     this.changeFieldSize();
+    this.addGifListener();
+    this.trackFrameList();
   }
 
   framesUpdateListener() {
@@ -144,6 +94,7 @@ export default class PictureCreator {
   }
 
   getFrame() {
+    console.log('get frame');
     const frame = document.querySelector('.active-frame');
     const context = frame.getContext('2d');
     context.imageSmoothingEnabled = false;
@@ -274,5 +225,107 @@ export default class PictureCreator {
     activeFrameWrap.appendChild(newLayer);
     const context = newLayer.getContext('2d');
     context.fillRect(5, 5, 10, 10);
+  }
+
+  importGIF() {
+    const frameCanvas = document.querySelectorAll('.frame');
+    const FPS = document.querySelector('.speed');
+    console.log(`FPS value: ${FPS.value}`);
+    const gif = new GIF({
+      workers: 2,
+      workerScript: './dist/gif.worker.js',
+      quality: 10,
+      repeat: 0,
+      width: frameCanvas[0].width,
+      height: frameCanvas[0].height,
+      background: frameCanvas[0].style.background,
+    });
+    const save = document.querySelectorAll('.save')[0];
+    for (let i = 0; i < frameCanvas.length; i += 1) {
+      gif.addFrame(frameCanvas[i], { delay: FPS.value });
+    }
+    gif.on('finished', (blob) => {
+      save.href = URL.createObjectURL(blob);
+      save.innerHTML = 'Download';
+      save.classList.add('link');
+    });
+    gif.render();
+  }
+
+  addGifListener() {
+    const button = document.querySelector('.gif');
+    button.addEventListener('click', this.importGIF);
+  }
+
+  dragStartHandler(event) {
+    const { target } = event;
+    target.style.opacity = '0.4';
+
+    this.dragSrcEl = target;
+
+    const e = event;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', window.getComputedStyle(target).order);
+  }
+
+  dragOverHandle(event) {
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
+
+    const e = event;
+    e.dataTransfer.dropEffect = 'move';
+
+    return false;
+  }
+
+  dragEnterHandle(event) {
+    const { target } = event;
+    if (target.tagName.toLowerCase() === 'canvas') {
+      target.closest('.frame-wrap').classList.add('over');
+    }
+  }
+
+  dragLeaveHandle(event) {
+    const { target } = event;
+    if (target.tagName.toLowerCase() === 'canvas') {
+      target.closest('.frame-wrap').classList.remove('over');
+    }
+  }
+
+  dropHandle(event) {
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+
+    const { target } = event;
+    const element = target.closest('.frame-wrap');
+
+    if (this.dragSrcEl !== element) {
+      this.dragSrcEl.style.order = element.style.order;
+      element.style.order = event.dataTransfer.getData('text/html');
+    }
+
+    return false;
+  }
+
+  dragEndHandle(event) {
+    const over = document.querySelector('.over');
+    if (over) {
+      over.classList.remove('over');
+    }
+
+    const { target } = event;
+    target.style.opacity = '';
+  }
+
+  trackFrameList() {
+    const frameList = document.querySelector('.shots');
+    frameList.addEventListener('dragstart', this.dragStartHandler);
+    frameList.addEventListener('dragenter', this.dragEnterHandle);
+    frameList.addEventListener('dragover', this.dragOverHandle);
+    frameList.addEventListener('dragleave', this.dragLeaveHandle);
+    frameList.addEventListener('drop', this.dropHandle);
+    frameList.addEventListener('dragend', this.dragEndHandle);
   }
 }

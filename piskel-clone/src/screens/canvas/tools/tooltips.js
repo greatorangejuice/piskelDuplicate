@@ -97,5 +97,11 @@ export default class Tooltips {
       placement: 'left',
       content: 'Apply <span style="color: aqua;">SEPIA</span> filter',
     });
+
+    tippy('.add-frame-tool', {
+      animation: 'shift-away',
+      placement: 'bottom',
+      content: 'Add new frame (<span style="color: aqua;">F</span>)',
+    });
   }
 }
