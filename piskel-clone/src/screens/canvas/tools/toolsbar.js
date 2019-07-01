@@ -40,10 +40,6 @@ export default class Tools {
 
   setToolsbar() {
     const canvasTools = document.querySelector('.canvas-tools');
-    const getTriangle = () => {
-      console.log('triangle-tool');
-    };
-
     const getActionButtons = (e) => {
       const target = e.target;
       while (target !== this) {
@@ -64,12 +60,10 @@ export default class Tools {
               break;
             case 'circle':
               this.clearCurrentState();
-              console.log('circle');
               this.circle();
               break;
             case 'bucket-tool':
               this.clearCurrentState();
-              console.log('bucket-tool');
               this.paintBucket();
               break;
             case 'rectangle-tool':
@@ -79,10 +73,6 @@ export default class Tools {
             case 'second-rectangle-tool':
               this.clearCurrentState();
               this.emptyRectangle();
-              break;
-            case 'triangle-tool':
-              this.clearCurrentState();
-              getTriangle();
               break;
             case 'trash-tool':
               this.clearCurrentState();
@@ -103,24 +93,20 @@ export default class Tools {
             case 'pipette':
               this.clearCurrentState();
               this.colorPicker();
-              console.log('pipette');
               break;
             case 'bright':
               this.clearCurrentState();
               this.bright(1);
               break;
             case 'shape':
-              console.log('shape');
               this.clearCurrentState();
               this.shape();
               break;
             case 'rotate':
-              console.log('rotate');
               this.clearCurrentState();
               this.rotateImage();
               break;
             case 'dithering':
-              console.log('rotate');
               this.clearCurrentState();
               this.dithering();
               break;
@@ -288,8 +274,6 @@ export default class Tools {
       this.context.clearRect(0, 0, 128, 128);
       const frame = document.querySelector('.active-frame');
       this.context.drawImage(frame, 0, 0, this.canvas.width, this.canvas.width, 0, 0, frame.width, frame.height);
-
-      // this.context.clearRect(x, y, 64, 64);
 
       while (y1 >= 0) {
         this.drawPixel(x + x1, y - y1);
@@ -527,9 +511,6 @@ export default class Tools {
     };
     this.canvas.addEventListener('click', paintAll);
     this.addFunctionsInState('click', paintAll);
-    // dithering() {
-
-    // }
   }
 
   dithering() {
@@ -572,19 +553,6 @@ export default class Tools {
     this.addFunctionsInState('mouseup', stopDrawing);
     this.addFunctionsInState('mouseout', stopDrawing);
   }
-
-  // rgbToHex(r, g, b) {
-  //   console.log(r);
-  //   console.log(g);
-  //   console.log(b);
-  //   const componentToHex = (c) => {
-  //     const hex = c.toString(16);
-  //     return hex.length === 1 ? `0${hex}` : hex;
-  //   };
-
-  //   const work = () => `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
-  //   work(r, g, b);
-  // }
 
   rgbToHex(arr) {
     const arrHex = arr.map((x) => {
@@ -631,7 +599,8 @@ export default class Tools {
 
     const fill = (startX, startY, startColor, fillColor) => {
       console.log('fill?');
-      if (this.rgbToHex([...startColor].slice(0, -1)) === fillColor) return;
+      const color = this.rgbToHex([...startColor].slice(0, -1));
+      if (color === fillColor && startColor[3] === 255) return;
       console.log('fill');
       let reachLeft;
       let reachRight;
@@ -674,8 +643,6 @@ export default class Tools {
 
           y += this.pixelWidth;
         }
-        reachRight = false;
-        reachLeft = false;
       }
     };
 
@@ -684,7 +651,9 @@ export default class Tools {
       const { data } = this.context.getImageData(x1, y1, 1, 1);
       console.log(data);
       console.log(this.color);
-      fill(x1, y1, data, this.color);
+      const primColor = document.querySelector('.primary');
+      console.log(primColor.value);
+      fill(x1, y1, data, primColor.value);
     };
 
     this.canvas.addEventListener('click', mouseDownHandler);
@@ -692,19 +661,18 @@ export default class Tools {
   }
 
   rotateImage() {
-    // const [x, y] = [e.offsetX, e.offsetY];
     const image = document.querySelector('.paint-field');
     const context = image.getContext('2d');
     const frame = document.querySelector('.active-frame');
     const frameContext = frame.getContext('2d');
 
     context.save();
-    context.clearRect(0, 0, image.width, image.height); // очищаю поле
-    context.translate(image.width / 2, image.height / 2); // меняю ось
-    context.rotate(90 * Math.PI / 180); // поворачиваю
-    frameContext.drawImage(image, 0, 0); // закидываю на фрейм
-    context.clearRect(0, 0, image.width, image.height); // очищаю поле
-    context.drawImage(frame, image.width, image.height); // рисую
+    context.clearRect(0, 0, image.width, image.height);
+    context.translate(image.width / 2, image.height / 2);
+    context.rotate(90 * Math.PI / 180);
+    frameContext.drawImage(image, 0, 0);
+    context.clearRect(0, 0, image.width, image.height);
+    context.drawImage(frame, image.width, image.height);
     context.restore();
 
     context.save();

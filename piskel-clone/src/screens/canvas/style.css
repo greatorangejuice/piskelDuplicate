@@ -427,7 +427,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 .filters {
   width: 90%;
-  height: 100px;
   padding: 10px;
   border: 2px solid yellow;
 }
@@ -463,7 +462,6 @@ a:hover {
 
 .downloaders {
   width: 90%;
-  height: 100px;
   padding: 10px;
   border: 2px solid yellow;
 }
