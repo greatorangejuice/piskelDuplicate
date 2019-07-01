@@ -103,6 +103,7 @@ export default class Tools {
               break;
             case 'pipette':
               this.clearCurrentState();
+              this.colorPicker();
               console.log('pipette');
               break;
             case 'bright':
@@ -485,6 +486,7 @@ export default class Tools {
   }
 
   shape() {
+    this.clearCurrentState();
     const paintAll = (e) => {
       let color;
       const widthPixel = this.canvas.width / this.canvas.width;
@@ -521,46 +523,64 @@ export default class Tools {
     // }
   }
 
-  dithering() {
+  // dithering() {
 
-    // this.clearCurrentState();
-    // let x0 = 0;
-    // let y0 = 0;
-    // let x1 = 0;
-    // let y1 = 0;
-    // let isMouseDown = false;
+  //   this.clearCurrentState();
+  //   let x0 = 0;
+  //   let y0 = 0;
+  //   let x1 = 0;
+  //   let y1 = 0;
+  //   let isMouseDown = false;
 
-
-    // const startDrawing = (e) => {
-    //   isMouseDown = true;
-    //   [x0, y0] = [e.offsetX, e.offsetY];
-    // };
-
-    // const stopDrawing = () => {
-    //   isMouseDown = false;
-    // };
-
-    // const drawLine = (e) => {
-    //   [x1, y] = [e.offsetX, e.offsetY];
-    //   startX = coordX * widthPixel;
-    //   startY = coordY * widthPixel;
-    //   if (startX % 20 === 0 && startY % 20 === 0) {
-    //     ctx.fillRect(startX, startY, widthPixel, widthPixel);
-    //   }
-    //   if (startX % 20 !== 0 && startY % 20 !== 0) {
-    //     ctx.fillRect(startX, startY, widthPixel, widthPixel);
-    //   }
-    // }
-  }
-
-  // colorPicker() {
-  //   const componentToHex = (c) => {
-  //     const hex = c.toString(16);
-  //     return hex.length === 1 ? `0${hex}` : hex;
+  //   const startDrawing = (e) => {
+  //     isMouseDown = true;
+  //     [x0, y0] = [e.offsetX, e.offsetY];
   //   };
 
-  //   const work = (r, g, b) => `#${RgbToHex.componentToHex(r)}${RgbToHex.componentToHex(g)}${RgbToHex.componentToHex(b)}`;
+  //   const stopDrawing = () => {
+  //     isMouseDown = false;
+  //   };
+
+  //   const drawLine = (e) => {
+  //     [x1, y1] = [e.offsetX, e.offsetY];
+  //     const startX = x0 * this.pixelWidth;
+  //     const startY = coordY * this.pixelWidth;
+  //     if (startX % 20 === 0 && startY % 20 === 0) {
+  //       this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
+  //     }
+  //     if (startX % 20 !== 0 && startY % 20 !== 0) {
+  //       this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
+  //     }
+  //   };
   // }
+
+  colorPicker() {
+    const componentToHex = (c) => {
+      const hex = c.toString(16);
+      return hex.length === 1 ? `0${hex}` : hex;
+    };
+
+    const work = (r, g, b) => `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+
+    const picker = (e) => {
+      let color;
+      if (e.which === 1) {
+        color = document.querySelector('.primary');
+      }
+      if (e.which === 3) {
+        color = document.querySelector('.secondary');
+      }
+      const imgData = this.context.getImageData(e.offsetX, e.offsetY, 1, 1);
+      const red = imgData.data[0];
+      const green = imgData.data[1];
+      const blue = imgData.data[2];
+      const newColor = work(red, green, blue);
+      if (newColor !== '#000000') color.value = newColor;
+    };
+
+    this.canvas.addEventListener('click', picker);
+    this.addFunctionsInState('click', picker);
+  }
 
   // paintBucket() {
   //   const isMatchStartColor = (x, y, color) => {
@@ -708,30 +728,3 @@ Tools.currentToolsListeners = {};
 
 
 // ////////////////////////////////// PAINT
-
-//  colorPicker {
-//   static componentToHex(c) {
-//     const hex = c.toString(16);
-//     return hex.length === 1 ?`0${hex}`: hex;
-//   }
-
-//   static work(r, g, b) {
-//     return `#${RgbToHex.componentToHex(r)}${RgbToHex.componentToHex(g)}${RgbToHex.componentToHex(b)}`;
-//   }
-
-//   picker(e, ctx) {
-//     let color;
-//     if (e.which === 1) {
-//       color = document.getElementById('colorOne');
-//     }
-//     if (e.which === 3) {
-//       color = document.getElementById('colorTwo');
-//     }
-//     const imgData = ctx.getImageData(e.offsetX, e.offsetY, 1, 1);
-//     const red = imgData.data[0];
-//     const green = imgData.data[1];
-//     const blue = imgData.data[2];
-//     const newColor = RgbToHex.work(red, green, blue);
-//     if (newColor !== '#000000') color.value = newColor;
-//   }
-// }
