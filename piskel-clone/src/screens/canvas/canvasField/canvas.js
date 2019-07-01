@@ -230,7 +230,7 @@ export default class PictureCreator {
     const FPS = document.querySelector('.speed');
     const gif = new GIF({
       workers: 2,
-      workerScript: './dist/gif.worker.js',
+      workerScript: './gif.worker.js',
       quality: 10,
       repeat: 0,
       width: frameCanvas[0].width,

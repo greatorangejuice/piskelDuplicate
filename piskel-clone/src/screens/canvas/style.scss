@@ -92,18 +92,27 @@ body {
   .frame-wrap {
     display: flex;
     align-items: center;
+    position: relative;
   }
 
   .delete-frame {
     width: 20px;
     height: 20px;
     background-image: url('/../../src/screens/canvas/images/garbage.svg');
+    position: absolute;
+    border: none;
+    bottom: 10px;
+    left: 5px;
   }
 
   .copy-frame {
     width: 20px;
     height: 20px;
     background-image: url('/../../src/screens/canvas/images/copy.svg');
+    position: absolute;
+    border: none;
+    bottom: 10px;
+    right: 5px;
   }
 
   .swap-frame {
@@ -170,6 +179,7 @@ body {
   background-color: white;
 }
 
+.copy-frame:hover,
 .delete-frame:hover,
 .add-frame-tool:hover,
 .tool:hover {
@@ -342,6 +352,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   border: 2px solid yellow;
 }
 
+
 .filter-title {
   background-color: yellow;
   width: 60px;
@@ -370,6 +381,20 @@ a:hover {
   height: 30px;
   background-color: red;
 }
+
+.downloaders {
+  width: 90%;
+  height: 100px;
+  padding: 10px;
+  border: 2px solid yellow;
+}
+
+.downoloads-title {
+  margin-top: 10px;
+  background-color: yellow;
+  width: 105px;
+}
+
 // .keyboard-buttons {
 // //   display: grid;
 // //   grid-template-areas:
