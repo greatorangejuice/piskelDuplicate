@@ -29,7 +29,14 @@ canvas {
 }
 
 .paint-field-params {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   color: yellow;
+}
+
+.size {
+  margin-left: 5px;
 }
 
 body {

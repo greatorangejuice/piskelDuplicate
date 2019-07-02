@@ -1,5 +1,3 @@
-#PiskelApp Clone changelog
-
 | Start time  | End time | time spent | feature |
 |-----------|-------------|-------------|-------------|
 | May 27 | May 30 | 20h | base structure of the project |

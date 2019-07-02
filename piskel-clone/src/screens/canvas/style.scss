@@ -24,7 +24,12 @@ canvas {
 }
 
 .paint-field-params {
+  display: flex;
   color: yellow;
+}
+
+.size {
+  margin-left: 5px;
 }
 
 body {
