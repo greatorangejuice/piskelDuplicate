@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable prefer-destructuring */
 export default class Tools {
   constructor() {
@@ -8,7 +9,8 @@ export default class Tools {
     this.canvas = document.querySelector('.paint-field');
     this.context = this.canvas.getContext('2d');
     this.primaryColor = document.querySelector('.primary');
-    this.color = document.querySelector('.primary').value;
+    this.color = this.primaryColor.value;
+    this.secondColor = document.querySelector('.primary').value;
 
     this.frame = document.querySelector('.active-frame');
     this.frameContext = this.frame.getContext('2d');
@@ -27,14 +29,6 @@ export default class Tools {
     sizeButton.addEventListener('click', () => {
       inputRange.classList.toggle('hide');
       sizeButton.innerText = 'Pen size';
-    });
-  }
-
-  initKeyBinder() {
-    const keyBinder = document.querySelector('.keybinder');
-    const modalWindow = document.querySelector('.key-list');
-    keyBinder.addEventListener('click', () => {
-      modalWindow.classList.toggle('hide');
     });
   }
 
@@ -65,6 +59,7 @@ export default class Tools {
             case 'bucket-tool':
               this.clearCurrentState();
               this.paintBucket();
+              // this.paintBucketTwo();
               break;
             case 'rectangle-tool':
               this.clearCurrentState();
@@ -126,13 +121,18 @@ export default class Tools {
     console.log('Zooom me!');
     if (way) {
       const field = document.querySelector('.paint-field');
+      console.log(field.getComputedStyle().transform);
       field.style.transform = 'scale(3, 3)';
     }
   }
 
-  drawPixel(x, y, eraser = 0) {
-    const primaryColor = document.querySelector('.primary');
-    this.context.fillStyle = primaryColor.value;
+  drawPixel(x, y, eraser = 0, color = 0) {
+    if (color === 0) {
+      const primaryColor = document.querySelector('.primary');
+      this.context.fillStyle = primaryColor.value;
+    } else {
+      this.context.fillStyle = color;
+    }
     if (eraser === 0) {
       this.context.fillRect(Math.ceil(x / this.pixelWidth) * this.pixelWidth,
         Math.ceil(y / this.pixelWidth) * this.pixelWidth, this.pixelWidth, this.pixelWidth);
@@ -179,11 +179,6 @@ export default class Tools {
       const signX = x1 < x2 ? 1 : -1;
       const signY = y1 < y2 ? 1 : -1;
       let error = deltaX - deltaY;
-      // if (dithering) {
-      //   if (x2 % 2) {
-      //     this.drawPixel(x2, y2, eraser);
-      //   }
-      // }
       this.drawPixel(x2, y2, eraser);
 
       while (x1 !== x2 || y1 !== y2) {
@@ -515,43 +510,49 @@ export default class Tools {
 
   dithering() {
     this.clearCurrentState();
-    // let x0 = 0;
-    // let y0 = 0;
-    let x1 = 0;
-    let y1 = 0;
     let isMouseDown = false;
+    const colorPrimary = document.querySelector('.primary');
+    const colorSecondary = document.querySelector('.secondary');
+    let colorFirst = colorPrimary.value;
+    let colorSecond = colorSecondary.value;
 
-    const startDrawing = () => {
+    const startDrawing = (event) => {
       isMouseDown = true;
-      // [x0, y0] = [e.offsetX, e.offsetY];
+      colorFirst = event.which === 1 ? colorPrimary.value : colorSecondary.value;
+      colorSecond = event.which === 1 ? colorSecondary.value : colorPrimary.value;
+    };
+
+    const drawLine = (event) => {
+      if (!isMouseDown) return;
+      const [x, y] = [event.offsetX, event.offsetY];
+      if ((x + y) % 2 === 0) {
+        this.drawPixel(x, y, 0, colorFirst);
+        console.log('first');
+        console.log(`first: ${colorFirst}`);
+      } else {
+        this.drawPixel(x, y, 0, colorSecond);
+        console.log('second');
+        console.log(`second, ${colorSecond}`);
+      }
     };
 
     const stopDrawing = () => {
       isMouseDown = false;
     };
 
-    const drawLine = (e) => {
-      if (!isMouseDown) return;
-      console.log('draw');
-      [x1, y1] = [e.offsetX, e.offsetY];
-      const startX = x1 * this.pixelWidth;
-      const startY = y1 * this.pixelWidth;
-      if (startX % 20 === 0 && startY % 20 === 0) {
-        this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
-      }
-      if (startX % 20 !== 0 && startY % 20 !== 0) {
-        this.context.fillRect(startX, startY, this.pixelWidth, this.pixelWidth);
-      }
+    const contextMenuHandler = (event) => {
+      event.preventDefault();
     };
+
     this.canvas.addEventListener('mousedown', startDrawing);
     this.canvas.addEventListener('mousemove', drawLine);
     this.canvas.addEventListener('mouseup', stopDrawing);
-    this.canvas.addEventListener('mouseout', stopDrawing);
+    this.canvas.addEventListener('mousedown', contextMenuHandler);
 
     this.addFunctionsInState('mousedown', startDrawing);
     this.addFunctionsInState('mousemove', drawLine);
     this.addFunctionsInState('mouseup', stopDrawing);
-    this.addFunctionsInState('mouseout', stopDrawing);
+    this.addFunctionsInState('mousedown', contextMenuHandler);
   }
 
   rgbToHex(arr) {
@@ -592,7 +593,9 @@ export default class Tools {
 
   paintBucket() {
     const isMatchStartColor = (x, y, color) => {
-      const { data } = this.context.getImageData(x, y, 1, 1);
+      const {
+        data,
+      } = this.context.getImageData(x, y, 1, 1);
       return data[0] === color[0] && data[1] === color[1] && data[2] === color[2]
         && data[3] === color[3];
     };
@@ -605,7 +608,9 @@ export default class Tools {
       let reachLeft;
       let reachRight;
 
-      const pixelStack = [[startX, startY]];
+      const pixelStack = [
+        [startX, startY],
+      ];
       const canvasWidth = this.canvas.width;
       const canvasHeight = this.canvas.height;
       console.log(pixelStack);
@@ -648,7 +653,9 @@ export default class Tools {
 
     const mouseDownHandler = (event) => {
       const [x1, y1] = [event.offsetX, event.offsetY];
-      const { data } = this.context.getImageData(x1, y1, 1, 1);
+      const {
+        data,
+      } = this.context.getImageData(x1, y1, 1, 1);
       console.log(data);
       console.log(this.color);
       const primColor = document.querySelector('.primary');
@@ -686,84 +693,3 @@ export default class Tools {
   }
 }
 Tools.currentToolsListeners = {};
-
-// ////////////////////////////////// PAINT
-
-// const getPixelPos = (x, y) => (y * canvas.width + x) * 4;
-
-// const matchStartColor = (data, pos, startColor) => (data[pos] === startColor.r && data[pos + 1] === startColor.g && data[pos + 2] === startColor.b && data[pos + 3] === startColor.a);
-
-// const colorPixel = (data, pos, color) => {
-//   data[pos] = color.r || 0;
-//   data[pos + 1] = color.g || 0;
-//   data[pos + 2] = color.b || 0;
-//   // eslint-disable-next-line no-prototype-builtins
-//   data[pos + 3] = color.hasOwnProperty('a') ? color.a : 255;
-// };
-
-// const floodFill = (startX, startY, fillColor) => {
-//   // var srcImg = ctx.getImageData(0,0,canvas.width,canvas.height);
-//   // var srcData = srcImg.data;
-//   const dstImg = context.getImageData(0, 0, canvas.width, canvas.height);
-//   const dstData = dstImg.data;
-
-//   const startPos = getPixelPos(startX, startY);
-//   const startColor = {
-//     r: dstData[startPos],
-//     g: dstData[startPos + 1],
-//     b: dstData[startPos + 2],
-//     a: dstData[startPos + 3],
-//   };
-//   const todo = [
-//     [startX, startY],
-//   ];
-
-//   while (todo.length) {
-//     const pos = todo.pop();
-//     const x = pos[0];
-//     let y = pos[1];
-//     let currentPos = getPixelPos(x, y);
-
-//     while ((y-- >= 0) && matchStartColor(dstData, currentPos, startColor)) {
-//       currentPos -= canvas.width * 4;
-//     }
-
-//     currentPos += canvas.width * 4;
-//     ++y;
-//     let reachLeft = false;
-//     let reachRight = false;
-
-//     while ((y++ < canvas.height - 1) && matchStartColor(dstData, currentPos, startColor)) {
-//       colorPixel(dstData, currentPos, fillColor);
-
-//       if (x > 0) {
-//         if (matchStartColor(dstData, currentPos - 4, startColor)) {
-//           if (!reachLeft) {
-//             todo.push([x - 1, y]);
-//             reachLeft = true;
-//           }
-//         } else if (reachLeft) {
-//           reachLeft = false;
-//         }
-//       }
-
-//       if (x < canvas.width - 1) {
-//         if (matchStartColor(dstData, currentPos + 4, startColor)) {
-//           if (!reachRight) {
-//             todo.push([x + 1, y]);
-//             reachRight = true;
-//           }
-//         } else if (reachRight) {
-//           reachRight = false;
-//         }
-//       }
-
-//       currentPos += canvas.width * 4;
-//     }
-//   }
-
-//   context.putImageData(dstImg, 0, 0);
-// };
-
-
-// ////////////////////////////////// PAINT

@@ -12,7 +12,6 @@ export default class App {
     canvas.init();
     const tools = new Tools();
     tools.setToolsbar();
-    tools.initKeyBinder();
     const coords = new PaintFieldParamsGetter();
     coords.getCoordinate();
     const google = new GoogleAuth();

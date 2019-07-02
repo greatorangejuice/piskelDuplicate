@@ -10,7 +10,7 @@ canvas {
       image-rendering: -moz-crisp-edges;
       image-rendering: -o-pixelated;
       image-rendering: pixelated;
-  background-image: url(/src/screens/canvas/images/bg.png);
+  background-image: url("https://i.ibb.co/FxwWVb4/bg.png");
 }
 
 .paint-field {
@@ -26,6 +26,10 @@ canvas {
 
 .paint-field-block {
   position: relative;
+}
+
+.paint-field-params {
+  color: yellow;
 }
 
 body {
@@ -135,7 +139,8 @@ body {
 .grid .delete-frame {
   width: 20px;
   height: 20px;
-  background-image: url("/../../src/screens/canvas/images/garbage.svg");
+  background-image: url("https://i.ibb.co/kqfGQFV/garbage.png");
+  background-size: cover;
   position: absolute;
   border: none;
   bottom: 10px;
@@ -145,7 +150,8 @@ body {
 .grid .copy-frame {
   width: 20px;
   height: 20px;
-  background-image: url("/../../src/screens/canvas/images/copy.svg");
+  background-image: url("https://i.ibb.co/yq2SQdf/copy-content.png");
+  background-size: cover;
   position: absolute;
   border: none;
   bottom: 10px;
@@ -155,7 +161,7 @@ body {
 .grid .swap-frame {
   width: 20px;
   height: 20px;
-  background-image: url("/../../src/screens/canvas/images/sort.svg");
+  background-image: url("./images/sort.svg");
 }
 
 .grid .frames-counter {
@@ -275,10 +281,18 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  bottom: 10px;
+  position: absolute;
+  left: 10px;
+}
+
+.canvas-tools .swap-colors {
+  border: none;
+  background-color: #555555;
+}
+
+.canvas-tools .swap-colors:hover {
+  background-color: #b1abab;
 }
 
 .canvas-tools .color {
@@ -401,15 +415,6 @@ input[type=range]::-webkit-slider-thumb:hover {
   position: relative;
   width: 256px;
   height: 256px;
-}
-
-.keybinder {
-  bottom: 10px;
-  position: absolute;
-  left: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #555555;
 }
 
 .keybinder:hover {

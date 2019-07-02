@@ -6,8 +6,7 @@
 
 canvas {
   image-rendering: pixelated;
-  background-image: url(/src/screens/canvas/images/bg.png);
-  // overflow-x: visible;
+  background-image: url('https://i.ibb.co/FxwWVb4/bg.png');
 }
 
 .paint-field {
@@ -22,6 +21,10 @@ canvas {
 
 .paint-field-block {
   position: relative;
+}
+
+.paint-field-params {
+  color: yellow;
 }
 
 body {
@@ -98,7 +101,8 @@ body {
   .delete-frame {
     width: 20px;
     height: 20px;
-    background-image: url('/../../src/screens/canvas/images/garbage.svg');
+    background-image: url('https://i.ibb.co/kqfGQFV/garbage.png');
+    background-size: cover;
     position: absolute;
     border: none;
     bottom: 10px;
@@ -108,7 +112,8 @@ body {
   .copy-frame {
     width: 20px;
     height: 20px;
-    background-image: url('/../../src/screens/canvas/images/copy.svg');
+    background-image: url('https://i.ibb.co/yq2SQdf/copy-content.png');
+    background-size: cover;
     position: absolute;
     border: none;
     bottom: 10px;
@@ -118,7 +123,7 @@ body {
   .swap-frame {
     width: 20px;
     height: 20px;
-    background-image: url('/../../src/screens/canvas/images/sort.svg');
+    background-image: url('./images/sort.svg');
   }
 
   .frames-counter {
@@ -143,7 +148,6 @@ body {
 
   .layers-tools {
     grid-area: layers;
-    // position: relative;
     display: flex;
     flex-direction: column;
   }
@@ -206,7 +210,18 @@ body {
 
   .colors {
     display: flex;
-    flex-direction: column;
+    bottom: 10px;
+    position: absolute;
+    left: 10px;
+  }
+
+  .swap-colors {
+    border: none;
+    background-color: #555555;
+  }
+
+  .swap-colors:hover {
+    background-color: rgb(177, 171, 171);
   }
 
   .color {
@@ -322,14 +337,14 @@ input[type=range]::-webkit-slider-thumb:hover {
   height: 256px;
 }
 
-.keybinder {
-  bottom: 10px;
-  position: absolute;
-  left: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #555555;
-}
+// .keybinder {
+//   bottom: 10px;
+//   position: absolute;
+//   left: 10px;
+//   border: none;
+//   border-radius: 5px;
+//   background-color: #555555;
+// }
 
 .keybinder:hover {
   background-color: white;

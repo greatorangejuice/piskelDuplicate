@@ -35,14 +35,17 @@ module.exports = {
       }],
     },
     {
-      test: /\.(png|jp(e*)g|svg)$/,
-      use: [{
-        loader: 'url-loader',
+      test: /\.(html)$/,
+      use: {
+        loader: 'html-loader',
         options: {
-          limit: 8000,
-          name: '.src/screens/canvas/images/[hash]-[name].[ext]',
+          attrs: [':data-src'],
         },
-      }],
+      },
+    },
+    {
+      test: /\.(?:png|jpe?g|gif|svg|woff2?|ttf|eot|ico)$/,
+      loader: 'file-loader?name=assets/[name].[hash].[ext]',
     },
     ],
   },
