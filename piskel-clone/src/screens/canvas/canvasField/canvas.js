@@ -83,6 +83,14 @@ export default class PictureCreator {
     this.changeFieldSize();
     this.addGifListener();
     this.trackFrameList();
+    this.setStartPalette();
+  }
+
+  setStartPalette() {
+    const primaryColor = document.querySelector('.primary');
+    primaryColor.value = '#57f542';
+    const secondaryColor = document.querySelector('.secondary');
+    secondaryColor.value = '#0a49bf';
   }
 
   framesUpdateListener() {

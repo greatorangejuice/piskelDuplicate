@@ -5,7 +5,7 @@ export default class Tooltips {
     tippy('.pen-tool', {
       animation: 'shift-away',
       placement: 'right',
-      content: 'Pen (<span style="color: aqua;">P</span>)',
+      content: 'Pen (<span style="color: aqua;">P</span>) <br> Mirror pen (<span style="color: aqua;">Shift+P</span>)',
     });
 
     tippy('.line-size-tool', {
@@ -83,7 +83,7 @@ export default class Tooltips {
     tippy('.shape', {
       animation: 'shift-away',
       placement: 'right',
-      content: 'Shape (<span style="color: aqua;">S</span>) <br> Please, fill all field in another color!',
+      content: 'Shape (<span style="color: aqua;">S</span>)',
     });
 
     tippy('.dithering', {
@@ -121,7 +121,7 @@ export default class Tooltips {
     tippy('.canvas-size-tool', {
       animation: 'shift-away',
       placement: 'bottom',
-      content: '32x32 | 64x64 | 128x128 is<span style="color: aqua;">available</span>',
+      content: '32x32 | 64x64 | 128x128 is <span style="color: aqua;">available</span>',
     });
     tippy('.fullscreen-tool', {
       animation: 'shift-away',

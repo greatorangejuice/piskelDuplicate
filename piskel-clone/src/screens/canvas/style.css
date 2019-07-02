@@ -332,6 +332,19 @@ input[type="color"]::-webkit-color-swatch {
           animation: display 1s ease-in-out;
 }
 
+.canvas-size-tool {
+  margin: 5px 5px 5px 9px;
+}
+
+.fullscreen-tool {
+  width: 95px;
+  height: 40px;
+  margin: 2px 2px 2px 9px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
 @-webkit-keyframes display {
   from {
     position: fixed;
@@ -401,6 +414,8 @@ input[type=range]::-webkit-slider-thumb:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 .welcome {
@@ -408,6 +423,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 }
 
 .signOutButton {
+  margin-left: 5px;
   color: white;
 }
 

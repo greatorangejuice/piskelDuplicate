@@ -33,14 +33,12 @@
              <input type="range" min="1" max="10" step="1" class="pixel-size input hide" value="4">
           </div>
             <button data-action="pen-tool" class="pen-tool tool" id="pen-tool"><img data-action="pen-tool" src="./images/pencil.svg" width="25" height="25" alt="pencil"></button>
-            <button data-action="mirror-pen-tool" class="mirror-pen-tool tool" id="mirror-pen-tool"><img data-action="pen-tool" src="./images/mirror.svg" width="25" height="25" alt="mirror"></button>
             <button data-action="circle" class="circle tool"><img data-action="circle" src="./images/circle-shape-outline.svg" width="25" height="25" alt="circle"></button>
             <button data-action="bucket-tool" class="bucket-tool tool" id="bucket-tool"><img data-action="bucket-tool" src="./images/paint-bucket.svg" width="25" height="25" alt="paintbucket"></button>
             <button data-action="rectangle-tool" class="rectangle-tool tool" id="rectangle-tool"><img data-action="rectangle-tool" src="./images/fillrect.svg" width="25" height="25" alt="rectagle"></button>
             <button data-action="second-rectangle-tool" class="second-rectangle-tool tool" id="second-rectangle-tool"><img data-action="second-rectangle-tool" src="./images/photo-frame.svg" width="25" height="25" alt="second rectangle"></button>
             <button data-action="trash-tool" class="trash-tool tool" id="trash-tool"><img data-action="trash-tool" src="./images/garbage.svg" width="25" height="25" alt="garbage"></button>
             <button data-action="eraser" class="eraser tool" id="eraser"><img data-action="eraser" src="./images/eraser.svg" width="25" height="25" alt="eraser"></button>
-            <!-- <button data-action="zoom" class="zoom tool" id="zoom"><img data-action="zoom" src="./images/zoom.svg" width="25" height="25" alt="zoom"></button> -->
             <button data-action="move" class="move tool" id="move"><img data-action="move" src="./images/move.svg" width="25" height="25" alt="move"></button>
             <button data-action="pipette" class="pipette tool" id="pipette"><img data-action="pipette" src="./images/pipette.svg" width="25" height="25" alt="pipette"></button>
             <button data-action="dithering" class="dithering tool" id="dithering"><img data-action="dithering" src="./images/dithering.svg" width="25" height="25" alt="dithering"></button>
@@ -54,22 +52,7 @@
             <input type="color" class="color secondary">
           </div>
       </div>
-      <!-- <div class="keybinder">
-        <button class="keybinder"><img src="./images/keyboard.svg" class="keyboard" width="50" height="50" alt="keyboard"></button>
-      </div> -->
       <div class="active-tools"></div>
-      <div class="hide key-list">
-        <div class="keyboard-buttons">
-          <ul>
-            <li>
-              <img src="./images/pencil.svg" width="20" height="20" alt="pencil">
-              Pen <span>P</span>
-              <input type="text"> <button class="changer">Change</button>
-            </li>
-
-          </ul>
-        </div>
-      </div>
     </div>
     <div class="frames-bar">
       <div class="layers-field">
@@ -92,7 +75,7 @@
           <input type="range" min="0" max="24" step="1" class="speed input" value="0"> <label class = "current-speed">0</label>
       </div>
       <div class="canvas-field-properties">
-        <button data-action="canvas-size-tool" class="canvas-size-tool">Field size</button>
+        <button data-action="canvas-size-tool" class="canvas-size-tool tool">Field size</button>
       </div>
       <div class="canvas-size hide">
         <button data-action="small" class="small-size">32x32</button>

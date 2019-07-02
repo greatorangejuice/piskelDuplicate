@@ -75,5 +75,9 @@ export default class Hotkeys {
       const tools = new Tools();
       tools.shape();
     });
+    hotkeys('f', (event) => {
+      event.preventDefault();
+      document.querySelector('.add-frame-tool').click();
+    });
   }
 }
