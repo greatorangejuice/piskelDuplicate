@@ -19,7 +19,7 @@ export default class Hotkeys {
       const tools = new Tools();
       tools.circle();
     });
-    hotkeys('b', (event) => {
+    hotkeys('ctrl+b', (event) => {
       event.preventDefault();
       const tools = new Tools();
       tools.bucket();
