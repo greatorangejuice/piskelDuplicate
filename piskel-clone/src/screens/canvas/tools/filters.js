@@ -5,7 +5,6 @@ export default class Filters {
   }
 
   filter() {
-    console.log('filter start');
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
