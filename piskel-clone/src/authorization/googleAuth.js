@@ -47,7 +47,6 @@ export default class GoogleAuth {
 
     const signInButton = document.querySelector('.signInButton');
     const signOutButton = document.querySelector('.signOutButton');
-
     signInButton.addEventListener('click', signIn);
     signOutButton.addEventListener('click', signOut);
   }
@@ -55,7 +54,6 @@ export default class GoogleAuth {
   checkAfterUpdate() {
     const welcome = document.querySelector('.welcome');
     const avatar = document.querySelector('.welcome-avatar');
-
     welcome.innerHTML = `Hi, dear ${localStorage.getItem('name')}`;
     avatar.src = localStorage.getItem('src');
   }
