@@ -5,6 +5,7 @@ import PictureCreator from './canvasField/canvas';
 import Filters from './tools/filters';
 import Tooltips from './tools/tooltips';
 import Hotkeys from './tools/hotkeys';
+import Notification from './canvasField/notification';
 
 export default class App {
   start() {
@@ -22,5 +23,7 @@ export default class App {
     tooltips.init();
     const hotkeys = new Hotkeys();
     hotkeys.init();
+    const notification = new Notification();
+    notification.init();
   }
 }

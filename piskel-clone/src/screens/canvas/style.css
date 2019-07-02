@@ -36,7 +36,7 @@ canvas {
 }
 
 .size {
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 body {
@@ -352,13 +352,6 @@ input[type="color"]::-webkit-color-swatch {
   background-color: white;
 }
 
-@-webkit-keyframes display {
-  from {
-    position: fixed;
-    right: -700px;
-  }
-}
-
 @keyframes display {
   from {
     position: fixed;
@@ -498,5 +491,75 @@ a:hover {
   margin-top: 10px;
   background-color: yellow;
   width: 105px;
+}
+
+#notification {
+  position: absolute;
+  height: 130px;
+  width: 400px;
+  padding: 5px;
+  background-color: #C1F7EE;
+  top: 10px;
+  right: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  -webkit-animation: display 1s ease-in-out;
+  animation: display 1s ease-in-out;
+  z-index: 10;
+}
+
+#notification ul {
+  margin-left: 15px;
+}
+
+@-webkit-keyframes display {
+  from {
+    position: fixed;
+    top: -700px;
+  }
+}
+
+@keyframes display {
+  from {
+    position: fixed;
+    top: -700px;
+  }
+}
+
+.remove-button {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.hide {
+  display: none;
+  -webkit-transition: 1000ms ease-in-out;
+  transition: 1000ms ease-in-out;
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: end;
+  align-content: flex-end;
+  padding: 10px;
+}
+
+.wrapper p {
+  padding: 3px;
+}
+
+.disableBox {
+  width: 15px;
+  height: 15px;
 }
 /*# sourceMappingURL=style.css.map */
