@@ -75,6 +75,11 @@ export default class Hotkeys {
       const tools = new Tools();
       tools.shape();
     });
+    hotkeys('z', (event) => {
+      event.preventDefault();
+      const tools = new Tools();
+      tools.rotateImage();
+    });
     hotkeys('f', (event) => {
       event.preventDefault();
       document.querySelector('.add-frame-tool').click();

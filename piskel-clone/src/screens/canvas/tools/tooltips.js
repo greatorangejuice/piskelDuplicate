@@ -128,5 +128,10 @@ export default class Tooltips {
       placement: 'bottom',
       content: 'Fullscreen mode is<span style="color: aqua;">available</span>',
     });
+    tippy('.rotate', {
+      animation: 'shift-away',
+      placement: 'right',
+      content: 'Rotate (<span style="color: aqua;">Z</span>)',
+    });
   }
 }

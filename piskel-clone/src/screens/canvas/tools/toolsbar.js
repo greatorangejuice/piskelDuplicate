@@ -76,11 +76,6 @@ export default class Tools {
             case 'swap-color':
               this.swapColor();
               break;
-            case 'zoom':
-              this.clearCurrentState();
-              console.log('zoom');
-              this.zoom();
-              break;
             case 'move':
               this.clearCurrentState();
               this.move();
@@ -114,16 +109,6 @@ export default class Tools {
       }
     };
     canvasTools.addEventListener('click', getActionButtons);
-  }
-
-  zoom(way) {
-    this.clearCurrentState();
-    console.log('Zooom me!');
-    if (way) {
-      const field = document.querySelector('.paint-field');
-      console.log(field.getComputedStyle().transform);
-      field.style.transform = 'scale(3, 3)';
-    }
   }
 
   drawPixel(x, y, eraser = 0, color = 0) {
@@ -441,7 +426,6 @@ export default class Tools {
     const changeBright = (e) => {
       let color = null;
       const widthPixel = this.canvas.width / 16;
-      console.log(widthPixel);
       x1 = e.offsetX;
       y1 = e.offsetY;
       coordX1 = Math.floor(x1 / widthPixel);
@@ -458,10 +442,8 @@ export default class Tools {
           if (imgData.data[i] === 0) imgData.data[i] = 10;
           arrColor.push(imgData.data[i]);
           if (light) {
-            console.log('light');
             color = `rgb(${imgData.data[0] * 2}, ${imgData.data[1] * 2}, ${imgData.data[2] * 2})`;
           } else if (light === 0) {
-            console.log('dark');
             color = `rgb(${imgData.data[0] * 0.8}, ${imgData.data[1] * 0.8}, ${imgData.data[2] * 0.8})`;
           }
           this.context.fillStyle = color;
@@ -527,12 +509,8 @@ export default class Tools {
       const [x, y] = [event.offsetX, event.offsetY];
       if ((x + y) % 2 === 0) {
         this.drawPixel(x, y, 0, colorFirst);
-        console.log('first');
-        console.log(`first: ${colorFirst}`);
       } else {
         this.drawPixel(x, y, 0, colorSecond);
-        console.log('second');
-        console.log(`second, ${colorSecond}`);
       }
     };
 
@@ -601,10 +579,8 @@ export default class Tools {
     };
 
     const fill = (startX, startY, startColor, fillColor) => {
-      console.log('fill?');
       const color = this.rgbToHex([...startColor].slice(0, -1));
       if (color === fillColor && startColor[3] === 255) return;
-      console.log('fill');
       let reachLeft;
       let reachRight;
 
@@ -613,7 +589,6 @@ export default class Tools {
       ];
       const canvasWidth = this.canvas.width;
       const canvasHeight = this.canvas.height;
-      console.log(pixelStack);
       while (pixelStack.length) {
         const newPos = pixelStack.pop();
         const [x] = newPos;
@@ -656,10 +631,7 @@ export default class Tools {
       const {
         data,
       } = this.context.getImageData(x1, y1, 1, 1);
-      console.log(data);
-      console.log(this.color);
       const primColor = document.querySelector('.primary');
-      console.log(primColor.value);
       fill(x1, y1, data, primColor.value);
     };
 

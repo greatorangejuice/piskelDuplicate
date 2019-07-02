@@ -2,7 +2,6 @@
 import GIF from 'gif.js.optimized';
 
 class Frame {
-  // static counter = 1;
   constructor() {
     const canvas = document.querySelector('.paint-field');
     const context = canvas.getContext('2d');

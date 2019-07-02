@@ -15,7 +15,6 @@ export default class Notification {
       notification.classList.add('hide');
     });
     const notificate = () => {
-      console.log('NOTI HERE');
       if (localStorage.checked === 'false' || !localStorage.checked) {
         setTimeout(() => notification.classList.remove('hide'), 1000);
       }
