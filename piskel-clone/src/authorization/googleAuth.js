@@ -22,6 +22,8 @@ export default class GoogleAuth {
         const profile = googleUser.getBasicProfile();
         this.state.name = `${profile.getName()}`;
         this.state.imgUrl = `${profile.getImageUrl}`;
+        // eslint-disable-next-line no-unused-vars
+        const { id_token } = googleUser.getAuthResponse();
         welcome.innerHTML = `Hi, dear ${profile.getName()}`;
         localStorage.setItem('name', `${profile.getName()}`);
         avatar.src = `${profile.getImageUrl()}`;
@@ -52,7 +54,9 @@ export default class GoogleAuth {
   checkAfterUpdate() {
     const welcome = document.querySelector('.welcome');
     const avatar = document.querySelector('.welcome-avatar');
-    welcome.innerHTML = `Hi, dear ${localStorage.getItem('name')}`;
-    avatar.src = localStorage.getItem('src');
+    if (localStorage.getItem('name') && localStorage.getItem('src')) {
+      welcome.innerHTML = `Hi, dear ${localStorage.getItem('name')}`;
+      avatar.src = localStorage.getItem('src');
+    }
   }
 }

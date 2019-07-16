@@ -45,11 +45,6 @@ export default class Hotkeys {
       const tools = new Tools();
       tools.pen(1);
     });
-    hotkeys('z', (event) => {
-      event.preventDefault();
-      const tools = new Tools();
-      tools.zoom();
-    });
     hotkeys('m', (event) => {
       event.preventDefault();
       const tools = new Tools();
