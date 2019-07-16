@@ -87,7 +87,7 @@ export default class PictureCreator {
 
   setStartPalette() {
     const primaryColor = document.querySelector('.primary');
-    primaryColor.value = '#57f542';
+    primaryColor.value = '#57f542'; // в константы
     const secondaryColor = document.querySelector('.secondary');
     secondaryColor.value = '#0a49bf';
   }

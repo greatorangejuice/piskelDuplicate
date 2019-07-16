@@ -22,8 +22,6 @@ export default class GoogleAuth {
         const profile = googleUser.getBasicProfile();
         this.state.name = `${profile.getName()}`;
         this.state.imgUrl = `${profile.getImageUrl}`;
-        // eslint-disable-next-line no-unused-vars
-        const { id_token } = googleUser.getAuthResponse();
         welcome.innerHTML = `Hi, dear ${profile.getName()}`;
         localStorage.setItem('name', `${profile.getName()}`);
         avatar.src = `${profile.getImageUrl()}`;
